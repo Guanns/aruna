@@ -6,12 +6,6 @@ import Link from 'next/link';
 import { ArrowLeftIcon, ShieldCheckIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
 import React, { useState } from 'react';
 
-type AuditStep = {
-    id: string;
-    text: string;
-    details: string;
-};
-
 const platforms = [
     {
         name: 'Instagram',

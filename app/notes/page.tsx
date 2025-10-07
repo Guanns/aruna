@@ -5,7 +5,8 @@
 import Link from 'next/link';
 import { ArrowLeftIcon, BookOpenIcon, PlusIcon, TrashIcon, DocumentArrowDownIcon, ShareIcon } from '@heroicons/react/24/solid';
 import React, { useState, useEffect } from 'react';
-import { useEditor, EditorContent } from '@tiptap/react';
+// --- PERUBAHAN 1: Impor tipe Editor ---
+import { useEditor, EditorContent, Editor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Highlight from '@tiptap/extension-highlight';
 import { TextStyle } from '@tiptap/extension-text-style';
@@ -13,10 +14,10 @@ import { Color } from '@tiptap/extension-color';
 import { Note, getNotes, addNote, deleteNote } from '../../features/notes';
 import Underline from '@tiptap/extension-underline';
 import NoteViewModal from '../../components/NoteViewModal';
-import Swal from 'sweetalert2'; // <-- Impor SweetAlert2
+import Swal from 'sweetalert2';
 
-// Komponen EditorToolbar tidak perlu diubah
-const EditorToolbar = ({ editor }: { editor: any }) => {
+// --- PERUBAHAN 2: Tentukan tipe untuk 'editor' ---
+const EditorToolbar = ({ editor }: { editor: Editor | null }) => {
     if (!editor) return null;
     return (
         <div className="flex items-center gap-1 flex-wrap p-2 bg-gray-50 rounded-t-lg border-b">
@@ -87,7 +88,6 @@ export default function NotesPage() {
         setSelectedNote(null);
     };
 
-    // --- FUNGSI MENYIMPAN CATATAN DIPERBARUI ---
     const handleAddNote = () => {
         if (!editor || editor.isEmpty) { return; }
         const newNotes = addNote(editor.getHTML());
@@ -105,7 +105,6 @@ export default function NotesPage() {
         });
     };
 
-    // --- FUNGSI MENGHAPUS CATATAN DIPERBARUI ---
     const handleDeleteNote = (id: number) => {
         Swal.fire({
             title: 'Apakah Anda yakin?',
@@ -129,7 +128,6 @@ export default function NotesPage() {
         });
     };
 
-    // --- FUNGSI MENGUNDUH TXT DIPERBARUI ---
     const handleExportTxt = (noteId: number) => {
         const note = notes.find(n => n.id === noteId);
         if (!note) return;
