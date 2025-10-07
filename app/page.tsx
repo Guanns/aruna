@@ -118,8 +118,8 @@ export default function HomePage() {
         { name: 'Live Position', description: 'Bagikan lokasi kamu secara berkala ke kontak darurat.', icon: MapPinIcon, borderColor: 'border-blue-400', iconBgColor: 'bg-blue-100', buttonColor: 'bg-blue-600 hover:bg-blue-700', href: '/live-position' },
         { name: 'Aruna AI', description: 'Curhat ke AI Aruna yang selalu siap mendengarkan yuk.', icon: ChatBubbleLeftRightIcon, borderColor: 'border-teal-400', iconBgColor: 'bg-teal-100', buttonColor: 'bg-teal-600 hover:bg-teal-700', href: '/chat' },
         { name: 'Catatan Pribadi', description: 'Ruang untuk kamu mencatat kejadian kejadian penting.', icon: KeyIcon, borderColor: 'border-yellow-400', iconBgColor: 'bg-yellow-100', buttonColor: 'bg-yellow-600 hover:bg-yellow-700', href: '/notes' },
-        { name: 'Pusat Informasi', description: 'Panduan penggunaan aplikasi & info lainnya disini.', icon: BookOpenIcon, borderColor: 'border-purple-400', iconBgColor: 'bg-purple-100', buttonColor: 'bg-purple-600 hover:bg-purple-700', href: '/pusat-informasi' },
-        { name: 'Audit Privasi Digital', description: 'Amankan akun media sosial kamu sekarang yuk.', icon: ShieldCheckIcon, borderColor: 'border-indigo-400', iconBgColor: 'bg-indigo-100', buttonColor: 'bg-indigo-600 hover:bg-indigo-700', href: '/audit-privasi' },
+        { name: 'Pusat Informasi', description: 'Panduan penggunaan aplikasi & info lainnya disini.', icon: BookOpenIcon, borderColor: 'border-purple-400', iconBgColor: 'bg-purple-100', buttonColor: 'bg-purple-600 hover:bg-purple-700', href: '/information' },
+        { name: 'Audit Privasi Digital', description: 'Amankan akun media sosial kamu sekarang yuk.', icon: ShieldCheckIcon, borderColor: 'border-indigo-400', iconBgColor: 'bg-indigo-100', buttonColor: 'bg-indigo-600 hover:bg-indigo-700', href: '/audit' },
         { name: 'Camouflage Mode', description: 'Ubah tampilan website menjadi mode penyamaran.', icon: CalculatorIcon, borderColor: 'border-gray-600', iconBgColor: 'bg-gray-200', buttonColor: 'bg-gray-800 hover:bg-gray-900', action: onCamouflageClick },
     ];
 
@@ -155,7 +155,7 @@ export default function HomePage() {
             <header className="max-w-5xl mx-auto flex justify-between items-center">
                 <div>
                     <h1 className="text-3xl sm:text-4xl font-bold">Hai, {greeting}</h1>
-                    <p className="mt-2 text-base sm:text-lg opacity-80">Selamat datang di Aruna.</p>
+                    <p className="mt-2 text-base sm:text-lg opacity-80">Selamat datang di Aruna! disini kamu tidak perlu menjadi kuat setiap saat. Kamu boleh merasa, kamu boleh bercerita, dan yang terpenting, kamu akan selalu didengar! 🤍</p>
                 </div>
             </header>
             
