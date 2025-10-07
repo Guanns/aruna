@@ -12,7 +12,7 @@ type Message = {
     text: string;
 };
 
-const API_KEY = "AIzaSyA_sqcq0BEweGKRDzUfVea1NhZXZczbCVs";
+const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY || "";
 
 const MODEL_NAME = "gemini-2.5-flash-lite";
 
