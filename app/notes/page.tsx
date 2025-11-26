@@ -1,33 +1,56 @@
 // app/notes/page.tsx
+// VERSI FIX: Action Buttons Visible on Mobile
 
 "use client";
 
 import Link from 'next/link';
-import { ArrowLeftIcon, BookOpenIcon, PlusIcon, TrashIcon, DocumentArrowDownIcon, ShareIcon } from '@heroicons/react/24/solid';
+import { 
+    ArrowLeftIcon, 
+    BookOpenIcon, 
+    PlusIcon, 
+    TrashIcon, 
+    DocumentArrowDownIcon, 
+    ShareIcon,
+    PencilSquareIcon,
+    CalendarDaysIcon
+} from '@heroicons/react/24/solid';
 import React, { useState, useEffect } from 'react';
-// --- PERUBAHAN 1: Impor tipe Editor ---
 import { useEditor, EditorContent, Editor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Highlight from '@tiptap/extension-highlight';
 import { TextStyle } from '@tiptap/extension-text-style';
 import { Color } from '@tiptap/extension-color';
-import { Note, getNotes, addNote, deleteNote } from '../../features/notes';
 import Underline from '@tiptap/extension-underline';
-import NoteViewModal from '../../components/NoteViewModal';
 import Swal from 'sweetalert2';
+import { Note, getNotes, addNote, deleteNote } from '../../features/notes';
+import NoteViewModal from '../../components/NoteViewModal';
 
-// --- PERUBAHAN 2: Tentukan tipe untuk 'editor' ---
+// --- COMPONENT: EDITOR TOOLBAR ---
 const EditorToolbar = ({ editor }: { editor: Editor | null }) => {
     if (!editor) return null;
     return (
-        <div className="flex items-center gap-1 flex-wrap p-2 bg-gray-50 rounded-t-lg border-b">
-            <button onClick={() => editor.chain().focus().toggleBold().run()} className={editor.isActive('bold') ? 'bg-teal-500 text-white p-2 rounded font-bold' : 'p-2 rounded hover:bg-gray-200 font-bold'}>B</button>
-            <button onClick={() => editor.chain().focus().toggleItalic().run()} className={editor.isActive('italic') ? 'bg-teal-500 text-white p-2 rounded italic' : 'p-2 rounded hover:bg-gray-200 italic'}>I</button>
-            <button onClick={() => editor.chain().focus().toggleUnderline().run()} className={editor.isActive('underline') ? 'bg-teal-500 text-white p-2 rounded underline' : 'p-2 rounded hover:bg-gray-200 underline'}>U</button>
-            <button onClick={() => editor.chain().focus().toggleHighlight({ color: '#fef08a' }).run()} className={editor.isActive('highlight') ? 'bg-yellow-300 p-2 rounded' : 'p-2 rounded hover:bg-gray-200'}>
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+        <div className="flex items-center gap-2 p-2 bg-stone-50/80 border-b border-stone-100 backdrop-blur-sm rounded-t-3xl overflow-x-auto custom-scrollbar">
+            <div className="flex bg-white rounded-full p-1 shadow-sm border border-stone-100">
+                <button onClick={() => editor.chain().focus().toggleBold().run()} className={`w-8 h-8 rounded-full font-bold transition-colors ${editor.isActive('bold') ? 'bg-teal-500 text-white' : 'text-stone-500 hover:bg-stone-100'}`}>B</button>
+                <button onClick={() => editor.chain().focus().toggleItalic().run()} className={`w-8 h-8 rounded-full italic transition-colors ${editor.isActive('italic') ? 'bg-teal-500 text-white' : 'text-stone-500 hover:bg-stone-100'}`}>I</button>
+                <button onClick={() => editor.chain().focus().toggleUnderline().run()} className={`w-8 h-8 rounded-full underline transition-colors ${editor.isActive('underline') ? 'bg-teal-500 text-white' : 'text-stone-500 hover:bg-stone-100'}`}>U</button>
+            </div>
+            
+            <div className="h-6 w-px bg-stone-300 mx-1"></div>
+
+            <button onClick={() => editor.chain().focus().toggleHighlight({ color: '#fef08a' }).run()} className={`p-1.5 rounded-full transition-colors ${editor.isActive('highlight') ? 'bg-yellow-200 text-yellow-800' : 'text-stone-500 hover:bg-yellow-100'}`} title="Highlight">
+                <div className="w-5 h-5 bg-yellow-300 rounded-full border-2 border-white shadow-sm"></div>
             </button>
-            <input type="color" onInput={event => editor.chain().focus().setColor((event.target as HTMLInputElement).value).run()} value={editor.getAttributes('textStyle').color || '#000000'} className="w-8 h-8"/>
+            
+            <div className="flex items-center gap-1 bg-white rounded-full p-1 pl-2 shadow-sm border border-stone-100">
+                <span className="text-[10px] font-bold text-stone-400 uppercase">Warna</span>
+                <input 
+                    type="color" 
+                    onInput={event => editor.chain().focus().setColor((event.target as HTMLInputElement).value).run()} 
+                    value={editor.getAttributes('textStyle').color || '#000000'} 
+                    className="w-6 h-6 rounded-full cursor-pointer border-none p-0 bg-transparent"
+                />
+            </div>
         </div>
     );
 };
@@ -38,22 +61,8 @@ const formatHtmlAsText = (note: Note) => {
         weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
     });
     const header = `${title}\nTanggal: ${date}\n========================================\n\n`;
-    let content = note.content;
-    content = content.replace(/<br\s*\/?>/gi, '\n');
-    content = content.replace(/<\/p>/gi, '\n\n');
-    content = content.replace(/<\/li>/gi, '\n');
-    content = content.replace(/<h1>(.*?)<\/h1>/gi, '=== $1 ===\n');
-    content = content.replace(/<h2>(.*?)<\/h2>/gi, '--- $1 ---\n');
-    content = content.replace(/<h3>(.*?)<\/h3>/gi, '-- $1 --\n');
-    content = content.replace(/<li>/gi, '* ');
-    content = content.replace(/<strong>(.*?)<\/strong>/gi, '*$1*');
-    content = content.replace(/<em>(.*?)<\/em>/gi, '_$1_');
-    content = content.replace(/<u>(.*?)<\/u>/gi, '_$1_');
-    content = content.replace(/<mark.*?>(.*?)<\/mark>/gi, '[$1]');
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = content;
-    const plainText = tempDiv.textContent || "";
-    return header + plainText.trim();
+    let content = note.content.replace(/<[^>]+>/g, '\n'); // Simple strip tags
+    return header + content.trim();
 };
 
 export default function NotesPage() {
@@ -72,7 +81,8 @@ export default function NotesPage() {
         content: '',
         editorProps: {
             attributes: {
-                class: 'prose prose-sm sm:prose-base max-w-none p-4 focus:outline-none min-h-[100px]',
+                class: 'prose prose-stone max-w-none p-6 focus:outline-none min-h-[150px] text-[#6B4F4F] text-lg leading-relaxed font-serif placeholder:text-stone-300',
+                placeholder: 'Tulis apa yang kamu rasakan hari ini...',
             },
         },
         immediatelyRender: false,
@@ -89,7 +99,10 @@ export default function NotesPage() {
     };
 
     const handleAddNote = () => {
-        if (!editor || editor.isEmpty) { return; }
+        if (!editor || editor.isEmpty) { 
+            Swal.fire('Kosong?', 'Tulis sesuatu dulu ya sebelum disimpan.', 'question');
+            return; 
+        }
         const newNotes = addNote(editor.getHTML());
         setNotes(newNotes);
         editor.commands.clearContent();
@@ -98,32 +111,35 @@ export default function NotesPage() {
             toast: true,
             position: 'top-end',
             icon: 'success',
-            title: 'Catatan berhasil disimpan!',
+            title: 'Tersimpan di Jurnal',
             showConfirmButton: false,
-            timer: 2000,
+            timer: 1500,
             timerProgressBar: true,
         });
     };
 
     const handleDeleteNote = (id: number) => {
         Swal.fire({
-            title: 'Apakah Anda yakin?',
-            text: "Catatan yang dihapus tidak dapat dikembalikan.",
+            title: 'Hapus halaman ini?',
+            text: "Kenangan ini akan hilang selamanya.",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, hapus!',
-            cancelButtonText: 'Batal'
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#9CA3AF',
+            confirmButtonText: 'Ya, Hapus',
+            cancelButtonText: 'Batal',
+            background: '#FFFBF5',
+            color: '#6B4F4F'
         }).then((result) => {
             if (result.isConfirmed) {
                 const newNotes = deleteNote(id);
                 setNotes(newNotes);
-                Swal.fire(
-                    'Dihapus!',
-                    'Catatan Anda telah berhasil dihapus.',
-                    'success'
-                );
+                Swal.fire({
+                    title: 'Terhapus',
+                    icon: 'success',
+                    timer: 1000,
+                    showConfirmButton: false
+                });
             }
         });
     };
@@ -131,28 +147,15 @@ export default function NotesPage() {
     const handleExportTxt = (noteId: number) => {
         const note = notes.find(n => n.id === noteId);
         if (!note) return;
-
         const formattedText = formatHtmlAsText(note);
-
         const blob = new Blob([formattedText], { type: 'text/plain;charset=utf-8' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `catatan-aruna-${noteId}.txt`;
+        a.download = `Jurnal-Aruna-${new Date(note.createdAt).toISOString().split('T')[0]}.txt`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: 'info',
-            title: 'Unduhan dimulai...',
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true,
-        });
     };
 
     const handleShareWhatsApp = (noteId: number) => {
@@ -161,9 +164,8 @@ export default function NotesPage() {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = note.content;
         const plainText = tempDiv.innerText;
-        const adminWhatsappNumber = "6285822621031";
-        const message = `hai kakk, saya ingin berbagi catatan pribadi dari aplikasi Aruna untuk konsultasi nih :\n\n---\n${plainText}\n---\n\nTerima kasih kakk.`;
-        const whatsappUrl = `https://wa.me/${adminWhatsappNumber}?text=${encodeURIComponent(message)}`;
+        const message = `*Catatan dari Aruna:*\n\n${plainText}`;
+        const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
     };
     
@@ -171,78 +173,114 @@ export default function NotesPage() {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = htmlContent;
         const plainText = tempDiv.innerText || "";
-        return plainText.length > 150 ? plainText.substring(0, 150) + '...' : plainText;
-    };
-
-    const pageStyle = {
-      backgroundColor: '#FEFBF6',
-      backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4c8b4' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-      color: '#5C5470'
+        return plainText.length > 120 ? plainText.substring(0, 120) + '...' : plainText;
     };
 
     return (
-        <div className="w-full min-h-screen p-6 sm:p-8" style={pageStyle}>
+        <div className="w-full min-h-screen bg-[#FFFBF5] text-[#6B4F4F] relative overflow-hidden font-sans pb-20">
             <NoteViewModal isOpen={isModalOpen} note={selectedNote} onClose={handleCloseModal} />
             
-            <div className="max-w-4xl mx-auto">
-                <header className="mb-8">
-                    <Link href="/" className="flex items-center gap-2 text-gray-500 hover:text-gray-800 group transition-colors w-fit">
-                        <ArrowLeftIcon className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
-                        <span className="font-bold">Kembali</span>
-                    </Link>
+            {/* --- BACKGROUND FX --- */}
+            <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+                 <div className="absolute top-[-10%] right-[10%] w-[600px] h-[600px] bg-yellow-200/20 rounded-full blur-[100px]"></div>
+                 <div className="absolute bottom-[10%] left-[-10%] w-[500px] h-[500px] bg-teal-200/20 rounded-full blur-[100px]"></div>
+                 <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/noise.png')]"></div>
+            </div>
+
+            <div className="max-w-5xl mx-auto px-6 pt-32 relative z-10">
+                
+                {/* --- HEADER --- */}
+                <header className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                    <div>
+                        <Link href="/dashboard" className="inline-flex items-center gap-2 text-[#6B4F4F]/60 hover:text-[#c43c27] mb-4 transition-colors">
+                            <ArrowLeftIcon className="w-4 h-4"/> Kembali ke Dashboard
+                        </Link>
+                        <h1 className="text-4xl md:text-6xl font-bold mb-2 text-[#6B4F4F]">
+                            Jurnal <span className="font-serif italic text-yellow-600">Pribadi</span>
+                        </h1>
+                        <p className="text-lg opacity-70 font-light">
+                            Ruang aman untuk mencatat perasaan, kejadian, atau sekadar melepas beban pikiran.
+                        </p>
+                    </div>
+                    <div className="hidden md:block">
+                        <div className="w-16 h-16 bg-white/60 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-sm border border-white/60">
+                            <BookOpenIcon className="w-8 h-8 text-yellow-600" />
+                        </div>
+                    </div>
                 </header>
 
-                <main>
-                    <div className="text-center mb-8">
-                        <div className="inline-block p-4 bg-yellow-100 rounded-2xl">
-                             <BookOpenIcon className="w-10 h-10 text-yellow-600"/>
-                        </div>
-                        <h1 className="text-3xl font-bold mt-4">Catatan Pribadi</h1>
-                        <p className="mt-1 opacity-70 max-w-sm mx-auto">Ruang aman untuk mencatat pikiran dan perasaanmu. Hanya kamu yang bisa melihat ini.</p>
-                    </div>
+                {/* --- EDITOR CARD --- */}
+                <div className="mb-16 bg-white/80 backdrop-blur-xl rounded-[2.5rem] shadow-xl border border-white/60 relative overflow-hidden group focus-within:shadow-2xl focus-within:border-yellow-200 transition-all duration-500">
+                     <EditorToolbar editor={editor} />
+                     
+                     <div className="relative">
+                        <EditorContent editor={editor} />
+                        <div className="absolute left-6 top-0 bottom-0 w-px bg-red-100/50 pointer-events-none hidden md:block"></div>
+                     </div>
 
-                    <div className="mb-12 bg-white rounded-xl shadow-lg border">
-                         <EditorToolbar editor={editor} />
-                         <EditorContent editor={editor} />
-                         <div className="p-2 border-t flex justify-end">
-                             <button onClick={handleAddNote} className="flex items-center gap-2 p-2 px-4 bg-teal-500 text-white font-semibold rounded-lg hover:bg-teal-600 transition-colors">
-                                <PlusIcon className="w-5 h-5"/>
-                                Simpan Catatan
-                            </button>
-                         </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {notes.map(note => (
-                            <div key={note.id} className="bg-white p-5 rounded-lg shadow-md flex flex-col justify-between h-full">
-                                <div>
-                                    <p className="text-sm text-gray-600 leading-relaxed h-24 overflow-hidden">
+                     <div className="p-4 bg-stone-50/50 border-t border-stone-100 flex justify-between items-center backdrop-blur-sm">
+                         <span className="text-xs text-stone-400 font-medium pl-2">
+                            {editor?.storage.characterCount?.characters() || 0} Karakter
+                         </span>
+                         <button 
+                            onClick={handleAddNote} 
+                            className="flex items-center gap-2 py-2.5 px-6 bg-[#6B4F4F] text-white font-bold rounded-full hover:bg-[#5a4242] transition-all shadow-md hover:shadow-lg active:scale-95"
+                        >
+                            <PlusIcon className="w-5 h-5"/>
+                            Simpan Tulisan
+                        </button>
+                     </div>
+                </div>
+                
+                {/* --- NOTES GRID --- */}
+                {notes.length > 0 ? (
+                    <div>
+                        <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                            <CalendarDaysIcon className="w-6 h-6 text-teal-600"/>
+                            Riwayat Tulisan
+                        </h3>
+                        <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+                            {notes.map(note => (
+                                <div key={note.id} className="break-inside-avoid group bg-white/70 hover:bg-white backdrop-blur-sm rounded-[2rem] p-6 shadow-sm hover:shadow-xl border border-white/50 hover:border-teal-100 transition-all duration-300 cursor-pointer relative overflow-hidden" onClick={() => handleOpenModal(note)}>
+                                    
+                                    {/* Date Badge */}
+                                    <div className="flex justify-between items-start mb-4">
+                                        <span className="text-[10px] font-bold uppercase tracking-widest text-teal-600 bg-teal-50 px-3 py-1 rounded-full border border-teal-100">
+                                            {new Date(note.createdAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                        </span>
+                                        <span className="text-[10px] text-stone-400">
+                                            {new Date(note.createdAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
+                                        </span>
+                                    </div>
+
+                                    {/* Content Preview */}
+                                    <div className="prose prose-sm max-w-none mb-6 text-[#6B4F4F]/80 font-serif leading-relaxed line-clamp-4">
                                         {createPreview(note.content)}
-                                    </p>
-                                    <p className="text-xs text-gray-400 mt-3">
-                                        {new Date(note.createdAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
-                                    </p>
-                                </div>
-                                <div className="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
-                                    <button onClick={() => handleOpenModal(note)} className="bg-teal-500 text-white font-bold py-2 px-4 rounded-lg text-sm hover:bg-teal-600 transition-colors">
-                                        Buka Catatan
-                                    </button>
-                                    <div className="flex gap-2">
-                                        <button onClick={() => handleShareWhatsApp(note.id)} title="Bagikan ke WhatsApp" className="p-1.5 text-gray-400 hover:text-green-500">
-                                            <ShareIcon className="w-5 h-5"/>
+                                    </div>
+
+                                    {/* ACTION BUTTONS (PERBAIKAN DI SINI) */}
+                                    {/* Logic: Opacity 100 di mobile (default), Opacity 0 di Desktop (md), Hover muncul di Desktop */}
+                                    <div className="flex items-center justify-end gap-2 pt-4 border-t border-stone-100/50 transition-opacity duration-300 opacity-100 md:opacity-0 md:group-hover:opacity-100">
+                                        <button onClick={(e) => {e.stopPropagation(); handleShareWhatsApp(note.id)}} className="p-2 text-stone-400 hover:text-green-600 hover:bg-green-50 rounded-full transition-colors" title="Share WA">
+                                            <ShareIcon className="w-4 h-4"/>
                                         </button>
-                                        <button onClick={() => handleExportTxt(note.id)} title="Unduh sebagai Teks (.txt)" className="p-1.5 text-gray-400 hover:text-blue-500">
-                                            <DocumentArrowDownIcon className="w-5 h-5"/>
+                                        <button onClick={(e) => {e.stopPropagation(); handleExportTxt(note.id)}} className="p-2 text-stone-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors" title="Download TXT">
+                                            <DocumentArrowDownIcon className="w-4 h-4"/>
                                         </button>
-                                         <button onClick={() => handleDeleteNote(note.id)} title="Hapus Catatan" className="p-1.5 text-gray-400 hover:text-red-500">
-                                            <TrashIcon className="w-5 h-5"/>
+                                        <button onClick={(e) => {e.stopPropagation(); handleDeleteNote(note.id)}} className="p-2 text-stone-400 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors" title="Hapus">
+                                            <TrashIcon className="w-4 h-4"/>
                                         </button>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
-                </main>
+                ) : (
+                    <div className="text-center py-20 opacity-40">
+                        <PencilSquareIcon className="w-16 h-16 mx-auto mb-4 text-stone-300"/>
+                        <p className="text-lg">Belum ada catatan. Mulai tulis ceritamu hari ini.</p>
+                    </div>
+                )}
             </div>
         </div>
     );

@@ -1,3 +1,6 @@
+// components/CustomAlert.tsx
+// VERSI FINAL: Modern Alert
+
 "use client";
 
 import React from 'react';
@@ -11,21 +14,29 @@ type CustomAlertProps = {
 };
 
 export default function CustomAlert({ isOpen, title, message, icon, onClose }: CustomAlertProps) {
-    if (!isOpen) {
-        return null;
-    }
+    if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 w-11/12 max-w-sm text-center">
-                <div className="text-6xl mb-4">{icon}</div>
-                <h2 className="text-2xl font-bold text-stone-800 mb-2">{title}</h2>
-                <p className="text-stone-600 mb-6">{message}</p>
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-[110] p-6 animate-fade-in">
+            <div className="bg-white/95 backdrop-blur-xl rounded-[2rem] shadow-2xl p-8 w-full max-w-sm text-center border border-white relative transform transition-all scale-100 animate-bounce-in">
+                
+                <div className="text-6xl mb-6 drop-shadow-sm animate-pulse">
+                    {icon}
+                </div>
+                
+                <h2 className="text-2xl font-bold text-[#6B4F4F] mb-3">
+                    {title}
+                </h2>
+                
+                <p className="text-[#6B4F4F]/70 mb-8 leading-relaxed text-sm">
+                    {message}
+                </p>
+                
                 <button
                     onClick={onClose}
-                    className="w-full bg-[#6B4F4F] text-white font-bold py-3 px-6 rounded-lg hover:bg-opacity-90 transition-all active:scale-95"
+                    className="w-full bg-[#6B4F4F] text-white font-bold py-3.5 px-6 rounded-xl hover:bg-[#5a4242] hover:shadow-lg transition-all active:scale-95 shadow-md"
                 >
-                    Oke, Mengerti
+                    Mengerti
                 </button>
             </div>
         </div>

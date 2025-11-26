@@ -1,210 +1,240 @@
-// app/page.tsx
-
-"use client";
-
-import React, { useState, useEffect } from 'react';
-import {
-    ShieldCheckIcon, PhoneIcon, BellAlertIcon, BookOpenIcon,
-    MapPinIcon, KeyIcon, ChatBubbleLeftRightIcon, Cog6ToothIcon,
-    CalculatorIcon
-} from '@heroicons/react/24/outline';
+import React from 'react';
 import Link from 'next/link';
-import Swal from 'sweetalert2';
-import { triggerPanicButton } from '../features/panicButton';
-import CustomAlert from '../components/CustomAlert';
-import SettingsModal from '../components/SettingsModal';
-import CamouflageSettingsModal from '../components/CamouflageSettingsModal';
-import { useCamouflage } from '../context/CamouflageContext';
+import { 
+    ShieldCheckIcon, 
+    HeartIcon, 
+    EyeSlashIcon,
+    ArrowLongRightIcon,
+    SparklesIcon
+} from '@heroicons/react/24/solid';
+import { 
+    Cog6ToothIcon, 
+    CursorArrowRaysIcon, 
+    CheckBadgeIcon,
+    PlayCircleIcon
+} from '@heroicons/react/24/outline';
 
-// Tipe Data
-type Feature = {
-    name: string;
-    description: string;
-    icon: React.ElementType;
-    borderColor: string;
-    iconBgColor: string;
-    buttonColor: string;
-    action?: (e?: React.MouseEvent) => void;
-    href?: string;
-};
-
-type EmergencyContact = {
-    name: string;
-    phone: string;
-};
+import TestimonialSlider from '../components/TestimonialSlider';
+import FaqAccordion from '../components/FaqAccordion';
+import HeroSlider from '../components/HeroSlider';
 
 export default function HomePage() {
-    const [greeting, setGreeting] = useState('');
-    const [alertState, setAlertState] = useState({ isOpen: false, title: '', message: '', icon: '' });
-    const [isEmergencyModalOpen, setIsEmergencyModalOpen] = useState(false);
-    const [contactName, setContactName] = useState('');
-    const [contactPhone, setContactPhone] = useState('');
-    const { setIsCamouflaged } = useCamouflage();
-    const [isCamouflageModalOpen, setIsCamouflageModalOpen] = useState(false);
-
-    useEffect(() => {
-        const currentHour = new Date().getHours();
-        if (currentHour < 11) setGreeting('Selamat Pagi');
-        else if (currentHour < 15) setGreeting('Selamat Siang');
-        else if (currentHour < 19) setGreeting('Selamat Sore');
-        else setGreeting('Selamat Malam');
-    }, []);
-    
-    const openEmergencySettings = (e?: React.MouseEvent) => {
-        e?.stopPropagation();
-        const savedContact = localStorage.getItem('emergencyContact');
-        if (savedContact) {
-            const { name, phone } = JSON.parse(savedContact);
-            setContactName(name);
-            setContactPhone(phone);
-        } else {
-            setContactName('');
-            setContactPhone('');
-        }
-        setIsEmergencyModalOpen(true);
-    };
-    
-    const onPanicButtonClick = () => {
-        const savedContact = localStorage.getItem('emergencyContact');
-        if (savedContact) {
-            const contact: EmergencyContact = JSON.parse(savedContact);
-            triggerPanicButton(contact, {
-                onStart: () => setAlertState({ isOpen: true, title: 'Mendeteksi Lokasi...', message: `Mempersiapkan pesan darurat untuk ${contact.name}.`, icon: '📍' }),
-                onError: (errorMessage) => setAlertState({ isOpen: true, title: 'Yahh gagal', message: errorMessage, icon: '😥' }),
-            });
-        } else {
-            openEmergencySettings();
-        }
-    };
-
-    const handleSaveEmergencyContact = () => {
-        if (!contactPhone.startsWith('62') || contactPhone.length < 10) {
-            setAlertState({isOpen: true, title: "Yah, input Salah", message: "Nomor HP harus diawali 62 dan valid.", icon: "🤔"});
-            return;
-        }
-        const contact: EmergencyContact = { name: contactName, phone: contactPhone };
-        localStorage.setItem('emergencyContact', JSON.stringify(contact));
-        setIsEmergencyModalOpen(false);
-        setAlertState({isOpen: true, title: "Yeay, berhasil!", message: `Kontak darurat (${contactName}) berhasil diperbarui!`, icon: "✅"});
-    };
-
-    const openCamouflageSettings = (e?: React.MouseEvent) => {
-        e?.stopPropagation();
-        setIsCamouflageModalOpen(true);
-    };
-
-    const onCamouflageClick = () => {
-        const savedPin = localStorage.getItem('camouflagePin');
-        if (savedPin) {
-            setIsCamouflaged(true);
-        } else {
-            Swal.fire({
-                icon: 'warning',
-                title: 'PIN Belum Diatur nih!',
-                text: 'tolong atur PIN rahasia kamu terlebih dahulu untuk mengaktifkan fitur ini yaa.',
-                confirmButtonText: 'Atur Sekarang yuk',
-            }).then((result) => {
-                if(result.isConfirmed) {
-                    setIsCamouflageModalOpen(true);
-                }
-            });
-        }
-    };
-
-    // Daftar semua fitur
-    const features: Feature[] = [
-        { name: 'Panic Button', description: 'Kirim sinyal darurat ke kontak terpercaya kamu disini.', icon: BellAlertIcon, borderColor: 'border-[#c43c27]', iconBgColor: 'bg-red-100', buttonColor: 'bg-red-600 hover:bg-red-700', action: onPanicButtonClick },
-        { name: 'Direktori Bantuan', description: 'Daftar kontak penting (Komnas, LBH, Polisi).', icon: PhoneIcon, borderColor: 'border-[#ffb53d]', iconBgColor: 'bg-orange-100', buttonColor: 'bg-orange-500 hover:bg-orange-600', href: '/directory' },
-        { name: 'Live Position', description: 'Bagikan lokasi kamu secara berkala ke kontak darurat.', icon: MapPinIcon, borderColor: 'border-blue-400', iconBgColor: 'bg-blue-100', buttonColor: 'bg-blue-600 hover:bg-blue-700', href: '/live-position' },
-        { name: 'Aruna AI', description: 'Curhat ke AI Aruna yang selalu siap mendengarkan yuk.', icon: ChatBubbleLeftRightIcon, borderColor: 'border-teal-400', iconBgColor: 'bg-teal-100', buttonColor: 'bg-teal-600 hover:bg-teal-700', href: '/chat' },
-        { name: 'Catatan Pribadi', description: 'Ruang untuk kamu mencatat kejadian kejadian penting.', icon: KeyIcon, borderColor: 'border-yellow-400', iconBgColor: 'bg-yellow-100', buttonColor: 'bg-yellow-600 hover:bg-yellow-700', href: '/notes' },
-        { name: 'Pusat Informasi', description: 'Panduan penggunaan aplikasi & info lainnya disini.', icon: BookOpenIcon, borderColor: 'border-purple-400', iconBgColor: 'bg-purple-100', buttonColor: 'bg-purple-600 hover:bg-purple-700', href: '/information' },
-        { name: 'Audit Privasi Digital', description: 'Amankan akun media sosial kamu sekarang yuk.', icon: ShieldCheckIcon, borderColor: 'border-indigo-400', iconBgColor: 'bg-indigo-100', buttonColor: 'bg-indigo-600 hover:bg-indigo-700', href: '/audit' },
-        { name: 'Camouflage Mode', description: 'Ubah tampilan website menjadi mode penyamaran.', icon: CalculatorIcon, borderColor: 'border-gray-600', iconBgColor: 'bg-gray-200', buttonColor: 'bg-gray-800 hover:bg-gray-900', action: onCamouflageClick },
-    ];
-
-    const pageStyle = {
-      backgroundColor: '#FFFBF5',
-      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23D4CFC7' fill-opacity='0.4'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-      color: '#6B4F4F'
-    };
-
     return (
-        <div className="w-full min-h-screen p-6 sm:p-8" style={pageStyle}>
-            <CustomAlert
-                isOpen={alertState.isOpen}
-                title={alertState.title}
-                message={alertState.message}
-                icon={alertState.icon}
-                onClose={() => setAlertState({ ...alertState, isOpen: false })}
-            />
-            <SettingsModal
-                isOpen={isEmergencyModalOpen}
-                contactName={contactName}
-                contactPhone={contactPhone}
-                onNameChange={setContactName}
-                onPhoneChange={setContactPhone}
-                onClose={() => setIsEmergencyModalOpen(false)}
-                onSave={handleSaveEmergencyContact}
-            />
-            <CamouflageSettingsModal
-                isOpen={isCamouflageModalOpen}
-                onClose={() => setIsCamouflageModalOpen(false)}
-            />
+        <div className="w-full bg-[#FFFBF5] text-[#6B4F4F] overflow-hidden relative font-sans">
             
-            <header className="max-w-5xl mx-auto flex justify-between items-center">
-                <div>
-                    <h1 className="text-3xl sm:text-4xl font-bold">Hai, {greeting}</h1>
-                    <p className="mt-2 text-base sm:text-lg opacity-80">Selamat datang di Aruna! disini kamu tidak perlu menjadi kuat setiap saat. Kamu boleh merasa, kamu boleh bercerita, dan yang terpenting, kamu akan selalu didengar! 🤍</p>
-                </div>
-            </header>
-            
-            <main className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6 mt-10">
-                {features.map((feature) => {
-                    const cardContent = (
-                        <>
-                            <div>
-                                <div className={`w-12 h-12 flex items-center justify-center rounded-lg mb-4 ${feature.iconBgColor}`}>
-                                    <feature.icon className="w-7 h-7 text-gray-800 opacity-80" />
-                                </div>
-                                <h2 className="text-base font-bold mb-1">{feature.name}</h2>
-                                <p className="text-sm opacity-70 leading-relaxed">{feature.description}</p>
-                            </div>
-                            <div className={`mt-4 w-full text-white font-bold py-2 px-4 rounded-lg text-sm text-center transition-colors duration-300 ${feature.buttonColor}`}>
-                                Buka
-                            </div>
-                        </>
-                    );
+            {/* --- BACKGROUND FX (Latar Belakang "Bernapas") --- */}
+            <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+                 {/* Bola merah bergerak pelan */}
+                 <div className="absolute top-[-10%] right-[-10%] w-[800px] h-[800px] bg-gradient-to-b from-[#c43c27]/10 to-transparent rounded-full blur-[120px] animate-pulse"></div>
+                 {/* Bola teal di bawah */}
+                 <div className="absolute bottom-[10%] left-[-20%] w-[600px] h-[600px] bg-gradient-to-t from-teal-500/10 to-transparent rounded-full blur-[100px]"></div>
+                 {/* Noise texture halus overlay untuk kesan "kertas" */}
+                 <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/noise.png')]"></div>
+            </div>
 
-                    const cardClassName = `relative group bg-white rounded-2xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between border-t-4 h-full cursor-pointer ${feature.borderColor}`;
+            {/* 1. HERO SECTION */}
+            <HeroSlider />
 
-                    const settingsButton = (onClick: (e: React.MouseEvent) => void, title: string) => (
-                         <button 
-                            onClick={onClick}
-                            className="absolute top-2 right-2 p-2 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors z-10"
-                            title={title}
-                        >
-                            <Cog6ToothIcon className="w-6 h-6" />
-                        </button>
-                    );
-
-                    if (feature.href) {
-                        return (
-                             <Link href={feature.href} key={feature.name} className={cardClassName}>
-                                {cardContent}
-                            </Link>
-                        );
-                    }
+            {/* 2. FITUR UNGGULAN (THE PREMIUM CARDS) */}
+            <section className="py-32 px-6 relative z-10">
+                <div className="max-w-7xl mx-auto">
                     
-                    return (
-                        <div key={feature.name} className={cardClassName} onClick={feature.action}>
-                            {feature.name === 'Panic Button' && settingsButton(openEmergencySettings, "Ubah Kontak Darurat")}
-                            {feature.name === 'Camouflage Mode' && settingsButton(openCamouflageSettings, "Atur PIN Kamuflase")}
-                            {cardContent}
+                    {/* Header Section */}
+                    <div className="text-center mb-20">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-[#c43c27]/10 shadow-sm backdrop-blur-sm mb-6">
+                            <SparklesIcon className="w-4 h-4 text-[#c43c27]" />
+                            <span className="text-xs font-bold tracking-widest uppercase text-[#c43c27]">Selamat Datang!</span>
                         </div>
-                    );
-                })}
-            </main>
+                        <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                            Teknologi untuk <span className="font-serif italic text-[#c43c27] decoration-wavy underline decoration-[#c43c27]/20 underline-offset-8">Keamananmu</span>
+                        </h2>
+                        <p className="text-xl opacity-70 max-w-2xl mx-auto font-light leading-relaxed">
+                            Aruna adalah sebuah web app yang menggabungkan keamanan, edukasi, relaksasi dan AI khusus pada satu tempat!
+                        </p>
+                    </div>
+
+                    {/* --- THE CARDS --- */}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        
+                        {/* CARD 1: PANIC BUTTON (Red Accent) */}
+                        <div className="group relative h-full">
+                            {/* Efek Glow di belakang kartu saat hover */}
+                            <div className="absolute -inset-1 bg-gradient-to-r from-red-600 to-orange-600 rounded-[2.5rem] blur opacity-10 group-hover:opacity-30 transition duration-1000 group-hover:duration-200"></div>
+                            
+                            <div className="relative h-full bg-white/80 backdrop-blur-xl border border-white/60 p-10 rounded-[2.5rem] shadow-xl shadow-red-900/5 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                                {/* Aksen Lingkaran Halus */}
+                                <div className="absolute -right-10 -top-10 w-64 h-64 bg-red-50 rounded-full blur-3xl opacity-50"></div>
+                                
+                                <div>
+                                    <div className="w-20 h-20 bg-gradient-to-br from-red-500 to-red-600 text-white rounded-3xl flex items-center justify-center mb-8 shadow-lg shadow-red-500/30 group-hover:scale-110 transition-transform duration-500">
+                                        <ShieldCheckIcon className="w-10 h-10" />
+                                    </div>
+                                    <h3 className="text-3xl font-bold mb-4 text-gray-900">Panic Button</h3>
+                                    <p className="text-gray-600 leading-relaxed mb-8 text-base">
+                                        Sinyal darurat instan. Sekali tekan, maka lokasi kamu dan sebuah pesan SOS terkirim ke kontak terpercaya yang sudah kamu setting via WhatsApp!
+                                    </p>
+                                </div>
+                                <Link href="/dashboard" className="inline-flex items-center gap-3 text-[#c43c27] font-bold text-sm tracking-widest uppercase group-hover:gap-5 transition-all">
+                                    <span>Coba Sekarang</span>
+                                    <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center group-hover:bg-[#c43c27] group-hover:text-white transition-colors">
+                                        <ArrowLongRightIcon className="w-4 h-4"/>
+                                    </div>
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* CARD 2: ARUNA AI (Teal Accent - Highlighted) */}
+                        <div className="group relative h-full lg:-mt-8 lg:mb-8">
+                            {/* Efek Glow Lebih Kuat */}
+                            <div className="absolute -inset-1 bg-gradient-to-r from-teal-400 to-emerald-400 rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                            
+                            <div className="relative h-full bg-white/90 backdrop-blur-xl border border-white/80 p-10 rounded-[2.5rem] shadow-2xl shadow-teal-900/10 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 overflow-hidden ring-1 ring-teal-900/5">
+                                {/* Dekorasi Spesial */}
+                                <div className="absolute top-0 right-0 w-40 h-40 bg-teal-50 rounded-bl-[5rem] -mr-10 -mt-10 transition-transform group-hover:scale-110 z-0"></div>
+                                
+                                <div className="relative z-10">
+                                    <div className="w-20 h-20 bg-gradient-to-br from-teal-500 to-emerald-500 text-white rounded-3xl flex items-center justify-center mb-8 shadow-lg shadow-teal-500/30 group-hover:scale-110 transition-transform duration-500">
+                                        <HeartIcon className="w-10 h-10" />
+                                    </div>
+                                    <div className="inline-block px-3 py-1 rounded-lg bg-teal-100 text-teal-700 text-[10px] font-bold uppercase tracking-wider mb-3">
+                                        Paling Disukai
+                                    </div>
+                                    <h3 className="text-3xl font-bold mb-4 text-gray-900">Aruna AI</h3>
+                                    <p className="text-gray-600 leading-relaxed mb-8 text-base">
+                                        Ruang AI yang siap mendengar keluh kesahmu 24/7 tanpa menghakimi, kapanpun kamu butuh!
+                                    </p>
+                                </div>
+                                <Link href="/chat" className="relative z-10 inline-flex items-center gap-3 text-teal-600 font-bold text-sm tracking-widest uppercase group-hover:gap-5 transition-all">
+                                    <span>Mulai Curhat</span>
+                                    <div className="w-8 h-8 rounded-full bg-teal-100 flex items-center justify-center group-hover:bg-teal-600 group-hover:text-white transition-colors">
+                                        <ArrowLongRightIcon className="w-4 h-4"/>
+                                    </div>
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* CARD 3: KAMUFLASE (Dark/Stone Accent) */}
+                        <div className="group relative h-full">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-stone-400 to-gray-400 rounded-[2.5rem] blur opacity-10 group-hover:opacity-30 transition duration-1000 group-hover:duration-200"></div>
+                            
+                            <div className="relative h-full bg-white/80 backdrop-blur-xl border border-white/60 p-10 rounded-[2.5rem] shadow-xl shadow-stone-900/5 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                                <div className="absolute -right-10 -top-10 w-64 h-64 bg-gray-100 rounded-full blur-3xl opacity-50"></div>
+
+                                <div>
+                                    <div className="w-20 h-20 bg-gradient-to-br from-stone-600 to-gray-700 text-white rounded-3xl flex items-center justify-center mb-8 shadow-lg shadow-stone-600/30 group-hover:scale-110 transition-transform duration-500">
+                                        <EyeSlashIcon className="w-10 h-10" />
+                                    </div>
+                                    <h3 className="text-3xl font-bold mb-4 text-gray-900">Mode Kamuflase</h3>
+                                    <p className="text-gray-600 leading-relaxed mb-8 text-base">
+                                        Perlindungan privasi mutlak. Samarkan tampilan web ini menjadi kalkulator fungsional agar aman dari mata pelaku kejahatan.
+                                    </p>
+                                </div>
+                                <Link href="/information" className="inline-flex items-center gap-3 text-stone-600 font-bold text-sm tracking-widest uppercase group-hover:gap-5 transition-all">
+                                    <span>Pelajari Caranya</span>
+                                    <div className="w-8 h-8 rounded-full bg-stone-200 flex items-center justify-center group-hover:bg-stone-700 group-hover:text-white transition-colors">
+                                        <ArrowLongRightIcon className="w-4 h-4"/>
+                                    </div>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 3. CARA KERJA (Glass Panel) */}
+            <section className="py-24 relative z-10">
+                <div className="max-w-6xl mx-auto px-6">
+                    {/* Panel Kaca Besar */}
+                    <div className="bg-white/60 backdrop-blur-xl rounded-[3rem] p-8 md:p-20 border border-white/50 shadow-2xl relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#c43c27]/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
+                        
+                        <div className="flex flex-col md:flex-row gap-16 items-center relative z-10">
+                            <div className="md:w-1/2">
+                                <div className="flex items-center gap-2 text-[#c43c27] font-bold tracking-widest uppercase text-xs mb-4">
+                                    <PlayCircleIcon className="w-5 h-5" />
+                                    <span>Mudah & Cepat</span>
+                                </div>
+                                <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+                                    Hanya 3 Langkah untuk <span className="font-serif italic text-[#c43c27]">Ketenanganmu</span>
+                                </h2>
+                                <p className="text-lg opacity-70 mb-10 leading-relaxed">
+                                    Dalam situasi darurat, setiap detik berharga. Aruna didesain untuk bekerja secepat kilat tanpa kerumitan.
+                                </p>
+                                <Link href="/dashboard" className="inline-block bg-[#6B4F4F] text-white px-10 py-4 rounded-full font-bold hover:bg-[#523b3b] transition-all transform hover:-translate-y-1 shadow-lg hover:shadow-xl">
+                                    Setup Sekarang
+                                </Link>
+                            </div>
+
+                            <div className="md:w-1/2 space-y-6">
+                                {[
+                                    { 
+                                        icon: Cog6ToothIcon, 
+                                        title: "Atur Kontak Darurat", 
+                                        desc: "Masukkan nomor orang terpercayamu (Ayah, Ibu, atau teman). Cukup sekali saja." 
+                                    },
+                                    { 
+                                        icon: CursorArrowRaysIcon, 
+                                        title: "Tekan Tombol", 
+                                        desc: "Buka aplikasi dan tekan tombol merah besar saat kamu mulai merasa tidak aman." 
+                                    },
+                                    { 
+                                        icon: CheckBadgeIcon, 
+                                        title: "Bantuan Datang", 
+                                        desc: "Lokasi GPS dan pesan SOS otomatis terbuka di WhatsApp, dan siap untuk dikirim." 
+                                    }
+                                ].map((step, i) => (
+                                    <div key={i} className="flex gap-6 items-center p-6 rounded-3xl bg-white/50 border border-white/60 hover:bg-white hover:shadow-lg transition-all duration-300 group">
+                                        <div className="w-16 h-16 flex-shrink-0 bg-white rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform text-[#6B4F4F] group-hover:text-[#c43c27]">
+                                            <step.icon className="w-8 h-8" />
+                                        </div>
+                                        <div>
+                                            <h3 className="text-xl font-bold mb-1 text-gray-800">{step.title}</h3>
+                                            <p className="opacity-60 text-sm">{step.desc}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 4. TESTIMONIALS */}
+            <section className="py-10 relative z-10">
+                <TestimonialSlider />
+            </section>
+
+            {/* 5. FAQ */}
+            <section className="py-10 relative z-10">
+                <FaqAccordion />
+            </section>
+
+            {/* 6. FINAL CTA (Luxury Dark Card) */}
+            <section className="py-32 px-6 relative z-10">
+                <div className="max-w-5xl mx-auto bg-[#6B4F4F] rounded-[4rem] p-12 md:p-24 text-center text-white relative overflow-hidden shadow-2xl shadow-[#6B4F4F]/30 ring-8 ring-[#6B4F4F]/5">
+                    {/* Animated Background Effect */}
+                    <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                    <div className="absolute top-0 left-0 w-96 h-96 bg-white opacity-5 rounded-full -ml-20 -mt-20 blur-[80px]"></div>
+                    <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#c43c27] opacity-20 rounded-full -mr-20 -mb-20 blur-[80px]"></div>
+                    
+                    <div className="relative z-10">
+                        <h2 className="text-4xl md:text-6xl font-bold mb-8 leading-tight tracking-tight">
+                            Kamu tidak sendirian.<br/>Kami ada di sini.
+                        </h2>
+                        <p className="text-lg md:text-xl opacity-80 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+                            Bergabunglah dengan ribuan perempuan lainnya yang memilih untuk merasa lebih aman dan berdaya bersama Aruna.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-5 justify-center">
+                            <Link 
+                                href="/dashboard" 
+                                className="inline-block bg-white text-[#6B4F4F] font-bold py-5 px-12 text-lg rounded-full hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] transition-all transform hover:-translate-y-1"
+                            >
+                                Mulai Sekarang (Gratis)
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     );
 }

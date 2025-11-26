@@ -1,66 +1,63 @@
-// app/audit-privasi/page.tsx
+// app/audit/page.tsx
+// VERSI FINAL: Digital Fortress (Fixed Spacing & Premium UI)
 
 "use client";
 
 import Link from 'next/link';
-import { ArrowLeftIcon, ShieldCheckIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
-import React, { useState } from 'react';
+import { 
+    ArrowLeftIcon, 
+    ShieldCheckIcon, 
+    ChevronDownIcon, 
+    CheckCircleIcon,
+    LockClosedIcon 
+} from '@heroicons/react/24/solid';
+import React, { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 
+// --- DATA PLATFORM ---
 const platforms = [
     {
         name: 'Instagram',
         icon: '📸',
-        theme: {
-            bg: 'bg-gradient-to-br from-pink-400 to-orange-400',
-            text: 'text-white',
-            accent: 'text-pink-600',
-            ring: 'focus:ring-pink-500',
-            progressBg: 'bg-pink-200',
-            progressFill: 'bg-gradient-to-r from-pink-500 to-orange-500',
-        },
+        color: 'from-pink-500 to-rose-500',
+        bg: 'bg-pink-50/50',
+        border: 'border-pink-200',
+        shadow: 'shadow-pink-500/10',
         steps: [
-            { id: 'ig1', text: 'Bentengi dengan Akun Privat', details: 'Hanya teman yang bisa melihat petualanganmu.' },
-            { id: 'ig2', text: 'Razia Daftar Pengikut', details: 'Keluarkan pengikut misterius yang tidak dikenal.' },
-            { id: 'ig3', text: 'Gunakan Geng "Teman Dekat"', details: 'Bagikan Story khusus untuk orang-orang terpercaya.' },
-            { id: 'ig4', text: 'Cek Aktivitas Login Misterius', details: 'Pastikan hanya kamu yang punya akses ke akunmu.' },
-            { id: 'ig5', text: 'Pasang Kunci Ganda (2FA)', details: 'Ini adalah gembok terkuat untuk akunmu!' },
+            { id: 'ig1', text: 'Gembok Akun (Private)', details: 'Settings > Privacy > Private Account. Hanya teman yang bisa melihat kontenmu.' },
+            { id: 'ig2', text: 'Razia Followers', details: 'Cek pengikutmu. Hapus akun asing atau mencurigakan.' },
+            { id: 'ig3', text: 'Gunakan Close Friends', details: 'Posting hal pribadi hanya untuk lingkaran terdekat.' },
+            { id: 'ig4', text: 'Cek Login Activity', details: 'Settings > Security > Login Activity. Logout perangkat asing.' },
+            { id: 'ig5', text: 'Nyalakan 2FA', details: 'Wajib! Gunakan aplikasi autentikator atau SMS.' },
         ]
     },
     {
         name: 'TikTok',
         icon: '🎵',
-        theme: {
-            bg: 'bg-gradient-to-br from-teal-400 to-cyan-400',
-            text: 'text-white',
-            accent: 'text-teal-600',
-            ring: 'focus:ring-teal-500',
-            progressBg: 'bg-teal-200',
-            progressFill: 'bg-gradient-to-r from-teal-500 to-cyan-500',
-        },
+        color: 'from-cyan-500 to-blue-500',
+        bg: 'bg-cyan-50/50',
+        border: 'border-cyan-200',
+        shadow: 'shadow-cyan-500/10',
         steps: [
-            { id: 'tk1', text: 'Aktifkan Mode Privat', details: 'Hanya pengikut setiamu yang bisa nonton videomu.' },
-            { id: 'tk2', text: 'Filter Komentar & DM', details: 'Hanya teman yang boleh berkomentar atau kirim pesan.' },
-            { id: 'tk3', text: 'Gembok Fitur Unduh Video', details: 'Jaga karyamu agar tidak diunduh sembarangan.' },
-            { id: 'tk4', text: 'Usir Perangkat Asing', details: 'Periksa & keluarkan login yang tidak kamu kenali.' },
-            { id: 'tk5', text: 'Nyalakan Verifikasi 2 Langkah', details: 'Benteng pertahanan lapis kedua untuk akunmu.' },
+            { id: 'tk1', text: 'Akun Privat', details: 'Profile > Settings > Privacy > Private Account.' },
+            { id: 'tk2', text: 'Batasi DM', details: 'Set Direct Messages ke "Friends" atau "No One".' },
+            { id: 'tk3', text: 'Matikan Unduhan', details: 'Agar videomu tidak mudah dicuri orang lain.' },
+            { id: 'tk4', text: 'Kelola Perangkat', details: 'Security > Manage Devices. Hapus sesi login aneh.' },
+            { id: 'tk5', text: 'Verifikasi 2 Langkah', details: 'Lapisan keamanan ekstra untuk akunmu.' },
         ]
     },
     {
         name: 'WhatsApp',
         icon: '💬',
-        theme: {
-            bg: 'bg-gradient-to-br from-green-400 to-emerald-400',
-            text: 'text-white',
-            accent: 'text-green-600',
-            ring: 'focus:ring-green-500',
-            progressBg: 'bg-green-200',
-            progressFill: 'bg-gradient-to-r from-green-500 to-emerald-500',
-        },
+        color: 'from-emerald-500 to-teal-500',
+        bg: 'bg-emerald-50/50',
+        border: 'border-emerald-200',
+        shadow: 'shadow-emerald-500/10',
         steps: [
-            { id: 'wa1', text: 'Sembunyikan "Last Seen" & Foto Profil', details: 'Atur agar hanya teman yang bisa melihatnya.' },
-            { id: 'wa2', text: 'Pasang PIN Verifikasi Dua Langkah', details: 'Kunci rahasia agar nomormu tidak dibajak.' },
-            { id: 'wa3', text: 'Tolak Undangan Grup Otomatis', details: 'Hanya teman yang bisa menambahkanmu ke grup.' },
-            { id: 'wa4', text: 'Matikan Centang Biru', details: 'Baca pesan dengan tenang tanpa tekanan.' },
+            { id: 'wa1', text: 'Sembunyikan Privasi', details: 'Set Last Seen, Profile Photo, About ke "My Contacts".' },
+            { id: 'wa2', text: 'PIN Verifikasi Dua Langkah', details: 'Settings > Account > Two-Step Verification. Kunci nomormu.' },
+            { id: 'wa3', text: 'Kunci Biometrik', details: 'Privacy > Fingerprint Lock. Agar chat tidak diintip.' },
+            { id: 'wa4', text: 'Privasi Grup', details: 'Set siapa yang bisa add ke grup: "My Contacts Except..."' },
         ]
     }
 ];
@@ -68,97 +65,194 @@ const platforms = [
 export default function AuditPrivasiPage() {
     const [openPlatform, setOpenPlatform] = useState<string | null>(platforms[0].name);
     const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
+    const [totalProgress, setTotalProgress] = useState(0);
+
+    useEffect(() => {
+        const totalSteps = platforms.reduce((acc, p) => acc + p.steps.length, 0);
+        const completedSteps = Object.values(checkedItems).filter(Boolean).length;
+        setTotalProgress(Math.round((completedSteps / totalSteps) * 100));
+    }, [checkedItems]);
 
     const handleCheck = (id: string) => {
-        setCheckedItems(prev => ({ ...prev, [id]: !prev[id] }));
+        setCheckedItems(prev => {
+            const newState = { ...prev, [id]: !prev[id] };
+            return newState;
+        });
     };
 
-    const pageStyle = {
-      backgroundColor: '#FFFBF5',
-      color: '#6B4F4F'
-    };
+    useEffect(() => {
+        if (totalProgress === 100) {
+            Swal.fire({
+                title: 'Benteng Aman! 🛡️',
+                text: 'Luar biasa! Akun digitalmu sekarang jauh lebih aman.',
+                icon: 'success',
+                confirmButtonColor: '#10B981',
+                background: '#FFFBF5',
+                color: '#6B4F4F'
+            });
+        }
+    }, [totalProgress]);
 
     return (
-        <div className="w-full min-h-screen p-6 sm:p-8" style={pageStyle}>
-            <div className="max-w-2xl mx-auto">
-                <header className="mb-8">
-                    <Link href="/" className="flex items-center gap-2 text-gray-500 hover:text-gray-800 group transition-colors w-fit">
-                        <ArrowLeftIcon className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
-                        <span className="font-bold">Kembali</span>
+        <div className="w-full min-h-screen bg-[#FFFBF5] text-[#6B4F4F] relative overflow-hidden font-sans pb-20">
+            
+            {/* --- BACKGROUND FX --- */}
+            <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+                 <div className="absolute top-[-10%] left-[20%] w-[600px] h-[600px] bg-indigo-200/20 rounded-full blur-[120px] animate-pulse"></div>
+                 <div className="absolute bottom-[10%] right-[-10%] w-[500px] h-[500px] bg-blue-200/20 rounded-full blur-[100px]"></div>
+                 <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/noise.png')]"></div>
+            </div>
+
+            {/* PADDING TOP DIPERBESAR (pt-32) AGAR TIDAK MEPET */}
+            <div className="max-w-3xl mx-auto px-6 pt-32 relative z-10">
+                
+                {/* --- HEADER --- */}
+                <header className="text-center mb-16">
+                    <Link href="/dashboard" className="inline-flex items-center gap-2 text-[#6B4F4F]/60 hover:text-indigo-600 mb-10 transition-colors py-2 px-4 rounded-full hover:bg-white/50 border border-transparent hover:border-indigo-100">
+                        <ArrowLeftIcon className="w-4 h-4"/> Kembali ke Dashboard
                     </Link>
+                    
+                    {/* LOGO DENGAN MARGIN BESAR */}
+                    <div className="relative inline-block mb-6 group">
+                        <div className="absolute -inset-4 bg-indigo-100 rounded-full blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+                        <div className="relative w-20 h-20 bg-gradient-to-br from-white to-indigo-50 rounded-[2rem] flex items-center justify-center shadow-lg border border-white rotate-3 group-hover:rotate-6 transition-transform duration-500">
+                            <ShieldCheckIcon className="w-10 h-10 text-indigo-500 drop-shadow-sm" />
+                        </div>
+                    </div>
+                    
+                    <h1 className="text-4xl md:text-6xl font-bold mb-4 text-[#6B4F4F] tracking-tight">
+                        Benteng <span className="font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">Digital</span>
+                    </h1>
+                    <p className="text-lg opacity-70 max-w-xl mx-auto font-light leading-relaxed">
+                        Perkuat pertahanan akunmu satu per satu. Mencegah lebih baik daripada mengobati.
+                    </p>
                 </header>
 
-                <main>
-                    <div className="text-center mb-10">
-                        <div className="inline-block p-4 bg-indigo-100 rounded-2xl animate-bounce">
-                             <ShieldCheckIcon className="w-10 h-10 text-indigo-600"/>
-                        </div>
-                        <h1 className="text-3xl font-bold mt-4">Misi Pengamanan Akun</h1>
-                        <p className="mt-1 opacity-70">Yuk, beres-beres rumah digitalmu biar makin aman & nyaman!</p>
-                    </div>
-
-                    <div className="space-y-5">
-                        {platforms.map(platform => {
-                            const isOpen = openPlatform === platform.name;
-                            const progress = (Object.keys(checkedItems).filter(key => platform.steps.some(step => step.id === key) && checkedItems[key]).length / platform.steps.length) * 100;
-
-                            return (
-                                <div key={platform.name} className="rounded-2xl shadow-lg overflow-hidden border border-gray-200/50 transition-all duration-500">
-                                    {/* --- Card Header --- */}
-                                    <button
-                                        onClick={() => setOpenPlatform(isOpen ? null : platform.name)}
-                                        className={`w-full p-5 text-left ${platform.theme.bg} ${platform.theme.text}`}
+                {/* --- SCORE CARD (Floating Glass) --- */}
+                <div className="bg-white/60 backdrop-blur-xl rounded-[2.5rem] p-1 shadow-xl border border-white/60 mb-12 relative overflow-hidden ring-1 ring-indigo-50">
+                    <div className="bg-white/80 rounded-[2.2rem] p-8 relative overflow-hidden">
+                        <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+                            <div className="text-center md:text-left">
+                                <h3 className="text-xl font-bold text-gray-800">Status Keamanan</h3>
+                                <p className="text-sm text-gray-500 mt-1">Selesaikan semua misi di bawah.</p>
+                            </div>
+                            
+                            <div className="flex items-center gap-6">
+                                <div className="relative w-32 h-4 bg-gray-100 rounded-full overflow-hidden shadow-inner">
+                                    <div 
+                                        className="h-full bg-gradient-to-r from-indigo-500 to-blue-500 transition-all duration-1000 ease-out relative"
+                                        style={{ width: `${totalProgress}%` }}
                                     >
-                                        <div className="flex justify-between items-center">
-                                            <div className="flex items-center gap-4">
-                                                <div className="text-4xl">{platform.icon}</div>
-                                                <div>
-                                                    <h2 className="text-xl font-bold">{platform.name}</h2>
-                                                    <p className="text-sm opacity-80">Misi Keamanan Digital</p>
-                                                </div>
-                                            </div>
-                                            <ChevronDownIcon className={`w-7 h-7 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
-                                        </div>
-                                        {/* Progress Bar Card Header */}
-                                        <div className="mt-4">
-                                            <div className={`w-full ${platform.theme.progressBg} rounded-full h-3`}>
-                                                <div className={`${platform.theme.progressFill} h-3 rounded-full transition-all duration-500`} style={{ width: `${progress}%` }}></div>
-                                            </div>
-                                        </div>
-                                    </button>
+                                        <div className="absolute top-0 left-0 w-full h-full bg-white/20 animate-shimmer"></div>
+                                    </div>
+                                </div>
+                                <div className="text-3xl font-black text-indigo-600 w-16 text-right font-mono">
+                                    {totalProgress}%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                                    {/* --- Accordion Content (Checklist) --- */}
-                                    <div className={`grid transition-all duration-500 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
-                                        <div className="overflow-hidden">
-                                            <div className="p-6 bg-white space-y-5">
-                                                {platform.steps.map(step => (
-                                                    <label key={step.id} htmlFor={step.id} className="flex items-start gap-4 p-4 rounded-lg bg-gray-50 hover:bg-gray-100 cursor-pointer transition-colors">
-                                                        <input
-                                                            type="checkbox"
-                                                            id={step.id}
-                                                            checked={!!checkedItems[step.id]}
-                                                            onChange={() => handleCheck(step.id)}
-                                                            className={`mt-1 h-6 w-6 rounded-md border-gray-300 ${platform.theme.accent} ${platform.theme.ring} cursor-pointer`}
-                                                        />
-                                                        <div>
-                                                            <p className={`font-bold transition-colors ${checkedItems[step.id] ? 'line-through text-gray-400' : 'text-gray-800'}`}>{step.text}</p>
-                                                            <p className="text-sm text-gray-500">{step.details}</p>
-                                                        </div>
-                                                    </label>
-                                                ))}
-                                                {progress === 100 && (
-                                                    <div className="text-center p-4 bg-green-50 rounded-lg">
-                                                        <p className="font-bold text-green-600">🎉 Hore! Misi Selesai! Akun {platform.name}-mu sekarang jauh lebih aman!</p>
-                                                    </div>
+                {/* --- PLATFORM CARDS --- */}
+                <div className="space-y-6">
+                    {platforms.map((platform) => {
+                        const isOpen = openPlatform === platform.name;
+                        const platTotal = platform.steps.length;
+                        const platDone = platform.steps.filter(s => checkedItems[s.id]).length;
+                        const isComplete = platDone === platTotal;
+
+                        return (
+                            <div 
+                                key={platform.name} 
+                                className={`group rounded-[2rem] transition-all duration-500 overflow-hidden border
+                                    ${isOpen 
+                                        ? 'bg-white shadow-2xl border-white ring-1 ring-indigo-50 scale-[1.02]' 
+                                        : 'bg-white/40 backdrop-blur-sm hover:bg-white/80 border-white/50 hover:shadow-lg'}
+                                `}
+                            >
+                                {/* Card Header */}
+                                <button
+                                    onClick={() => setOpenPlatform(isOpen ? null : platform.name)}
+                                    className="w-full p-6 flex items-center justify-between text-left focus:outline-none"
+                                >
+                                    <div className="flex items-center gap-5">
+                                        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-inner border border-white/50 transition-colors ${platform.bg}`}>
+                                            {platform.icon}
+                                        </div>
+                                        <div>
+                                            <h2 className={`text-xl font-bold text-gray-800 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r ${platform.color} transition-all`}>
+                                                {platform.name}
+                                            </h2>
+                                            <div className="flex items-center gap-2 mt-1">
+                                                <span className="text-xs font-bold bg-white px-2 py-0.5 rounded-md border border-gray-100 text-gray-500 shadow-sm">
+                                                    {platDone}/{platTotal}
+                                                </span>
+                                                {isComplete && (
+                                                    <span className="flex items-center gap-1 text-[10px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-md border border-green-100">
+                                                        <CheckCircleIcon className="w-3 h-3"/> SELESAI
+                                                    </span>
                                                 )}
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${isOpen ? 'bg-indigo-50 text-indigo-600 rotate-180' : 'bg-white shadow-sm text-gray-400'}`}>
+                                        <ChevronDownIcon className="w-5 h-5"/>
+                                    </div>
+                                </button>
+
+                                {/* Content */}
+                                <div 
+                                    className={`grid transition-[grid-template-rows] duration-500 ease-in-out ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
+                                >
+                                    <div className="overflow-hidden">
+                                        <div className="px-6 pb-8 pt-2 space-y-3">
+                                            <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-200 to-transparent mb-6"></div>
+                                            
+                                            {platform.steps.map((step) => (
+                                                <label 
+                                                    key={step.id} 
+                                                    className={`flex items-start gap-4 p-4 rounded-2xl border cursor-pointer transition-all duration-300 group/item
+                                                        ${checkedItems[step.id] 
+                                                            ? 'bg-green-50/30 border-green-100' 
+                                                            : 'bg-white border-gray-100 hover:border-indigo-200 hover:shadow-md'}
+                                                    `}
+                                                >
+                                                    <div className="relative flex items-center pt-1">
+                                                        <input
+                                                            type="checkbox"
+                                                            className="peer sr-only"
+                                                            checked={!!checkedItems[step.id]}
+                                                            onChange={() => handleCheck(step.id)}
+                                                        />
+                                                        <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all shadow-sm
+                                                            ${checkedItems[step.id] 
+                                                                ? 'bg-green-500 border-green-500 scale-110' 
+                                                                : 'border-gray-300 bg-white group-hover/item:border-indigo-300'}
+                                                        `}>
+                                                            <CheckCircleIcon className={`w-4 h-4 text-white transition-transform duration-300 ${checkedItems[step.id] ? 'scale-100' : 'scale-0'}`} />
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div className="flex-1">
+                                                        <h4 className={`font-bold text-sm transition-colors ${checkedItems[step.id] ? 'text-green-800 line-through opacity-60' : 'text-gray-800'}`}>
+                                                            {step.text}
+                                                        </h4>
+                                                        <p className={`text-xs mt-1 leading-relaxed transition-colors ${checkedItems[step.id] ? 'text-green-700/50' : 'text-gray-500'}`}>
+                                                            {step.details}
+                                                        </p>
+                                                    </div>
+                                                </label>
+                                            ))}
+                                        </div>
+                                    </div>
                                 </div>
-                            );
-                        })}
-                    </div>
-                </main>
+                            </div>
+                        );
+                    })}
+                </div>
+
             </div>
         </div>
     );
