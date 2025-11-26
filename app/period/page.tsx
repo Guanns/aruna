@@ -1,27 +1,40 @@
 // app/period/page.tsx
-// VERSI UX REVOLUTION: Conversational Setup & Glassy Dashboard
+// VERSI FINAL FIX: Type Safe & Escaped Characters
 
 "use client";
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { 
-    ArrowLeftIcon, HeartIcon, SparklesIcon, 
-    Cog6ToothIcon, CalendarDaysIcon, CheckCircleIcon,
+    ArrowLeftIcon, 
+    Cog6ToothIcon, 
+    CalendarDaysIcon, 
     ArrowRightIcon
 } from '@heroicons/react/24/solid';
 import { PeriodData, getPeriodData, savePeriodData, calculateCycle } from '../../features/period';
 import Swal from 'sweetalert2';
 
+// Definisi Tipe untuk Info Siklus agar tidak error 'any'
+type CycleInfo = {
+    nextDate: string;
+    daysLeft: number;
+    dayInCycle: number;
+    phase: string;
+    mood: string;
+    desc: string;
+};
+
 export default function PeriodPage() {
     const [mode, setMode] = useState<'LOADING' | 'SETUP' | 'DASHBOARD'>('LOADING');
-    const [step, setStep] = useState(1); // Setup Wizard Step (1-3)
+    const [step, setStep] = useState(1);
     
     // Data State
     const [lastDate, setLastDate] = useState('');
     const [cycleLen, setCycleLen] = useState(28);
     const [periodLen, setPeriodLen] = useState(5);
-    const [info, setInfo] = useState<any>(null);
+    
+    // FIX: Gunakan tipe CycleInfo, bukan any
+    const [info, setInfo] = useState<CycleInfo | null>(null);
 
     // Load Data on Mount
     useEffect(() => {
@@ -39,7 +52,7 @@ export default function PeriodPage() {
 
     const handleNextStep = () => {
         if (step === 1 && !lastDate) {
-            Swal.fire({ toast: true, position: 'top', icon: 'warning', title: 'Isi tanggal dulu ya!', showConfirmButton: false, timer: 1500 });
+            Swal.fire({ toast: true, position: 'top', icon: 'warning', title: 'Isi tanggal dulu ya cantik!', showConfirmButton: false, timer: 1500 });
             return;
         }
         if (step < 3) {
@@ -143,7 +156,7 @@ export default function PeriodPage() {
                 <Link href="/dashboard" className="p-3 bg-white/60 rounded-full hover:bg-white transition-all text-[#6B4F4F] shadow-sm">
                     <ArrowLeftIcon className="w-5 h-5" />
                 </Link>
-                <h1 className="text-xl font-bold text-[#6B4F4F] tracking-wide">Haid Tracker</h1>
+                <h1 className="text-xl font-bold text-[#6B4F4F] tracking-wide">Siklus Aruna</h1>
                 <button onClick={resetSetup} className="p-3 bg-white/60 rounded-full hover:bg-white transition-all text-[#6B4F4F] shadow-sm" title="Edit Siklus">
                     <Cog6ToothIcon className="w-5 h-5" />
                 </button>
@@ -181,8 +194,9 @@ export default function PeriodPage() {
                             </div>
                         </div>
                         <div className="bg-stone-50 p-4 rounded-2xl border border-stone-100">
+                            {/* FIX: Menggunakan &quot; untuk tanda kutip */}
                             <p className="text-sm text-gray-600 leading-relaxed italic">
-                                "{info.desc}"
+                                &quot;{info.desc}&quot;
                             </p>
                         </div>
                     </div>
