@@ -78,7 +78,7 @@ export default function Navbar() {
                                 href="/dashboard" 
                                 className="bg-[#6B4F4F] text-white font-bold text-sm py-3 px-6 rounded-full hover:shadow-lg hover:shadow-[#6B4F4F]/20 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2"
                             >
-                                Buka Aplikasi
+                                Buka Tools
                             </Link>
                         </div>
 

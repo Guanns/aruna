@@ -91,10 +91,10 @@ export default function RelaxPage() {
                     </Link>
                     
                     <h1 className="text-3xl md:text-5xl font-bold mb-3 text-[#6B4F4F] tracking-tight">
-                        Ruang <span className="font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-blue-600">Tenang</span>
+                        Ruang <span className="font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-blue-600">Healing</span>
                     </h1>
                     <p className="text-sm md:text-base opacity-70 max-w-xl mx-auto font-light leading-relaxed">
-                        Istirahatkan pikiran sejenak. Pilih metode healing-mu hari ini.
+                        Istirahatkan pikiranmu sejenak yuk. Pilih metode healing-mu hari ini!
                     </p>
                 </header>
 
@@ -132,14 +132,14 @@ export default function RelaxPage() {
                         
                         {/* Grid: 2 Kolom di HP, 2 Kolom di PC (karena sidebar kecil) */}
                         <div className="grid grid-cols-2 gap-3 max-h-[600px] overflow-y-auto pr-1 custom-scrollbar pb-4">
-                            <BentoItem id="breathe" icon={SparklesIcon} title="Bernapas" subtitle="4-4-4 Relax" activeTab={activeTab} setActiveTab={setActiveTab} color="teal" />
-                            <BentoItem id="bubble" icon={MusicalNoteIcon} title="Bubble Pop" subtitle="Pecahkan stres" activeTab={activeTab} setActiveTab={setActiveTab} color="orange" />
-                            <BentoItem id="stone" icon={Square3Stack3DIcon} title="Batu Zen" subtitle="Latihan fokus" activeTab={activeTab} setActiveTab={setActiveTab} color="stone" />
-                            <BentoItem id="jar" icon={StarIcon} title="Toples Syukur" subtitle="Koleksi bahagia" activeTab={activeTab} setActiveTab={setActiveTab} color="amber" />
-                            <BentoItem id="cloud" icon={CloudIcon} title="Awan Pikiran" subtitle="Lepaskan beban" activeTab={activeTab} setActiveTab={setActiveTab} color="sky" />
-                            <BentoItem id="lantern" icon={FireIcon} title="Lentera Hati" subtitle="Terbangkan harap" activeTab={activeTab} setActiveTab={setActiveTab} color="slate" />
+                            <BentoItem id="breathe" icon={SparklesIcon} title="Bernafas" subtitle="pernapasan 4-4-4" activeTab={activeTab} setActiveTab={setActiveTab} color="teal" />
+                            <BentoItem id="bubble" icon={MusicalNoteIcon} title="Bubble Pop" subtitle="Pecahkan stresmu" activeTab={activeTab} setActiveTab={setActiveTab} color="orange" />
+                            <BentoItem id="stone" icon={Square3Stack3DIcon} title="Batu Zen" subtitle="Latihan fokus yuk" activeTab={activeTab} setActiveTab={setActiveTab} color="stone" />
+                            <BentoItem id="jar" icon={StarIcon} title="The Jar" subtitle="Koleksi emosimu" activeTab={activeTab} setActiveTab={setActiveTab} color="amber" />
+                            <BentoItem id="cloud" icon={CloudIcon} title="The Cloud" subtitle="Lepaskan semua bebanmu" activeTab={activeTab} setActiveTab={setActiveTab} color="sky" />
+                            <BentoItem id="lantern" icon={FireIcon} title="Lentera" subtitle="Terbangkan harapanmu" activeTab={activeTab} setActiveTab={setActiveTab} color="slate" />
                             <BentoItem id="memory" icon={PuzzlePieceIcon} title="Fokus" subtitle="Memory match" activeTab={activeTab} setActiveTab={setActiveTab} color="purple" />
-                            <BentoItem id="stress" icon={FaceSmileIcon} title="Hapus Emosi" subtitle="Ubah negatif" activeTab={activeTab} setActiveTab={setActiveTab} color="rose" />
+                            <BentoItem id="stress" icon={FaceSmileIcon} title="Destroy the bad thing" subtitle="Ubah hal negatif" activeTab={activeTab} setActiveTab={setActiveTab} color="rose" />
                         </div>
                     </div>
 

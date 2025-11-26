@@ -1,5 +1,5 @@
 // app/dashboard/page.tsx
-// VERSI FIX: iPad Optimized & Active Status Visible Everywhere
+// VERSI FINAL LAYOUT: Jurnal Full Width di Tablet/PC
 
 "use client";
 
@@ -13,16 +13,13 @@ import {
 import Link from 'next/link';
 import Swal from 'sweetalert2';
 import { triggerPanicButton } from '../../features/panicButton';
+import { getPeriodData, calculateCycle } from '../../features/period';
 import CustomAlert from '../../components/CustomAlert';
 import SettingsModal from '../../components/SettingsModal';
 import CamouflageSettingsModal from '../../components/CamouflageSettingsModal';
 import { useCamouflage } from '../../context/CamouflageContext';
 
-// Tipe Data
-type EmergencyContact = {
-    name: string;
-    phone: string;
-};
+type EmergencyContact = { name: string; phone: string; };
 
 export default function DashboardPage() {
     const [greeting, setGreeting] = useState('');
@@ -31,6 +28,10 @@ export default function DashboardPage() {
     const [isEmergencyModalOpen, setIsEmergencyModalOpen] = useState(false);
     const [contactName, setContactName] = useState('');
     const [contactPhone, setContactPhone] = useState('');
+    
+    // Haid State
+    const [periodInfo, setPeriodInfo] = useState<{days: number, phase: string} | null>(null);
+
     const { setIsCamouflaged } = useCamouflage();
     const [isCamouflageModalOpen, setIsCamouflageModalOpen] = useState(false);
 
@@ -44,9 +45,14 @@ export default function DashboardPage() {
         const date = new Date();
         const options: Intl.DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'short' };
         setDateString(date.toLocaleDateString('id-ID', options));
+
+        const pData = getPeriodData();
+        if (pData) {
+            const info = calculateCycle(pData);
+            setPeriodInfo({ days: info.daysLeft, phase: info.phase });
+        }
     }, []);
 
-    // --- LOGIC FITUR ---
     const openEmergencySettings = (e?: React.MouseEvent) => {
         e?.stopPropagation();
         const savedContact = localStorage.getItem('emergencyContact');
@@ -76,13 +82,13 @@ export default function DashboardPage() {
 
     const handleSaveEmergencyContact = () => {
         if (!contactPhone.startsWith('62') || contactPhone.length < 10) {
-            setAlertState({ isOpen: true, title: "Yah, Inputmu Tidak Valid Nih", message: "Nomor HP harus diawali 62 (contoh: 62812...).", icon: "🤔" });
+            setAlertState({ isOpen: true, title: "Input Tidak Valid", message: "Nomor HP harus diawali 62 (contoh: 62812...).", icon: "🤔" });
             return;
         }
         const contact: EmergencyContact = { name: contactName, phone: contactPhone };
         localStorage.setItem('emergencyContact', JSON.stringify(contact));
         setIsEmergencyModalOpen(false);
-        setAlertState({ isOpen: true, title: "Yeay, Berhasil Disimpan", message: `Kontak darurat (${contactName}) telah diperbarui.`, icon: "✅" });
+        setAlertState({ isOpen: true, title: "Berhasil Disimpan", message: `Kontak darurat (${contactName}) telah diperbarui.`, icon: "✅" });
     };
 
     const openCamouflageSettings = (e?: React.MouseEvent) => {
@@ -110,152 +116,159 @@ export default function DashboardPage() {
     };
 
     return (
-        <div className="w-full min-h-screen pb-20 pt-24 bg-[#FDF6F0] text-[#5D4037] font-sans overflow-x-hidden selection:bg-[#c43c27] selection:text-white">
+        <div className="w-full min-h-screen pb-24 pt-28 bg-[#F9F5F2] text-[#5D4037] font-sans overflow-x-hidden">
             
-            {/* --- BACKGROUND SIMPLE & CLEAN --- */}
+            {/* Background Decorations */}
             <div className="fixed inset-0 pointer-events-none z-0">
-                 <div className="absolute top-[-10%] right-[-10%] w-[400px] h-[400px] bg-rose-200/30 rounded-full blur-[80px]"></div>
-                 <div className="absolute bottom-[-10%] left-[-10%] w-[300px] h-[300px] bg-teal-200/30 rounded-full blur-[80px]"></div>
+                 <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-rose-100/40 rounded-full blur-[100px]"></div>
+                 <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-teal-100/40 rounded-full blur-[100px]"></div>
             </div>
 
-            {/* CONTAINER */}
-            <div className="max-w-4xl mx-auto px-5 md:px-8 relative z-10">
+            <div className="max-w-5xl mx-auto px-6 relative z-10">
                 
-                {/* --- MODALS --- */}
+                {/* Modals */}
                 <CustomAlert isOpen={alertState.isOpen} title={alertState.title} message={alertState.message} icon={alertState.icon} onClose={() => setAlertState({ ...alertState, isOpen: false })} />
                 <SettingsModal isOpen={isEmergencyModalOpen} contactName={contactName} contactPhone={contactPhone} onNameChange={setContactName} onPhoneChange={setContactPhone} onClose={() => setIsEmergencyModalOpen(false)} onSave={handleSaveEmergencyContact} />
                 <CamouflageSettingsModal isOpen={isCamouflageModalOpen} onClose={() => setIsCamouflageModalOpen(false)} />
 
-                {/* --- HEADER --- */}
-                <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
-                    <div className="flex-1">
-                        <p className="text-xs font-bold text-[#5D4037]/60 uppercase tracking-widest mb-1.5">{dateString}</p>
-                        <h1 className="text-3xl md:text-4xl font-bold text-[#5D4037] leading-tight">
+                {/* Header */}
+                <header className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+                    <div>
+                        <p className="text-xs font-bold text-[#5D4037]/50 uppercase tracking-widest mb-2">{dateString}</p>
+                        <h1 className="text-3xl md:text-5xl font-bold text-[#5D4037]">
                             {greeting}, <span className="text-[#c43c27]">Cantik!</span>
                         </h1>
                     </div>
-                    
-                    {/* Badge Status (Visible on ALL Devices now) */}
-                    <div className="self-start sm:self-center bg-white/60 px-3 py-1.5 rounded-full border border-white/50 shadow-sm backdrop-blur-sm flex items-center gap-2">
-                        <div className="relative flex h-2.5 w-2.5">
+                    <div className="bg-white/60 px-4 py-2 rounded-full border border-white shadow-sm backdrop-blur-sm flex items-center gap-2 w-fit">
+                        <span className="relative flex h-2.5 w-2.5">
                           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                           <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
-                        </div>
-                        <span className="text-[10px] font-bold text-[#5D4037]/70 uppercase tracking-wide"> Aruna Online</span>
+                        </span>
+                        <span className="text-xs font-bold text-[#5D4037]/70 uppercase tracking-wide">Aruna Online</span>
                     </div>
-                </div>
+                </header>
 
-                {/* --- BENTO GRID --- */}
-                {/* PERUBAHAN UTAMA DI SINI: lg:grid-cols-4. 
-                    Artinya di Tablet (md) dia tetap 2 kolom (biar gede), 
-                    baru di Laptop/PC (lg) dia jadi 4 kolom. */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+                {/* --- BENTO GRID SYSTEM --- */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                     
-                    {/* 1. PANIC BUTTON (Main Focus) */}
+                    {/* 1. PANIC BUTTON (2x2) */}
                     <div 
                         onClick={onPanicButtonClick}
-                        className="col-span-2 lg:col-span-2 row-span-2 relative overflow-hidden rounded-3xl cursor-pointer group shadow-lg hover:shadow-xl transition-all duration-300 active:scale-[0.98]"
+                        className="col-span-2 lg:col-span-2 row-span-2 bg-gradient-to-br from-[#E63946] to-[#F77F00] rounded-[2.5rem] p-6 md:p-8 relative overflow-hidden cursor-pointer group shadow-xl hover:shadow-2xl transition-all duration-300 active:scale-[0.98]"
                     >
-                        <div className="absolute inset-0 bg-gradient-to-br from-[#E63946] to-[#F77F00]"></div>
                         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/noise.png')] opacity-20"></div>
+                        <div className="absolute -right-10 -top-10 w-40 h-40 bg-white/20 rounded-full blur-3xl"></div>
                         
-                        <div className="relative p-6 h-full flex flex-col justify-between text-white">
+                        <div className="relative h-full flex flex-col justify-between text-white z-10">
                             <div className="flex justify-between items-start">
-                                <div className="bg-white/20 backdrop-blur-md p-3 rounded-xl border border-white/20">
-                                    <BellAlertIcon className="w-6 h-6 text-white" />
+                                <div className="bg-white/20 backdrop-blur-md p-3 rounded-2xl border border-white/20 shadow-inner">
+                                    <BellAlertIcon className="w-8 h-8 text-white animate-pulse" />
                                 </div>
-                                <button onClick={openEmergencySettings} className="p-2 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-md border border-white/10 transition-colors">
-                                    <Cog6ToothIcon className="w-5 h-5" />
+                                <button onClick={openEmergencySettings} className="p-2.5 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-md border border-white/10 transition-colors">
+                                    <Cog6ToothIcon className="w-6 h-6" />
                                 </button>
                             </div>
                             <div>
-                                <h2 className="text-2xl font-bold mb-1">Panic Button</h2>
-                                <p className="text-xs text-white/90 mb-4 font-medium leading-relaxed">
-                                    Kirim SOS & Lokasi ke kontak darurat.
+                                <h2 className="text-2xl md:text-3xl font-bold mb-2">Panic Button</h2>
+                                <p className="text-sm text-white/90 mb-6 font-medium leading-relaxed opacity-90">
+                                    Tekan saat darurat. Lokasi & Sinyal SOS terkirim otomatis.
                                 </p>
-                                <div className="bg-white text-[#c43c27] py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-sm">
-                                    <span>TEKAN SEKARANG</span>
+                                <div className="w-full bg-white text-[#c43c27] py-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg group-hover:scale-[1.02] transition-transform">
+                                    <span>TEKAN BANTUAN</span>
                                     <ArrowRightIcon className="w-4 h-4" />
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* 2. LIVE POSITION */}
-                    <Link href="/live-position" className="col-span-2 lg:col-span-2 bg-white/60 backdrop-blur-lg border border-white/60 rounded-3xl p-5 flex items-center justify-between shadow-sm hover:shadow-md transition-all group min-h-[100px]">
-                        <div className="flex items-center gap-4">
-                            <div className="p-3 bg-blue-100 text-blue-600 rounded-2xl">
-                                <MapPinIcon className="w-6 h-6" />
+                    {/* 2. LIVE POSITION (2x1 Wide) */}
+                    <Link href="/live-position" className="col-span-2 lg:col-span-2 bg-white border border-white/60 rounded-[2.5rem] p-6 flex items-center justify-between shadow-sm hover:shadow-lg transition-all group relative overflow-hidden">
+                        <div className="absolute right-0 top-0 w-24 h-full bg-blue-50/50 -skew-x-12 translate-x-8"></div>
+                        <div className="relative z-10">
+                            <div className="flex items-center gap-3 mb-2">
+                                <div className="p-2 bg-blue-100 text-blue-600 rounded-xl">
+                                    <MapPinIcon className="w-6 h-6" />
+                                </div>
+                                <h3 className="text-lg font-bold text-gray-800">Live Position</h3>
                             </div>
-                            <div>
-                                <h3 className="font-bold text-gray-800">Live Position</h3>
-                                <p className="text-xs text-gray-500">Bagikan lokasi real-time.</p>
-                            </div>
+                            <p className="text-xs text-gray-500">Bagikan lokasi real-time.</p>
                         </div>
-                        <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-400 shadow-sm group-hover:text-blue-600 transition-colors">
-                            <ArrowRightIcon className="w-4 h-4" />
+                        <div className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-md group-hover:scale-110 transition-transform relative z-10">
+                            <ArrowRightIcon className="w-5 h-5" />
                         </div>
                     </Link>
 
-                    {/* 3. ARUNA AI (Small Square) */}
-                    <Link href="/chat" className="col-span-1 bg-white/60 backdrop-blur-lg border border-white/60 rounded-3xl p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition-all group h-40 lg:h-auto min-h-[160px]">
-                        <div className="p-3 bg-teal-100 text-teal-600 rounded-2xl w-fit group-hover:scale-110 transition-transform">
+                    {/* 3. SIKLUS HAID (Small - 1x1) */}
+                    <Link href="/period" className="col-span-1 bg-gradient-to-br from-rose-50 to-pink-50 border border-rose-100 rounded-[2.5rem] p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition-all group min-h-[160px]">
+                        <div className="flex justify-between items-start">
+                            <div className="p-2.5 bg-white text-rose-500 rounded-2xl shadow-sm group-hover:scale-110 transition-transform">
+                                <HeartIcon className="w-6 h-6" />
+                            </div>
+                            {periodInfo && (
+                                <span className="text-[10px] font-bold bg-white/60 px-2 py-1 rounded-lg text-rose-700 backdrop-blur-sm">
+                                    {periodInfo.days > 0 ? `${periodInfo.days} Hari` : 'Haid'}
+                                </span>
+                            )}
+                        </div>
+                        <div>
+                            <h3 className="font-bold text-rose-900 text-sm mb-1">Siklus Haid</h3>
+                            <p className="text-[10px] text-rose-700/70 leading-tight">
+                                {periodInfo ? `Fase: ${periodInfo.phase}` : 'Ketuk untuk atur siklus.'}
+                            </p>
+                        </div>
+                    </Link>
+
+                    {/* 4. ARUNA AI (Small - 1x1) */}
+                    <Link href="/chat" className="col-span-1 bg-gradient-to-br from-teal-50 to-emerald-50 border border-teal-100 rounded-[2.5rem] p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition-all group min-h-[160px]">
+                        <div className="p-2.5 bg-white text-teal-600 rounded-2xl w-fit shadow-sm group-hover:scale-110 transition-transform">
                             <ChatBubbleLeftRightIcon className="w-6 h-6" />
                         </div>
                         <div>
-                            <h3 className="font-bold text-gray-800 text-sm">Aruna AI</h3>
+                            <h3 className="font-bold text-teal-900 text-sm">Aruna AI</h3>
                             <p className="text-[10px] text-gray-500">Teman cerita.</p>
                         </div>
                     </Link>
 
-                    {/* 4. JURNAL (Small Square) */}
-                    <Link href="/notes" className="col-span-1 bg-white/60 backdrop-blur-lg border border-white/60 rounded-3xl p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition-all group h-40 lg:h-auto min-h-[160px]">
-                        <div className="p-3 bg-yellow-100 text-yellow-600 rounded-2xl w-fit group-hover:scale-110 transition-transform">
-                            <BookOpenIcon className="w-6 h-6" />
+                    {/* 5. JURNAL (FIX: Full Width di Desktop agar tidak bolong) */}
+                    <Link href="/notes" className="col-span-2 lg:col-span-4 bg-white border border-white/60 rounded-[2.5rem] p-6 flex items-center justify-between shadow-sm hover:shadow-lg transition-all group relative overflow-hidden">
+                        <div className="absolute right-0 top-0 w-32 h-full bg-yellow-50/50 -skew-x-12 translate-x-8"></div>
+                        <div className="relative z-10 flex items-center gap-4">
+                            <div className="p-3 bg-yellow-100 text-yellow-600 rounded-2xl">
+                                <BookOpenIcon className="w-6 h-6" />
+                            </div>
+                            <div>
+                                <h3 className="font-bold text-gray-800">Jurnal Pribadi</h3>
+                                <p className="text-xs text-gray-500">Catatan hatimu hari ini.</p>
+                            </div>
                         </div>
-                        <div>
-                            <h3 className="font-bold text-gray-800 text-sm">Jurnal</h3>
-                            <p className="text-[10px] text-gray-500">Catatan hati.</p>
-                        </div>
+                        <ArrowRightIcon className="w-5 h-5 text-gray-300 group-hover:text-yellow-600 transition-colors relative z-10"/>
                     </Link>
 
-                    {/* 5. QUICK TOOLS (Baris Rapi) */}
-                    <div className="col-span-2 lg:col-span-4 bg-white/50 backdrop-blur-md border border-white/50 rounded-3xl p-4 shadow-sm">
-                        <div className="grid grid-cols-3 divide-x divide-gray-200/50">
-                            
-                            <Link href="/directory" className="flex flex-col items-center justify-center gap-2 hover:opacity-70 transition-opacity">
-                                <div className="p-2 bg-orange-100 rounded-xl text-orange-600">
-                                    <PhoneIcon className="w-5 h-5" />
-                                </div>
-                                <span className="text-[10px] font-bold text-gray-600">Kontak</span>
-                            </Link>
-
-                            <Link href="/audit" className="flex flex-col items-center justify-center gap-2 hover:opacity-70 transition-opacity">
-                                <div className="p-2 bg-indigo-100 rounded-xl text-indigo-600">
-                                    <ShieldCheckIcon className="w-5 h-5" />
-                                </div>
-                                <span className="text-[10px] font-bold text-gray-600">Audit</span>
-                            </Link>
-
-                            <Link href="/information" className="flex-1 flex flex-col items-center justify-center gap-2 hover:opacity-70 transition-opacity">
-                                <div className="p-2 bg-purple-100 rounded-xl text-purple-600">
-                                    <SparklesIcon className="w-5 h-5" />
-                                </div>
-                                <span className="text-[10px] font-bold text-gray-600">Panduan</span>
-                            </Link>
-
-                        </div>
+                    {/* 6. UTILITIES (Full Width Bar) */}
+                    <div className="col-span-2 lg:col-span-4 bg-white/60 backdrop-blur-md border border-white/60 rounded-[2rem] p-2 shadow-sm flex divide-x divide-gray-200/50">
+                        <Link href="/directory" className="flex-1 py-3 flex flex-col items-center gap-1 hover:bg-white rounded-2xl transition-all group">
+                            <PhoneIcon className="w-5 h-5 text-orange-500 group-hover:scale-110 transition-transform" />
+                            <span className="text-[10px] font-bold text-gray-600">Kontak</span>
+                        </Link>
+                        <Link href="/audit" className="flex-1 py-3 flex flex-col items-center gap-1 hover:bg-white rounded-2xl transition-all group">
+                            <ShieldCheckIcon className="w-5 h-5 text-indigo-500 group-hover:scale-110 transition-transform" />
+                            <span className="text-[10px] font-bold text-gray-600">Audit</span>
+                        </Link>
+                        <Link href="/information" className="flex-1 py-3 flex flex-col items-center gap-1 hover:bg-white rounded-2xl transition-all group">
+                            <SparklesIcon className="w-5 h-5 text-purple-500 group-hover:scale-110 transition-transform" />
+                            <span className="text-[10px] font-bold text-gray-600">Panduan</span>
+                        </Link>
                     </div>
 
-                    {/* 6. CAMOUFLAGE (Full Width) */}
+                    {/* 7. CAMOUFLAGE (Full Width) */}
                     <div className="col-span-2 lg:col-span-4">
                         <div 
                             onClick={onCamouflageClick}
-                            className="w-full bg-[#2D2D2D] text-white rounded-3xl p-4 flex items-center justify-between cursor-pointer shadow-md hover:shadow-lg transition-all group"
+                            className="w-full bg-[#2D2D2D] text-white rounded-[2rem] p-4 flex items-center justify-between cursor-pointer shadow-lg hover:shadow-xl transition-all group relative overflow-hidden"
                         >
-                            <div className="flex items-center gap-3">
-                                <div className="p-2 bg-white/10 rounded-xl text-white/80">
-                                    <CalculatorIcon className="w-5 h-5" />
+                            <div className="flex items-center gap-3 pl-2 relative z-10">
+                                <div className="p-2 bg-white/10 rounded-xl">
+                                    <CalculatorIcon className="w-6 h-6" />
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-sm">Mode Kamuflase</h3>
@@ -264,7 +277,7 @@ export default function DashboardPage() {
                             </div>
                             <button 
                                 onClick={openCamouflageSettings} 
-                                className="p-2 text-white/40 hover:text-white bg-white/5 rounded-full transition-colors"
+                                className="p-2 text-white/40 hover:text-white bg-white/5 rounded-full transition-colors relative z-10"
                             >
                                 <KeyIcon className="w-4 h-4" />
                             </button>
@@ -274,9 +287,11 @@ export default function DashboardPage() {
                 </div>
 
                 {/* Footer Quote */}
-                <p className="text-center text-[10px] text-[#5D4037]/40 mt-10 italic flex items-center justify-center gap-1">
-                    <HeartIcon className="w-3 h-3" /> You are safe here.
-                </p>
+                <div className="mt-12 text-center">
+                     <p className="text-xs text-[#5D4037]/40 italic flex items-center justify-center gap-2">
+                        <HeartIcon className="w-3 h-3" /> You are safe here.
+                    </p>
+                </div>
 
             </div>
         </div>

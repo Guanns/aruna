@@ -68,7 +68,7 @@ export default function Footer() {
                                     <InstagramIcon className="w-5 h-5" />
                                 </div>
                                 <div className="flex flex-col items-start">
-                                    <span className="text-[10px] font-bold text-[#6B4F4F]/50 uppercase tracking-wider">Follow Kami</span>
+                                    <span className="text-[10px] font-bold text-[#6B4F4F]/50 uppercase tracking-wider">Follow Instagram Kami</span>
                                     <span className="text-sm font-bold">@shinewitharuna</span>
                                 </div>
                                 <ArrowTopRightOnSquareIcon className="w-4 h-4 ml-2 opacity-30 group-hover:opacity-100 transition-opacity" />
@@ -100,7 +100,7 @@ export default function Footer() {
                     <div className="md:col-span-3">
                         <h4 className="font-bold text-base text-[#6B4F4F] mb-6 flex items-center gap-2">
                             <MapPinIcon className="w-4 h-4 text-[#c43c27]" />
-                            Basis Kami
+                            Lokasi Kami
                         </h4>
                         
                         <div className="bg-white/60 p-5 rounded-3xl border border-[#6B4F4F]/10 flex items-start gap-4 hover:bg-white hover:shadow-md transition-all duration-300 cursor-default">
