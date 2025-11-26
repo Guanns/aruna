@@ -46,7 +46,7 @@ export default function LivePositionPage() {
     useEffect(() => {
         if (status === 'running') {
             timerRef.current = setInterval(() => {
-                setCountdown((prev) => {
+                setCountdown(() => {
                     const savedTarget = localStorage.getItem('aruna_live_target');
                     if (savedTarget) {
                         const remaining = Math.ceil((parseInt(savedTarget) - Date.now()) / 1000);
@@ -106,7 +106,7 @@ export default function LivePositionPage() {
             // Buka WhatsApp
             window.location.href = `https://wa.me/${contact.phone}?text=${encodeURIComponent(message)}`;
 
-        }, (err) => {
+        }, () => {
             setAlertState({ isOpen: true, title: "Gagal GPS", message: "Pastikan GPS kamu aktif & memiliki sinyal yang bagus ya.", icon: "📍" });
         }, { enableHighAccuracy: true, timeout: 10000 });
     };

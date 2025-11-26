@@ -3,8 +3,8 @@
 "use client";
 
 import React, { useState } from 'react';
-import { glossaryTerms, GlossaryTerm } from '../features/glossaryData';
-import { MagnifyingGlassIcon, FunnelIcon } from '@heroicons/react/24/solid';
+import { glossaryTerms } from '../features/glossaryData';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
 export default function GlossaryFeature() {
     const [search, setSearch] = useState('');
@@ -104,7 +104,7 @@ export default function GlossaryFeature() {
                             {/* Example Box */}
                             <div className="bg-white/50 rounded-xl p-4 border border-white/60 text-xs italic text-[#6B4F4F]/70 mt-auto">
                                 <span className="font-bold block not-italic mb-1 opacity-50 uppercase text-[10px]">Contoh:</span>
-                                "{item.example}"
+                                &quot;{item.example}&quot;
                             </div>
                         </div>
                     ))}

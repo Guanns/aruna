@@ -1,10 +1,9 @@
 // app/about/page.tsx
-// VERSI FINAL FIX: Clean Code + Mobile Precision + Instagram Icon
+// VERSI FINAL FIX: Clean Code
 
 "use client";
 
 import React from 'react';
-import Link from 'next/link';
 import { 
     HeartIcon, 
     ShieldCheckIcon, 
@@ -15,28 +14,7 @@ import {
     RocketLaunchIcon,
     EyeIcon,
     UserGroupIcon,
-    MapPinIcon, 
 } from '@heroicons/react/24/solid';
-
-// --- SVG COMPONENT: Ikon Instagram (Fixed JSX) ---
-const InstagramIcon = ({ className }: { className?: string }) => (
-    <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        width="24" 
-        height="24" 
-        viewBox="0 0 24 24" 
-        fill="none" 
-        stroke="currentColor" 
-        strokeWidth="2" 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
-        className={className}
-    >
-        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-    </svg>
-);
 
 // Data Timeline
 const timelineData = [
@@ -198,51 +176,6 @@ export default function AboutPage() {
                         </div>
                     </div>
                 </section>
-
-                {/* --- FOOTER: CONTACT INFO (FIXED) --- */}
-                <section className="mb-10">
-                    <div className="max-w-4xl mx-auto bg-white/60 backdrop-blur-xl border border-white/50 rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-12 shadow-xl relative overflow-hidden">
-                        {/* Decorative Blob */}
-                        <div className="absolute top-0 right-0 w-48 h-48 md:w-64 md:h-64 bg-teal-500/5 rounded-bl-full -mr-10 -mt-10 blur-xl pointer-events-none"></div>
-
-                        <div className="text-center mb-8 md:mb-10 relative z-10">
-                            <h2 className="text-2xl md:text-3xl font-bold text-[#6B4F4F] mb-3 md:mb-4">Ingin Berkolaborasi atau Bertanya?</h2>
-                            <p className="text-[#6B4F4F]/70 font-light text-sm md:text-base px-2">Kami selalu terbuka untuk saran, kritik, atau sekadar sapaan hangat.</p>
-                        </div>
-
-                        {/* GRID FIX: Proper Spacing */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 relative z-10">
-                            
-                            {/* Card 1: Instagram */}
-                            <div className="bg-white/80 p-5 md:p-6 rounded-[2rem] border border-white/60 flex items-start gap-4 md:gap-5 hover:shadow-lg transition-all group">
-                                <div className="w-12 h-12 md:w-14 md:h-14 bg-[#c43c27]/10 text-[#c43c27] rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
-                                    <InstagramIcon className="w-6 h-6 md:w-7 md:h-7" />
-                                </div>
-                                <div className="flex-1 min-w-0 pt-0.5">
-                                    <h3 className="font-bold text-base md:text-lg text-gray-800 truncate">Sosial Media Kami</h3>
-                                    <a href="https://instagram.com/shinewitharuna" target="_blank" rel="noopener noreferrer" className="text-sm text-[#6B4F4F]/70 hover:text-[#c43c27] transition-colors font-medium break-words block">
-                                        @Shinewitharuna
-                                    </a>
-                                </div>
-                            </div>
-
-                            {/* Card 2: Location */}
-                            <div className="bg-white/80 p-5 md:p-6 rounded-[2rem] border border-white/60 flex items-start gap-4 md:gap-5 hover:shadow-lg transition-all group">
-                                <div className="w-12 h-12 md:w-14 md:h-14 bg-teal-100 text-teal-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
-                                    <MapPinIcon className="w-6 h-6 md:w-7 md:h-7" />
-                                </div>
-                                <div className="flex-1 min-w-0 pt-0.5">
-                                    <h3 className="font-bold text-base md:text-lg text-gray-800 truncate">Lokasi Kami</h3>
-                                    <p className="text-sm text-[#6B4F4F]/70 font-medium break-words">
-                                        Bontang, Indonesia
-                                    </p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </section>
-
             </div>
         </div>
     );

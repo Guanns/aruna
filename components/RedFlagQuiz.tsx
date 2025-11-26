@@ -4,7 +4,7 @@
 
 import React, { useState } from 'react';
 import { quizQuestions, getResult } from '../features/quizData';
-import { ArrowRightIcon, ArrowPathIcon, CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
+import { ArrowPathIcon, CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 
 export default function RedFlagQuiz() {
@@ -81,7 +81,7 @@ export default function RedFlagQuiz() {
                         {question.text}
                     </h3>
                     <p className="text-[#6B4F4F]/60 italic text-sm">
-                        "{question.description}"
+                        &quot;{question.description}&quot;
                     </p>
                 </div>
 

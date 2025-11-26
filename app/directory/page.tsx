@@ -16,7 +16,7 @@ import {
 } from '@heroicons/react/24/solid';
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
-import { contacts, Contact } from '../../features/directoryData'; 
+import { contacts } from '../../features/directoryData'; 
 
 export default function DirectoryPage() {
     const [copiedIndex, setCopiedIndex] = useState<string | null>(null);
@@ -50,12 +50,6 @@ export default function DirectoryPage() {
         if (name.includes('Pemadam')) return <TruckIcon className="w-6 h-6"/>;
         if (name.includes('Komnas')) return <MegaphoneIcon className="w-6 h-6"/>;
         return <BuildingLibraryIcon className="w-6 h-6"/>;
-    };
-
-    // Helper warna kartu berdasarkan kategori
-    const getTheme = (category: string) => {
-        if (category === 'Layanan Nasional') return 'bg-rose-50 border-rose-100 text-rose-800 hover:border-rose-300';
-        return 'bg-indigo-50 border-indigo-100 text-indigo-800 hover:border-indigo-300';
     };
 
     return (

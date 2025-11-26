@@ -8,8 +8,7 @@ import {
     ArrowLeftIcon, 
     ShieldCheckIcon, 
     ChevronDownIcon, 
-    CheckCircleIcon,
-    LockClosedIcon 
+    CheckCircleIcon 
 } from '@heroicons/react/24/solid';
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
@@ -103,7 +102,6 @@ export default function AuditPrivasiPage() {
                  <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/noise.png')]"></div>
             </div>
 
-            {/* PADDING TOP DIPERBESAR (pt-32) AGAR TIDAK MEPET */}
             <div className="max-w-3xl mx-auto px-6 pt-32 relative z-10">
                 
                 {/* --- HEADER --- */}
@@ -112,7 +110,6 @@ export default function AuditPrivasiPage() {
                         <ArrowLeftIcon className="w-4 h-4"/> Kembali ke Dashboard
                     </Link>
                     
-                    {/* LOGO DENGAN MARGIN BESAR */}
                     <div className="relative inline-block mb-6 group">
                         <div className="absolute -inset-4 bg-indigo-100 rounded-full blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
                         <div className="relative w-20 h-20 bg-gradient-to-br from-white to-indigo-50 rounded-[2rem] flex items-center justify-center shadow-lg border border-white rotate-3 group-hover:rotate-6 transition-transform duration-500">
@@ -128,7 +125,7 @@ export default function AuditPrivasiPage() {
                     </p>
                 </header>
 
-                {/* --- SCORE CARD (Floating Glass) --- */}
+                {/* --- SCORE CARD --- */}
                 <div className="bg-white/60 backdrop-blur-xl rounded-[2.5rem] p-1 shadow-xl border border-white/60 mb-12 relative overflow-hidden ring-1 ring-indigo-50">
                     <div className="bg-white/80 rounded-[2.2rem] p-8 relative overflow-hidden">
                         <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
@@ -171,7 +168,6 @@ export default function AuditPrivasiPage() {
                                         : 'bg-white/40 backdrop-blur-sm hover:bg-white/80 border-white/50 hover:shadow-lg'}
                                 `}
                             >
-                                {/* Card Header */}
                                 <button
                                     onClick={() => setOpenPlatform(isOpen ? null : platform.name)}
                                     className="w-full p-6 flex items-center justify-between text-left focus:outline-none"
@@ -202,7 +198,6 @@ export default function AuditPrivasiPage() {
                                     </div>
                                 </button>
 
-                                {/* Content */}
                                 <div 
                                     className={`grid transition-[grid-template-rows] duration-500 ease-in-out ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
                                 >

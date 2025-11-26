@@ -1,10 +1,10 @@
 // components/ChatSimulator.tsx
-// VERSI FINAL: SUPPORT 9 SCENARIOS
+// VERSI FINAL: SUPPORT 9 SCENARIOS + FIXED TYPES
 
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { scenarios, Scenario, DialogueNode } from '../features/chatSimData';
+import { scenarios, Scenario, DialogueNode, Choice } from '../features/chatSimData';
 import { 
     UserIcon, ArrowPathIcon, ArrowLeftIcon,
     ShieldCheckIcon, FireIcon, BanknotesIcon,
@@ -38,7 +38,7 @@ export default function ChatSimulator() {
         chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [history, isTyping, feedback]);
 
-    const handleChoice = (choice: any) => {
+    const handleChoice = (choice: Choice) => {
         if (!activeScenario) return;
 
         const userResponse: DialogueNode = {

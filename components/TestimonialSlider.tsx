@@ -83,7 +83,7 @@ export default function TestimonialSlider() {
                                 ${index === currentIndex ? 'opacity-100 translate-x-0 relative' : 'opacity-0 translate-x-10 absolute'}`}
                         >
                             <p className="text-xl md:text-2xl font-light leading-relaxed text-[#6B4F4F] italic relative z-10">
-                                "{testimonial.quote}"
+                                &quot;{testimonial.quote}&quot;
                             </p>
                             <div className="mt-8">
                                 <h4 className="font-bold text-lg text-[#6B4F4F]">{testimonial.name}</h4>

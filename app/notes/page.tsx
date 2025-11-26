@@ -61,7 +61,7 @@ const formatHtmlAsText = (note: Note) => {
         weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
     });
     const header = `${title}\nTanggal: ${date}\n========================================\n\n`;
-    let content = note.content.replace(/<[^>]+>/g, '\n'); // Simple strip tags
+    const content = note.content.replace(/<[^>]+>/g, '\n'); // Simple strip tags
     return header + content.trim();
 };
 
@@ -258,8 +258,7 @@ export default function NotesPage() {
                                         {createPreview(note.content)}
                                     </div>
 
-                                    {/* ACTION BUTTONS (PERBAIKAN DI SINI) */}
-                                    {/* Logic: Opacity 100 di mobile (default), Opacity 0 di Desktop (md), Hover muncul di Desktop */}
+                                    {/* ACTION BUTTONS */}
                                     <div className="flex items-center justify-end gap-2 pt-4 border-t border-stone-100/50 transition-opacity duration-300 opacity-100 md:opacity-0 md:group-hover:opacity-100">
                                         <button onClick={(e) => {e.stopPropagation(); handleShareWhatsApp(note.id)}} className="p-2 text-stone-400 hover:text-green-600 hover:bg-green-50 rounded-full transition-colors" title="Share WA">
                                             <ShareIcon className="w-4 h-4"/>

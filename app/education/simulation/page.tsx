@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeftIcon, ChatBubbleLeftRightIcon, ShieldCheckIcon, EyeIcon } from '@heroicons/react/24/solid';
+import { ArrowLeftIcon, ChatBubbleLeftRightIcon, EyeIcon } from '@heroicons/react/24/solid';
 import ChatSimulator from '../../../components/ChatSimulator';
 
 export default function SimulationPage() {
