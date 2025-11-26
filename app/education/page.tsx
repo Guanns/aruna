@@ -1,18 +1,18 @@
 // app/education/page.tsx
-// VERSI REDESIGN 2: Mobile Precision + No Images (Text Focus)
+// VERSI FIX: Escaped Quotes for Production Build
 
 import React from 'react';
 import Link from 'next/link';
 import { 
     BookOpenIcon, 
-    ArrowRightIcon, 
     ArrowLongRightIcon,
     MagnifyingGlassIcon,
     LanguageIcon,
     ShieldCheckIcon
 } from '@heroicons/react/24/solid';
 import { 
-    PlayCircleIcon 
+    PlayCircleIcon,
+    ArrowRightIcon
 } from '@heroicons/react/24/outline';
 
 // --- DATA ARTIKEL (Gambar dihapus) ---
@@ -150,8 +150,9 @@ export default function EducationPage() {
                                     Kamus Bahasa <span className="font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Gen Z</span>
                                 </h2>
                                 
+                                {/* FIX: Ganti " dengan &quot; */}
                                 <p className="text-sm md:text-lg text-[#6B4F4F]/70 font-light leading-relaxed max-w-xl mx-auto md:mx-0">
-                                    Bingung dengan istilah <i>"Love Bombing"</i>, <i>"Gaslighting"</i>, atau bahasa gaul seperti <i>"Rizz"</i>? Cek artinya di sini biar makin <i>relate</i> dan paham!
+                                    Bingung dengan istilah <i>&quot;Love Bombing&quot;</i>, <i>&quot;Gaslighting&quot;</i>, atau bahasa gaul seperti <i>&quot;Rizz&quot;</i>? Cek artinya di sini biar makin <i>relate</i> dan paham!
                                 </p>
                             </div>
 
