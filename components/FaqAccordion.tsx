@@ -8,12 +8,12 @@ import { PlusIcon, MinusIcon } from '@heroicons/react/24/outline';
 
 const faqs = [
     {
-        question: 'Apakah data saya benar-benar aman?',
-        answer: 'Keamanan adalah prioritas #1 kami. Aruna tidak menyimpan percakapan atau catatan Anda di server. Semua data Catatan Pribadi disimpan secara lokal di perangkat (browser) Anda. Mode Kamuflase juga memastikan tidak ada yang tahu Anda menggunakan aplikasi ini.'
+        question: 'Apakah data ku benar-benar aman?',
+        answer: 'Keamanan adalah prioritas #1 kami. Aruna tidak menyimpan percakapan atau catatan Kamu di server. Semua data Catatan Pribadi disimpan secara lokal di perangkat (browser) Kamu. Mode Kamuflase juga memastikan tidak ada yang tahu Kamu menggunakan aplikasi ini.'
     },
     {
         question: 'Bagaimana cara kerja Panic Button?',
-        answer: 'Sangat sederhana. Setelah Anda mengatur kontak darurat, cukup tekan tombol merah besar di aplikasi. Kami akan otomatis membuka WhatsApp dengan pesan darurat berisi lokasi GPS terkini Anda, siap dikirim.'
+        answer: 'Sangat sederhana. Setelah Kamu mengatur kontak darurat, cukup tekan tombol merah besar di aplikasi. Kami akan otomatis membuka WhatsApp dengan pesan darurat berisi lokasi GPS terkini Kamu yang siap untuk dikirim.'
     },
     {
         question: 'Apakah Aruna AI adalah manusia?',
@@ -38,7 +38,7 @@ export default function FaqAccordion() {
                 Sering Ditanyakan
             </h2>
             <p className="text-center text-[#6B4F4F]/60 mb-12">
-                Kami rangkum jawaban untuk pertanyaan populermu.
+                Kami rangkum jawaban untuk pertanyaan populer Kamu!
             </p>
 
             <div className="space-y-4">

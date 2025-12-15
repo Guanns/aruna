@@ -107,7 +107,7 @@ export default function AboutPage() {
                             <div className="w-14 h-14 md:w-16 md:h-16 bg-teal-100 text-teal-600 rounded-2xl flex items-center justify-center mb-4 md:mb-6 shadow-inner">
                                 <EyeIcon className="w-7 h-7 md:w-8 md:h-8" />
                             </div>
-                            <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4 font-serif italic text-teal-900">Visi Kami</h2>
+                            <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4 font-serif italic text-teal-900"> Apa Visi Kami ?</h2>
                             <p className="text-base md:text-lg opacity-80 leading-relaxed">
                                 Menciptakan dunia digital yang aman dan suportif, di mana setiap perempuan dan anak dapat berekspresi dan berkembang tanpa rasa takut akan ancaman.
                             </p>
@@ -121,7 +121,7 @@ export default function AboutPage() {
                             <div className="w-14 h-14 md:w-16 md:h-16 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mb-4 md:mb-6 shadow-inner">
                                 <ShieldCheckIcon className="w-7 h-7 md:w-8 md:h-8" />
                             </div>
-                            <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4 font-serif italic text-red-900">Misi Kami</h2>
+                            <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4 font-serif italic text-red-900">Apa Misi Kami ?</h2>
                             <p className="text-base md:text-lg opacity-80 leading-relaxed">
                                 Menyediakan alat keamanan yang mudah diakses, kuat, dan penuh empati. Melindungi privasi, fisik, dan mental pengguna dalam satu genggaman.
                             </p>

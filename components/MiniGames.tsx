@@ -515,7 +515,7 @@ export function StoneStackingGame() {
     if (!difficulty) {
         return (
             <div className="flex flex-col items-center justify-center w-full h-[500px] bg-stone-100 rounded-[2rem] border-4 border-stone-200 shadow-inner gap-6 p-8">
-                <h3 className="text-2xl font-bold text-stone-600">Pilih Tantangan Batu</h3>
+                <h3 className="text-2xl font-bold text-stone-600">Pilih Tingkat Kesulitan</h3>
                 <div className="flex flex-col gap-3 w-full max-w-xs">
                     <button onClick={() => startGame('EASY')} className="py-4 bg-green-100 text-green-700 font-bold rounded-xl hover:bg-green-200 transition-all border border-green-200 shadow-sm">
                         EASY (Batu Besar, Lambat)
@@ -524,7 +524,7 @@ export function StoneStackingGame() {
                         NORMAL (Sedang)
                     </button>
                     <button onClick={() => startGame('HARD')} className="py-4 bg-red-100 text-red-700 font-bold rounded-xl hover:bg-red-200 transition-all border border-red-200 shadow-sm">
-                        HARD (Batu Kecil, Cepat!)
+                        HARD (Batu Akan Terkikis, Cepat!)
                     </button>
                 </div>
             </div>
