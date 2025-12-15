@@ -16,7 +16,7 @@
     "@tiptap/extension-text-style": "^3.6.5",
     "@tiptap/react": "^3.6.5",
     "@tiptap/starter-kit": "^3.6.5",
-    "next": "15.5.4",
+    "next": "15.5.9",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "sweetalert2": "^11.24.0"
