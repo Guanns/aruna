@@ -37,6 +37,11 @@ export default function ChatPage() {
     // 1. Inisialisasi Chat
     useEffect(() => {
         const initChat = async () => {
+            if (!API_KEY) {
+                console.error("[Aruna AI] VITE_GEMINI_API_KEY tidak ditemukan di environment variables!");
+                return;
+            }
+            console.log("[Aruna AI] Inisialisasi dengan API Key:", API_KEY.substring(0, 8) + "...");
             try {
                 const genAI = new GoogleGenerativeAI(API_KEY);
                 const chat = genAI.getGenerativeModel({ model: MODEL_NAME })
@@ -53,8 +58,9 @@ export default function ChatPage() {
                         ],
                     });
                 setChatSession(chat);
+                console.log("[Aruna AI] Chat session berhasil dibuat.");
             } catch (error) {
-                console.error("Gagal inisialisasi AI:", error);
+                console.error("[Aruna AI] Gagal inisialisasi:", error);
             }
         };
         initChat();
@@ -90,11 +96,12 @@ export default function ChatPage() {
                     return newHistory;
                 });
             }
-        } catch (error) {
-            console.error("Error sending message:", error);
+        } catch (error: unknown) {
+            const errMsg = error instanceof Error ? error.message : String(error);
+            console.error("[Aruna AI] Error kirim pesan:", errMsg);
             setMessages(prev => {
                 const newHistory = [...prev];
-                newHistory[newHistory.length - 1].text = "Sinyal hatiku terputus sebentar... Coba cerita lagi ya? 🍂";
+                newHistory[newHistory.length - 1].text = "Sinyal hatiku terputus sebentar... Coba cerita lagi ya? 🍂\n\n_(Error: " + errMsg + ")_";
                 return newHistory;
             });
         }
