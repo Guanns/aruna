@@ -32,12 +32,17 @@ const GLOBAL_STYLES = `
     from { bottom: var(--start-bottom); transform: translateX(-50%) rotate(0deg); opacity: 1; }
     to { bottom: -150px; transform: translateX(-50%) rotate(25deg); opacity: 0; }
   }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
   .animate-float-up-smooth { animation: floatUpSmooth 12s linear forwards; }
   .animate-float-lantern { animation: floatLantern 15s ease-in forwards; }
   .animate-bounce-in { animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
   .animate-fade-up-out { animation: fadeUpOut 2s ease-out forwards; }
   .animate-stone-drop { animation: stoneDrop 350ms cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards; }
   .animate-stone-miss-drop { animation: stoneMissDrop 550ms cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards; }
+  .animate-float { animation: float 3s ease-in-out infinite; }
 `;
 
 // --- HELPER: SMART EMOJI DETECTOR ---
@@ -87,7 +92,7 @@ export function BreathingGame() {
                 </div>
                 <div className={`absolute border-2 border-teal-100 rounded-full w-64 h-64 transition-all duration-[4000ms] ${phase === 'Inhale' ? 'scale-110 opacity-100' : 'scale-90 opacity-50'}`}></div>
             </div>
-            <h3 className="text-2xl font-bold text-[#6B4F4F] mt-8 transition-opacity duration-500">{text}</h3>
+            <h3 className="text-2xl font-bold text-stone-800 mt-8 transition-opacity duration-500">{text}</h3>
         </div>
     );
 }
@@ -117,9 +122,9 @@ export function BubblePopGame() {
     return (
         <div className="flex flex-col items-center w-full">
             <div className="mb-6 flex justify-between w-full max-w-xs items-center">
-                <div className="bg-orange-100 text-orange-600 px-4 py-1 rounded-full text-sm font-bold">Pop: {score}</div>
-                <button onClick={resetGame} className="text-[#6B4F4F] hover:text-orange-500 transition-colors p-2 bg-white rounded-full shadow-sm">
-                    <ArrowPathIcon className="w-5 h-5" />
+                <div className="bg-orange-100 text-orange-700 px-4 py-1 rounded-full text-xs font-bold">Pop: {score}</div>
+                <button onClick={resetGame} className="text-stone-500 hover:text-stone-800 transition-colors p-2 bg-white rounded-full shadow-xs border border-stone-200" title="Ulangi">
+                    <ArrowPathIcon className="w-4 h-4" />
                 </button>
             </div>
             <div className="grid grid-cols-5 gap-3 bg-stone-100 p-4 rounded-2xl shadow-inner">
@@ -179,8 +184,8 @@ export function MemoryGame() {
     return (
         <div className="flex flex-col items-center w-full">
             <div className="mb-6 flex justify-between w-full max-w-xs items-center">
-                <div className="bg-purple-100 text-purple-600 px-4 py-1 rounded-full text-sm font-bold">Langkah: {moves}</div>
-                <button onClick={resetGame} className="text-[#6B4F4F] hover:text-purple-500 transition-colors p-2 bg-white rounded-full shadow-sm"><ArrowPathIcon className="w-5 h-5" /></button>
+                <div className="bg-purple-100 text-purple-700 px-4 py-1 rounded-full text-xs font-bold">Langkah: {moves}</div>
+                <button onClick={resetGame} className="text-stone-500 hover:text-stone-800 transition-colors p-2 bg-white rounded-full shadow-xs border border-stone-200" title="Ulangi"><ArrowPathIcon className="w-4 h-4" /></button>
             </div>
             <div className="grid grid-cols-4 gap-3 p-4 bg-stone-50 rounded-2xl border border-stone-100">
                 {cards.map((card, index) => (
@@ -396,9 +401,9 @@ export function LanternGame() {
     };
 
     return (
-        <div className="flex flex-col items-center w-full h-[500px] relative bg-slate-900 rounded-[2.5rem] overflow-hidden border-4 border-slate-800 shadow-2xl">
+        <div className="flex flex-col items-center w-full h-[500px] relative bg-slate-900 rounded-[2.5rem] overflow-hidden border border-slate-800 shadow-xl">
             <style>{GLOBAL_STYLES}</style>
-            <div className="absolute inset-0 opacity-40 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/10 via-transparent to-transparent pointer-events-none"></div>
 
             <div className="absolute inset-0 w-full h-full pointer-events-none z-10">
                 {lanterns.map(l => (

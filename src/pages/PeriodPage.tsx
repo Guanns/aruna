@@ -272,6 +272,16 @@ export default function PeriodPage() {
             </div>
 
             <div className="max-w-2xl mx-auto px-6 pt-28 relative z-10">
+                {/* Back Button */}
+                <div className="mb-6">
+                    <Link 
+                        to="/dashboard" 
+                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-stone-200 text-stone-700 hover:text-stone-900 hover:border-stone-300 transition-colors text-sm font-semibold shadow-xs"
+                    >
+                        <ArrowLeftIcon className="w-4 h-4" />
+                        <span>Kembali ke Dashboard</span>
+                    </Link>
+                </div>
                 {mode === 'LOADING' ? <div className="text-center mt-20 text-sm font-bold text-stone-400">Loading...</div> :
                  mode === 'SETUP' ? renderSetup() : renderDashboard()
                 }

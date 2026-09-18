@@ -1,110 +1,117 @@
-// components/TestimonialSlider.tsx
-// VERSI REDESIGN: Clean Cards & Smooth Heightimport React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import React from 'react';
 
-const testimonials = [
+type Testimonial = {
+    name: string;
+    role: string;
+    initials: string;
+    quote: string;
+};
+
+const testimonials: Testimonial[] = [
     {
         name: 'Sarah',
         role: 'Pengguna Panic Button',
-        quote: 'Aruna benar-benar jadi penyelamat. Fitur Panic Button-nya sangat mudah diakses saat aku merasa tidak aman di perjalanan. Aku merasa lebih tenang sekarang.'
+        initials: 'S',
+        quote: 'Aruna benar-benar jadi penyelamat. Fitur Panic Button-nya sangat mudah diakses saat aku merasa tidak aman di perjalanan. Aku merasa jauh lebih tenang sekarang.'
     },
     {
         name: 'Dina',
         role: 'Pengguna Aruna AI',
-        quote: 'Aku suka Aruna AI. Kadang aku hanya butuh didengar tanpa dihakimi, dan Aruna AI selalu ada. Rasanya seperti punya teman yang suportif 24/7.'
+        initials: 'D',
+        quote: 'Aku suka Aruna AI. Kadang aku hanya butuh didengar tanpa dihakimi, dan Aruna selalu siap menemani dengan respon empatik kapanpun dibutuhkan.'
     },
     {
         name: 'Rian',
         role: 'Pengguna Mode Kamuflase',
-        quote: 'Mode Kamuflase itu jenius. Aku bisa menyimpan catatan pribadiku dengan aman tanpa ada yang curiga. Fitur ini sangat penting untuk privasi.'
+        initials: 'R',
+        quote: 'Mode Kamuflase itu jenius. Catatan pribadi dan kontak darurat tersimpan aman di balik tampilan kalkulator fungsional tanpa menimbulkan kecurigaan siapapun.'
+    },
+    {
+        name: 'Gita',
+        role: 'Pengguna Live Position',
+        initials: 'G',
+        quote: 'Fitur Live Position sangat membantu saat lembur pulang malam. Orang rumah bisa memantau perjalananku secara langsung sampai benar-benar tiba dengan aman.'
+    },
+    {
+        name: 'Nadia',
+        role: 'Pengguna Pelacak Siklus',
+        initials: 'N',
+        quote: 'Suka sekali dengan tampilan siklus haid yang simpel, bersih, dan privat. Membantu mempersiapkan diri setiap bulan tanpa ada iklan yang mengganggu.'
     },
     {
         name: 'Maya',
         role: 'Ibu Rumah Tangga',
-        quote: 'Sebagai seorang ibu muda, keamanan adalah prioritas utama. Aruna memberikan ketenangan pikiran yang luar biasa. Aplikasi ini benar-benar memikirkan detail kebutuhan perempuan.'
+        initials: 'M',
+        quote: 'Sebagai seorang ibu muda, rasa aman adalah prioritas utama. Aruna memberikan ketenangan pikiran yang luar biasa dan benar-benar memikirkan kebutuhan perempuan.'
     }
 ];
 
 export default function TestimonialSlider() {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const containerRef = useRef<HTMLDivElement>(null);
-    const [currentHeight, setCurrentHeight] = useState('auto');
-
-    useEffect(() => {
-        if (containerRef.current) {
-            const activeSlide = containerRef.current.querySelector('.testimonial-slide.opacity-100') as HTMLElement;
-            if (activeSlide) {
-                const timer = setTimeout(() => {
-                    setCurrentHeight(`${activeSlide.offsetHeight}px`);
-                }, 50); 
-                return () => clearTimeout(timer);
-            }
-        }
-    }, [currentIndex]);
-
-    const goToPrevious = () => {
-        const isFirstSlide = currentIndex === 0;
-        const newIndex = isFirstSlide ? testimonials.length - 1 : currentIndex - 1;
-        setCurrentIndex(newIndex);
-    };
-
-    const goToNext = () => {
-        const isLastSlide = currentIndex === testimonials.length - 1;
-        const newIndex = isLastSlide ? 0 : currentIndex + 1;
-        setCurrentIndex(newIndex);
-    };
+    // Duplicate testimonials for a seamless continuous marquee loop
+    const marqueeList = [...testimonials, ...testimonials];
 
     return (
-        <div className="w-full max-w-4xl mx-auto py-16 px-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-[#6B4F4F]">
-                Cerita Mereka
-            </h2>
-            
-            <div className="relative bg-white rounded-3xl shadow-xl shadow-[#6B4F4F]/5 p-8 md:p-12 border border-[#6B4F4F]/5">
-                
-                {/* Dekorasi Ikon Kutipan Besar */}
-                <div className="absolute top-4 left-8 text-9xl font-serif text-[#c43c27]/5 select-none pointer-events-none">
-                    “
-                </div>
+        <div className="w-full py-16 relative overflow-hidden font-poppins">
+            <style>{`
+                @keyframes testimonialMarquee {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-50%); }
+                }
+                .animate-marquee-smooth {
+                    display: flex;
+                    width: max-content;
+                    animation: testimonialMarquee 40s linear infinite;
+                }
+                .animate-marquee-smooth:hover {
+                    animation-play-state: paused;
+                }
+            `}</style>
 
-                <div 
-                    ref={containerRef} 
-                    className="relative overflow-hidden transition-all duration-500 ease-in-out"
-                    style={{ height: currentHeight }}
-                >
-                    {testimonials.map((testimonial, index) => (
+            <div className="max-w-6xl mx-auto px-6 mb-10 text-center">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-stone-900 tracking-tight">
+                    Apa Kata Mereka Tentang Aruna?
+                </h2>
+            </div>
+            
+            <div className="relative w-full overflow-hidden">
+                {/* Left & Right Soft Fade Gradients */}
+                <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-24 md:w-32 bg-gradient-to-r from-[#FFFBF5] to-transparent z-10 pointer-events-none"></div>
+                <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-24 md:w-32 bg-gradient-to-l from-[#FFFBF5] to-transparent z-10 pointer-events-none"></div>
+
+                {/* Infinite Marquee Track */}
+                <div className="animate-marquee-smooth flex gap-5 py-3 px-4">
+                    {marqueeList.map((item, index) => (
                         <div 
                             key={index} 
-                            className={`testimonial-slide absolute w-full left-0 top-0 transition-all duration-700 ease-in-out flex flex-col justify-center items-center text-center 
-                                ${index === currentIndex ? 'opacity-100 translate-x-0 relative' : 'opacity-0 translate-x-10 absolute'}`}
+                            className="w-[290px] sm:w-[340px] md:w-[370px] bg-white border border-stone-200/80 rounded-2xl p-6 shadow-xs hover:border-stone-300 hover:shadow-sm transition-all shrink-0 flex flex-col justify-between"
                         >
-                            <p className="text-xl md:text-2xl font-light leading-relaxed text-[#6B4F4F] italic relative z-10">
-                                &quot;{testimonial.quote}&quot;
-                            </p>
-                            <div className="mt-8">
-                                <h4 className="font-bold text-lg text-[#6B4F4F]">{testimonial.name}</h4>
-                                <p className="text-sm text-[#6B4F4F]/60">{testimonial.role}</p>
+                            <div>
+                                {/* Double quote accent */}
+                                <div className="mb-3 text-stone-300">
+                                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                                    </svg>
+                                </div>
+                                <p className="text-stone-700 text-sm leading-relaxed font-normal">
+                                    &quot;{item.quote}&quot;
+                                </p>
+                            </div>
+
+                            <div className="flex items-center gap-3 mt-6 pt-4 border-t border-stone-100">
+                                <div className="w-9 h-9 rounded-full bg-stone-100 text-stone-700 font-bold text-xs flex items-center justify-center shrink-0 border border-stone-200/60">
+                                    {item.initials}
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-sm text-stone-900 leading-tight">
+                                        {item.name}
+                                    </h4>
+                                    <p className="text-xs text-stone-500 mt-0.5">
+                                        {item.role}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     ))}
-                </div>
-                
-                {/* Navigasi Minimalis */}
-                <div className="flex justify-center gap-4 mt-8 z-20 relative">
-                    <button 
-                        onClick={goToPrevious}
-                        className="p-3 rounded-full bg-stone-50 text-[#6B4F4F] hover:bg-[#c43c27] hover:text-white transition-all duration-300"
-                        aria-label="Previous"
-                    >
-                        <ChevronLeftIcon className="w-5 h-5" />
-                    </button>
-                    <button 
-                        onClick={goToNext}
-                        className="p-3 rounded-full bg-stone-50 text-[#6B4F4F] hover:bg-[#c43c27] hover:text-white transition-all duration-300"
-                        aria-label="Next"
-                    >
-                        <ChevronRightIcon className="w-5 h-5" />
-                    </button>
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@
 import { ArrowLeftIcon, PaperAirplaneIcon, SparklesIcon, FaceSmileIcon } from '@heroicons/react/24/solid';
 import React, { useState, useEffect, useRef } from 'react';
 import { GoogleGenerativeAI, ChatSession, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
+import Swal from 'sweetalert2';
 
 // --- KONFIGURASI ---
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || ""; 
@@ -75,7 +76,17 @@ export default function ChatPage() {
 
     // 3. Handle Kirim Pesan
     const handleSend = async () => {
-        if (input.trim() === '' || isLoading || !chatSession) return;
+        if (input.trim() === '' || isLoading) return;
+
+        if (!chatSession) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Aruna AI Tidak Siap',
+                text: 'API Key Gemini (VITE_GEMINI_API_KEY) belum diatur di file .env Anda.',
+                confirmButtonColor: '#6B4F4F'
+            });
+            return;
+        }
 
         const newUserMessage: Message = { role: 'user', text: input };
         const currentInput = input;

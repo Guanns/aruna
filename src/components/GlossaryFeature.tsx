@@ -1,4 +1,4 @@
-// components/GlossaryFeature.tsximport React, { useState } from 'react';
+import React, { useState } from 'react';
 import { glossaryTerms } from '../features/glossaryData';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
@@ -19,96 +19,88 @@ export default function GlossaryFeature() {
     });
 
     // Helper warna kategori
-    const getCategoryColor = (cat: string) => {
+    const getCategoryStyle = (cat: string) => {
         switch(cat) {
-            case 'Toxic Relationship': return 'bg-red-100 text-red-700 border-red-200';
-            case 'Gen Z': return 'bg-purple-100 text-purple-700 border-purple-200';
-            case 'Dating World': return 'bg-pink-100 text-pink-700 border-pink-200';
-            case 'Mental Health': return 'bg-teal-100 text-teal-700 border-teal-200';
-            default: return 'bg-gray-100 text-gray-700';
+            case 'Toxic Relationship': return 'text-rose-700 bg-rose-50';
+            case 'Gen Z': return 'text-purple-700 bg-purple-50';
+            case 'Dating World': return 'text-pink-700 bg-pink-50';
+            case 'Mental Health': return 'text-teal-700 bg-teal-50';
+            default: return 'text-stone-700 bg-stone-100';
         }
     };
 
     return (
-        <div className="w-full max-w-6xl mx-auto">
+        <div className="w-full max-w-6xl mx-auto font-poppins">
             
-            {/* --- SEARCH & FILTER BAR --- */}
-            <div className="mb-12 space-y-6">
+            {/* Search & Filter Bar */}
+            <div className="mb-10 space-y-4">
                 {/* Search Input */}
-                <div className="relative group">
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-teal-400 to-purple-400 rounded-full blur opacity-30 group-hover:opacity-50 transition duration-500"></div>
-                    <div className="relative bg-white rounded-full shadow-sm flex items-center p-4">
-                        <MagnifyingGlassIcon className="w-6 h-6 text-gray-400 ml-2" />
+                <div className="relative max-w-xl mx-auto">
+                    <div className="bg-white border border-stone-200 rounded-xl shadow-xs flex items-center px-4 py-3">
+                        <MagnifyingGlassIcon className="w-5 h-5 text-stone-400 shrink-0" />
                         <input 
                             type="text"
-                            placeholder="Cari istilah... (misal : Gaslighting, FOMO)"
+                            placeholder="Cari istilah atau definisi disini..."
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            className="w-full ml-4 outline-none text-[#6B4F4F] placeholder:text-gray-400 font-medium bg-transparent"
+                            className="w-full ml-3 outline-none text-stone-900 placeholder:text-stone-400 text-sm font-normal bg-transparent"
                         />
                     </div>
                 </div>
 
-                {/* Category Chips */}
-                <div className="flex flex-wrap gap-3 justify-center">
+                {/* Category Filter Chips */}
+                <div className="flex flex-wrap gap-2 justify-center">
                     {categories.map(cat => (
                         <button
                             key={cat}
                             onClick={() => setActiveCategory(cat)}
-                            className={`px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 border
+                            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-colors border
                                 ${activeCategory === cat 
-                                    ? 'bg-[#6B4F4F] text-white border-[#6B4F4F] shadow-lg transform scale-105' 
-                                    : 'bg-white/60 text-[#6B4F4F]/70 border-transparent hover:bg-white hover:shadow-md'
+                                    ? 'bg-stone-900 text-white border-stone-900' 
+                                    : 'bg-white text-stone-600 border-stone-200 hover:border-stone-300'
                                 }
                             `}
                         >
-                            {cat}
+                            {cat === 'All' ? 'Semua Istilah' : cat}
                         </button>
                     ))}
                 </div>
             </div>
 
-            {/* --- TERMS GRID --- */}
+            {/* Terms Grid */}
             {filteredTerms.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     {filteredTerms.map((item) => (
                         <div 
                             key={item.id} 
-                            className="group bg-white/60 backdrop-blur-md rounded-[2rem] p-8 border border-white/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col relative overflow-hidden"
+                            className="bg-white rounded-2xl p-6 border border-stone-200 shadow-xs flex flex-col justify-between"
                         >
-                            {/* Decorative Blur Blob */}
-                            <div className={`absolute top-0 right-0 w-32 h-32 rounded-bl-[4rem] opacity-20 transition-transform group-hover:scale-150 duration-700 pointer-events-none
-                                ${item.category === 'Toxic Relationship' ? 'bg-red-400' : 
-                                  item.category === 'Gen Z' ? 'bg-purple-400' : 
-                                  item.category === 'Dating World' ? 'bg-pink-400' : 'bg-teal-400'}
-                            `}></div>
-
-                            <div className="mb-4">
-                                <span className={`inline-block text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full border ${getCategoryColor(item.category)}`}>
+                            <div>
+                                <span className={`inline-block text-xs font-semibold px-2.5 py-1 rounded-md mb-3 ${getCategoryStyle(item.category)}`}>
                                     {item.category}
                                 </span>
+
+                                <h3 className="text-xl font-bold text-stone-900 mb-2 leading-snug">
+                                    {item.term}
+                                </h3>
+
+                                <p className="text-stone-600 leading-relaxed text-sm mb-4 font-normal">
+                                    {item.definition}
+                                </p>
                             </div>
 
-                            <h3 className="text-2xl font-bold text-[#6B4F4F] mb-3 group-hover:text-[#c43c27] transition-colors">
-                                {item.term}
-                            </h3>
-
-                            <p className="text-[#6B4F4F]/80 leading-relaxed text-sm mb-6 flex-grow">
-                                {item.definition}
-                            </p>
-
                             {/* Example Box */}
-                            <div className="bg-white/50 rounded-xl p-4 border border-white/60 text-xs italic text-[#6B4F4F]/70 mt-auto">
-                                <span className="font-bold block not-italic mb-1 opacity-50 uppercase text-[10px]">Contoh:</span>
+                            <div className="bg-stone-50 rounded-xl p-3 border border-stone-100 text-xs text-stone-600 mt-2">
+                                <span className="font-semibold block mb-1 text-stone-500">Contoh:</span>
                                 &quot;{item.example}&quot;
                             </div>
                         </div>
                     ))}
                 </div>
             ) : (
-                <div className="text-center py-20 opacity-50">
-                    <p className="text-xl font-bold">Yah, istilahnya nggak ketemu.. 🥲</p>
-                    <p>Coba cari kata kunci lain ya.</p>
+                <div className="text-center py-16 text-stone-500">
+                    <p className="text-lg font-semibold text-stone-700 mb-1">Istilah tidak ditemukan</p>
+                    <p className="text-sm">Coba cari dengan kata kunci lain atau pilih kategori Semua Istilah.</p>
                 </div>
             )}
         </div>

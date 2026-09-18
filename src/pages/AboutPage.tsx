@@ -89,6 +89,17 @@ export default function AboutPage() {
 
             <div className="max-w-5xl mx-auto px-5 md:px-6 relative z-10 pt-28 md:pt-32">
                 
+                {/* Back Button */}
+                <div className="mb-8">
+                    <Link 
+                        to="/" 
+                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-stone-200 text-stone-700 hover:text-stone-900 hover:border-stone-300 transition-colors text-sm font-semibold shadow-xs"
+                    >
+                        <ArrowLeftIcon className="w-4 h-4" />
+                        <span>Kembali ke Beranda</span>
+                    </Link>
+                </div>
+
                 {/* --- HEADER --- */}
                 <header className="text-center mb-20 md:mb-24">
                     <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 md:mb-8 leading-tight tracking-tight">

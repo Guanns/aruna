@@ -1,278 +1,191 @@
-// app/education/page.tsx
-// VERSI FIX: Escaped Quotes for Production Build
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
     BookOpenIcon, 
-    ArrowLongRightIcon,
-    LanguageIcon,
-    ShieldCheckIcon,
     ArrowLeftIcon,
-    ScaleIcon
-} from '@heroicons/react/24/solid';
-import { 
-    PlayCircleIcon,
+    ScaleIcon,
+    ChatBubbleLeftRightIcon,
+    ShieldExclamationIcon,
     ArrowRightIcon
 } from '@heroicons/react/24/outline';
 
-// --- DATA ARTIKEL (Gambar dihapus) ---
 const articles = [
     {
         slug: 'mengenal-gaslighting',
         title: 'Mengenal Apa Itu Gaslighting dan Cara Menghadapinya',
-        snippet: 'Gaslighting adalah bentuk manipulasi psikologis yang membuat seseorang meragukan kewarasan mereka sendiri. Pelajari pola-polanya.',
-        category: 'Mental Health',
-        color: 'text-purple-600 bg-purple-50 border-purple-100',
+        snippet: 'Gaslighting adalah bentuk manipulasi psikologis yang membuat seseorang meragukan kewarasan mereka sendiri. Pelajari pola dan langkah mengatasinya.',
+        category: 'Kesehatan Mental',
+        categoryColor: 'text-purple-700 bg-purple-50',
     },
     {
         slug: 'kekerasan-dalam-pacaran',
         title: 'Tanda-Tanda Kekerasan dalam Pacaran (KDP)',
         snippet: 'Kekerasan bukan hanya fisik. Kenali tanda-tanda kekerasan emosional, digital, dan finansial yang sering terabaikan sejak dini.',
-        category: 'Relationship',
-        color: 'text-rose-600 bg-rose-50 border-rose-100',
+        category: 'Relasi Sehat',
+        categoryColor: 'text-rose-700 bg-rose-50',
     },
     {
         slug: 'menjaga-privasi-digital',
         title: 'Panduan Praktis Menjaga Privasi di Media Sosial',
-        snippet: 'Akunmu adalah rumahmu. Pelajari langkah-langkah praktis untuk mengamankan Instagram, TikTok, dan WhatsApp dari penguntit.',
-        category: 'Digital Safety',
-        color: 'text-teal-600 bg-teal-50 border-teal-100',
+        snippet: 'Akunmu adalah ruang pribadimu. Pelajari langkah praktis untuk mengamankan media sosial dan aplikasi perpesanan dari penguntit.',
+        category: 'Keamanan Digital',
+        categoryColor: 'text-teal-700 bg-teal-50',
     },
     {
         slug: 'membangun-batasan-sehat',
         title: 'Pentingnya Membangun Batasan (Boundaries)',
-        snippet: 'Mengatakan "tidak" bukan berarti egois. Membangun batasan yang sehat adalah bentuk penghargaan tertinggi terhadap diri sendiri.',
-        category: 'Self Care',
-        color: 'text-orange-600 bg-orange-50 border-orange-100',
+        snippet: 'Mengatakan tidak bukan berarti egois. Membangun batasan yang sehat adalah bentuk penghargaan tertinggi terhadap integritas diri sendiri.',
+        category: 'Pengembangan Diri',
+        categoryColor: 'text-amber-800 bg-amber-50',
+    }
+];
+
+const educationModules = [
+    {
+        to: '/education/quiz',
+        titlePrefix: 'Deteksi ',
+        titleGradient: 'Red Flag Hubungan',
+        gradientClass: 'from-rose-600 to-pink-600',
+        description: 'Evaluasi kesehatan hubunganmu melalui instrumen kuis terarah untuk mengenali pola manipulasi, dominasi, atau tanda bahaya sejak awal.',
+        actionText: 'Mulai Deteksi',
+        icon: ShieldExclamationIcon,
+        iconBox: 'bg-rose-50 text-rose-600 border border-rose-100',
+    },
+    {
+        to: '/education/glossary',
+        titlePrefix: 'Kamus Bahasa ',
+        titleGradient: 'Gen Z',
+        gradientClass: 'from-indigo-600 via-purple-600 to-pink-600',
+        description: 'Pahami makna istilah penting seputar relasi modern, manipulasi psikologis, dan kesetaraan seperti Love Bombing, Gaslighting, dan boundaries.',
+        actionText: 'Buka Kamus',
+        icon: BookOpenIcon,
+        iconBox: 'bg-indigo-50 text-indigo-600 border border-indigo-100',
+    },
+    {
+        to: '/education/simulation',
+        titlePrefix: 'Simulasi Menolak ',
+        titleGradient: 'Tekanan',
+        gradientClass: 'from-teal-600 to-emerald-600',
+        description: 'Latihan interaktif menolak ajakan yang membuat tidak nyaman atau memaksa dalam situasi simulasi percakapan nyata yang aman.',
+        actionText: 'Mulai Latihan',
+        icon: ChatBubbleLeftRightIcon,
+        iconBox: 'bg-teal-50 text-teal-600 border border-teal-100',
+    },
+    {
+        to: '/education/law',
+        titlePrefix: 'Dasar Regulasi & ',
+        titleGradient: 'Hak Hukum',
+        gradientClass: 'from-amber-600 to-orange-600',
+        description: 'Pelajari instrumen undang-undang perlindungan hukum di Indonesia (UU TPKS, PKDRT, Perlindungan Anak, dan ITE) untuk membela hakmu.',
+        actionText: 'Pelajari Regulasi',
+        icon: ScaleIcon,
+        iconBox: 'bg-amber-50 text-amber-700 border border-amber-100',
     }
 ];
 
 export default function EducationPage() {
     return (
-        <div className="w-full min-h-screen bg-[#FFFBF5] text-[#6B4F4F] relative overflow-hidden font-sans pb-20">
-            {/* Floating Back Button */}
-            <Link 
-                to="/dashboard" 
-                className="fixed top-6 left-6 z-50 w-10 h-10 bg-white/80 hover:bg-white backdrop-blur-md rounded-xl flex items-center justify-center shadow-md border border-stone-200/50 text-[#6B4F4F] transition-all hover:scale-105 active:scale-95 group"
-                title="Kembali ke Dashboard"
-            >
-                <ArrowLeftIcon className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
-            </Link>
-             
-             {/* --- BACKGROUND FX (Atmospheric) --- */}
-             <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-                 <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-purple-300/10 rounded-full blur-[120px] animate-pulse"></div>
-                 <div className="absolute bottom-[10%] right-[-10%] w-[600px] h-[600px] bg-orange-300/10 rounded-full blur-[100px]"></div>
-                 <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/noise.png')]"></div>
-            </div>
-
-            {/* PADDING ADJUSTMENT: pt-28 on mobile, pt-32 on desktop */}
-            <div className="max-w-7xl mx-auto px-5 md:px-6 pt-28 md:pt-32 relative z-10">
+        <div className="w-full min-h-screen bg-[#FFFBF5] text-stone-900 font-poppins pb-24">
+            <div className="max-w-6xl mx-auto px-5 md:px-8 pt-24 md:pt-28">
                 
-                {/* --- HERO HEADER --- */}
-                <header className="text-center mb-16 md:mb-20">
-                    {/* TYPOGRAPHY FIX: Scaled down for mobile */}
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-8 leading-tight tracking-tight text-[#6B4F4F]">
-                        Edukasi untuk <span className="font-serif italic text-teal-600 block md:inline">Pemberdayaan.</span>
-                    </h1>
-                    <p className="text-base md:text-xl opacity-70 max-w-2xl mx-auto font-light leading-relaxed px-2">
-                        Kumpulan panduan, artikel, dan tools interaktif untuk membekalimu dengan pengetahuan tentang keamanan dan kesehatan mental!
-                    </p>
-                </header>
-                
-                {/* --- FEATURED 1: QUIZ BANNER --- */}
-                <div className="mb-8 md:mb-12 relative group">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-rose-400 via-orange-400 to-rose-400 rounded-[2rem] md:rounded-[3rem] blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200 animate-gradient-x"></div>
-                    {/* CARD PADDING: Reduced to p-6 on mobile */}
-                    <div className="relative bg-white rounded-[1.5rem] md:rounded-[2.5rem] p-6 md:p-12 shadow-xl overflow-hidden border border-white/50">
-                        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-bl from-rose-100/50 to-transparent rounded-full -mr-20 -mt-20 blur-3xl pointer-events-none"></div>
-                        
-                        <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-10 text-center md:text-left">
-                            <div className="md:w-2/3">
-                                <div className="flex items-center justify-center md:justify-start gap-2 mb-3">
-                                    <span className="flex h-3 w-3 relative">
-                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                                        <span className="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
-                                    </span>
-                                    <span className="text-[10px] md:text-xs font-bold tracking-widest uppercase text-rose-600">Interactive Tool</span>
-                                </div>
-                                <h2 className="text-2xl md:text-4xl font-bold mb-3 text-[#6B4F4F]">
-                                    Red Flag Detector <span className="text-2xl md:text-4xl align-middle">🚩</span>
-                                </h2>
-                                <p className="text-sm md:text-lg text-[#6B4F4F]/70 leading-relaxed font-light max-w-xl mx-auto md:mx-0">
-                                    Apakah hubunganmu sehat? Kadang cinta membuat kita buta pada tanda bahaya. Ikuti kuis singkat ini untuk mengetahuinya!
-                                </p>
-                            </div>
-                            <div className="md:w-1/3 flex justify-center md:justify-end w-full">
-                                <Link 
-                                    to="/education/quiz" 
-                                    className="group/btn relative inline-flex items-center justify-center gap-3 bg-[#6B4F4F] text-white font-bold py-4 px-8 md:py-5 md:px-10 rounded-full overflow-hidden shadow-lg transition-all hover:scale-105 hover:shadow-rose-900/20 w-full md:w-auto"
-                                >
-                                    <span className="relative z-10">Mulai Deteksi</span>
-                                    <PlayCircleIcon className="w-6 h-6 relative z-10 group-hover/btn:rotate-12 transition-transform" />
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* --- FEATURED 2: GLOSSARY BANNER (Premium Holographic) --- */}
-                <div className="mb-8 md:mb-12 relative group">
-                     <div className="absolute -inset-1 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-[2rem] md:rounded-[3rem] blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-                     
-                     <div className="relative bg-white/80 backdrop-blur-xl rounded-[1.5rem] md:rounded-[2.5rem] p-6 md:p-12 shadow-xl overflow-hidden border border-indigo-100/50">
-                        <div className="absolute top-[-50%] left-[-10%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-indigo-500/5 rounded-full blur-3xl pointer-events-none"></div>
-                        <div className="absolute bottom-[-50%] right-[-10%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-purple-500/5 rounded-full blur-3xl pointer-events-none"></div>
-                        
-                        <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 text-center md:text-left">
-                            <div className="flex-1">
-                                <div className="inline-flex items-center justify-center md:justify-start gap-2 mb-3">
-                                    <div className="p-1.5 md:p-2 bg-indigo-100 rounded-lg">
-                                        <LanguageIcon className="w-4 h-4 md:w-5 md:h-5 text-indigo-600" />
-                                    </div>
-                                    <span className="text-[10px] md:text-xs font-bold tracking-widest uppercase text-indigo-600">Kamus</span>
-                                </div>
-                                
-                                <h2 className="text-2xl md:text-4xl font-bold mb-3 text-[#6B4F4F]">
-                                    Kamus Bahasa <span className="font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Gen Z</span>
-                                </h2>
-                                
-                                {/* FIX: Ganti " dengan &quot; */}
-                                <p className="text-sm md:text-lg text-[#6B4F4F]/70 font-light leading-relaxed max-w-xl mx-auto md:mx-0">
-                                    Bingung dengan istilah <i>&quot;Love Bombing&quot;</i>, <i>&quot;Gaslighting&quot;</i>, atau bahasa gaul seperti <i>&quot;Rizz&quot;</i>? Cek artinya di sini biar makin <i>relate</i> dan paham!
-                                </p>
-                            </div>
-
-                            <div className="flex-shrink-0 w-full md:w-auto">
-                                <Link 
-                                    to="/education/glossary" 
-                                    className="inline-flex items-center justify-center gap-3 bg-white text-indigo-600 border border-indigo-100 font-bold py-4 px-8 rounded-full shadow-sm hover:shadow-lg hover:bg-indigo-50 transition-all transform hover:-translate-y-1 w-full md:w-auto"
-                                >
-                                    <span>Buka Kamus</span>
-                                    <ArrowRightIcon className="w-5 h-5" />
-                                </Link>
-                            </div>
-                        </div>
-                     </div>
-                </div>
-
-                {/* --- FEATURED 3: CHAT SIMULATOR BANNER --- */}
-                <div className="mb-16 md:mb-24 relative group">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-teal-400 to-cyan-400 rounded-[2rem] md:rounded-[3rem] blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-                    
-                    <div className="relative bg-white/80 backdrop-blur-xl rounded-[1.5rem] md:rounded-[2.5rem] p-6 md:p-12 shadow-xl overflow-hidden border border-teal-100/50">
-                        <div className="absolute top-0 left-0 w-64 h-64 bg-teal-500/5 rounded-full blur-3xl pointer-events-none"></div>
-                        
-                        <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 text-center md:text-left">
-                            <div className="flex-1">
-                                <div className="inline-flex items-center justify-center md:justify-start gap-2 mb-3">
-                                    <div className="p-1.5 md:p-2 bg-teal-50 rounded-lg border border-teal-100">
-                                        <ShieldCheckIcon className="w-4 h-4 md:w-5 md:h-5 text-teal-600" />
-                                    </div>
-                                     <span className="text-[10px] md:text-xs font-bold tracking-widest uppercase text-teal-600">Training</span>
-                                </div>
-                                <h2 className="text-xl md:text-3xl font-bold mb-3 text-[#6B4F4F]">
-                                    Latih diri kamu agar tau bagaimana caranya untuk menolak 💬
-                                </h2>
-                                <p className="opacity-90 font-light max-w-xl text-sm md:text-lg mx-auto md:mx-0">
-                                    Gimana cara nolak cowok yang maksa minta foto (PAP)? Latih keberanianmu di simulasi chat ini.
-                                </p>
-                            </div>
-                            
-                            <Link 
-                                to="/education/simulation" 
-                                className="bg-[#6B4F4F] text-white font-bold py-4 px-8 rounded-full shadow-lg hover:bg-teal-700 transition-all transform hover:scale-105 flex items-center justify-center gap-2 whitespace-nowrap w-full md:w-auto"
-                            >
-                                Mulai Simulasi <ArrowRightIcon className="w-5 h-5"/>
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-
-                {/* --- FEATURED 4: LEGAL BASIS BANNER (Dasar Hukum Aruna) --- */}
-                <div className="mb-16 md:mb-24 relative group">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-amber-400 to-orange-400 rounded-[2rem] md:rounded-[3rem] blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-                    
-                    <div className="relative bg-white/80 backdrop-blur-xl rounded-[1.5rem] md:rounded-[2.5rem] p-6 md:p-12 shadow-xl overflow-hidden border border-amber-100/50">
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
-                        
-                        <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 text-center md:text-left">
-                            <div className="flex-1">
-                                <div className="inline-flex items-center justify-center md:justify-start gap-2 mb-3">
-                                    <div className="p-1.5 md:p-2 bg-amber-50 rounded-lg border border-amber-100">
-                                        <ScaleIcon className="w-4 h-4 md:w-5 md:h-5 text-amber-600" />
-                                    </div>
-                                     <span className="text-[10px] md:text-xs font-bold tracking-widest uppercase text-amber-600">Legal Info</span>
-                                </div>
-                                <h2 className="text-xl md:text-3xl font-bold mb-3 text-[#6B4F4F]">
-                                    Pahami Hakmu Secara Hukum ⚖️
-                                </h2>
-                                <p className="opacity-90 font-light max-w-xl text-sm md:text-lg mx-auto md:mx-0">
-                                    Landasan regulasi konstitusional perlindungan perempuan & anak di Indonesia (PKDRT, UU Perlindungan Anak, UU TPKS, ITE).
-                                </p>
-                            </div>
-                            
-                            <Link 
-                                to="/education/law" 
-                                className="bg-[#6B4F4F] text-white font-bold py-4 px-8 rounded-full shadow-lg hover:bg-amber-700 transition-all transform hover:scale-105 flex items-center justify-center gap-2 whitespace-nowrap w-full md:w-auto"
-                            >
-                                Pelajari Hukum <ArrowRightIcon className="w-5 h-5"/>
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-
-                {/* --- SECTION HEADER: ARTICLES --- */}
-                <div className="flex items-center justify-between mb-8 md:mb-12 px-2 border-b border-[#6B4F4F]/10 pb-4">
-                    <h3 className="text-xl md:text-2xl font-bold flex items-center gap-3 text-[#6B4F4F]">
-                        <span className="w-1.5 h-6 md:w-2 md:h-8 bg-teal-500 rounded-full"></span>
-                        Artikel Terbaru
-                    </h3>
-                    <Link to="#" className="text-xs md:text-sm font-bold text-teal-600 hover:underline">
-                        Lihat Semua &rarr;
+                {/* Back Button */}
+                <div className="mb-6">
+                    <Link 
+                        to="/dashboard" 
+                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-stone-200 text-stone-700 hover:text-stone-900 hover:border-stone-300 transition-colors text-sm font-semibold shadow-xs"
+                    >
+                        <ArrowLeftIcon className="w-4 h-4" />
+                        <span>Kembali ke Dashboard</span>
                     </Link>
                 </div>
 
-                {/* --- GRID ARTIKEL (LAYOUT REVISED: TEXT ONLY) --- */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8">
-                    {articles.map((article) => (
-                        <Link 
-                            key={article.slug} 
-                            to={`/education/${article.slug}`} 
-                            // LAYOUT FIX: Removed flex-row, added relative for decoration
-                            className="group flex flex-col bg-white/60 backdrop-blur-lg rounded-[1.5rem] md:rounded-[2rem] border border-white/60 shadow-sm hover:shadow-xl hover:shadow-teal-900/5 transition-all duration-500 hover:-translate-y-1 overflow-hidden h-full relative"
-                        >
-                            {/* Konten: Full Width & Adjusted Padding */}
-                            <div className="w-full p-6 md:p-8 flex flex-col justify-between h-full relative z-10">
-                                {/* Decoration: Subtle gradient blob */}
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-teal-500/5 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-150 duration-700 pointer-events-none"></div>
-                                
+                {/* Hero Header */}
+                <header className="text-center mb-12 md:mb-16 max-w-2xl mx-auto">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-stone-900 tracking-tight mb-4">
+                        Edukasi & <span className="bg-gradient-to-r from-rose-600 via-purple-600 to-amber-600 bg-clip-text text-transparent">Perlindungan Diri</span>
+                    </h1>
+                    <p className="text-sm sm:text-base md:text-lg text-stone-600 font-normal leading-relaxed">
+                        Kumpulan modul interaktif dan panduan komprehensif untuk memahami batasan personal, keamanan digital, serta hak perlindungan hukum.
+                    </p>
+                </header>
+
+                {/* Modern Bento Grid (2x2) */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+                    {educationModules.map((mod) => {
+                        const Icon = mod.icon;
+                        return (
+                            <div 
+                                key={mod.to}
+                                className="bg-white border border-stone-200/90 rounded-2xl p-6 sm:p-8 shadow-xs flex flex-col justify-between"
+                            >
                                 <div>
-                                    <div className="mb-3 md:mb-4 flex flex-wrap gap-2">
-                                        <span className={`inline-block text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest border ${article.color}`}>
-                                            {article.category}
-                                        </span>
+                                    <div className="flex items-center justify-between mb-5">
+                                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${mod.iconBox}`}>
+                                            <Icon className="w-6 h-6" />
+                                        </div>
                                     </div>
-                                    <h3 className="text-lg md:text-2xl font-bold mb-2 md:mb-3 text-[#6B4F4F] group-hover:text-teal-700 transition-colors leading-snug">
-                                        {article.title}
-                                    </h3>
-                                    <p className="text-[#6B4F4F]/70 text-xs md:text-sm leading-relaxed mb-6 font-light line-clamp-3">
-                                        {article.snippet}
+                                    <h2 className="text-xl sm:text-2xl font-bold text-stone-900 mb-2.5">
+                                        {mod.titlePrefix}
+                                        <span className={`bg-gradient-to-r ${mod.gradientClass} bg-clip-text text-transparent`}>
+                                            {mod.titleGradient}
+                                        </span>
+                                    </h2>
+                                    <p className="text-sm text-stone-600 font-normal leading-relaxed mb-6">
+                                        {mod.description}
                                     </p>
                                 </div>
                                 
-                                <div className="flex items-center gap-2 text-[#6B4F4F] font-bold text-xs md:text-sm tracking-wide group-hover:gap-4 transition-all mt-auto">
-                                    <span className="group-hover:underline decoration-teal-500 decoration-2 underline-offset-4">BACA ARTIKEL</span>
-                                    <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white flex items-center justify-center shadow-sm group-hover:bg-teal-600 group-hover:text-white transition-colors">
-                                        <ArrowLongRightIcon className="w-4 h-4"/>
-                                    </div>
+                                <div className="pt-2">
+                                    <Link
+                                        to={mod.to}
+                                        className="inline-flex items-center justify-center gap-2 bg-stone-900 hover:bg-stone-800 text-white text-sm font-semibold py-3 px-6 rounded-xl transition-colors"
+                                    >
+                                        <span>{mod.actionText}</span>
+                                        <ArrowRightIcon className="w-4 h-4 text-white/80" />
+                                    </Link>
                                 </div>
                             </div>
-                        </Link>
-                    ))}
+                        );
+                    })}
                 </div>
-                
+
+                {/* Section: Artikel & Wawasan */}
+                <div className="border-t border-stone-200/80 pt-12">
+                    <div className="mb-8">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 mb-2">
+                            Artikel & <span className="bg-gradient-to-r from-rose-600 to-amber-600 bg-clip-text text-transparent">Wawasan</span>
+                        </h2>
+                        <p className="text-sm text-stone-600 font-normal">
+                            Panduan praktis menjaga privasi, kesehatan mental, dan batasan personal.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+                        {articles.map((article) => (
+                            <div 
+                                key={article.slug}
+                                className="bg-white border border-stone-200/90 rounded-2xl p-6 sm:p-7 shadow-xs flex flex-col justify-between"
+                            >
+                                <div>
+                                    <span className={`inline-block text-xs font-semibold px-2.5 py-1 rounded-md mb-3 ${article.categoryColor}`}>
+                                        {article.category}
+                                    </span>
+                                    <h3 className="text-lg sm:text-xl font-bold text-stone-900 mb-2.5 leading-snug">
+                                        {article.title}
+                                    </h3>
+                                    <p className="text-sm text-stone-600 font-normal leading-relaxed mb-6">
+                                        {article.snippet}
+                                    </p>
+                                </div>
+                                <div className="pt-2 border-t border-stone-100 flex items-center justify-between text-xs font-semibold text-stone-700">
+                                    <span>Panduan Singkat</span>
+                                    <span className="text-stone-400 font-normal">Aruna Edu</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
             </div>
         </div>
     );

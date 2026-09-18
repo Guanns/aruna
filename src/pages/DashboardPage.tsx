@@ -1,10 +1,9 @@
-// app/dashboard/page.tsx
-// VERSI FINAL LAYOUT: Jurnal Full Width di Tablet/PCimport React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     ShieldCheckIcon, PhoneIcon, BellAlertIcon, BookOpenIcon,
     MapPinIcon, ChatBubbleLeftRightIcon, Cog6ToothIcon,
     CalculatorIcon, ArrowRightIcon, HeartIcon, SparklesIcon,
-    KeyIcon, MegaphoneIcon
+    KeyIcon, MegaphoneIcon, SpeakerWaveIcon
 } from '@heroicons/react/24/solid';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -13,6 +12,7 @@ import { getPeriodData, calculateCycle } from '../features/period';
 import CustomAlert from '../components/CustomAlert';
 import SettingsModal from '../components/SettingsModal';
 import CamouflageSettingsModal from '../components/CamouflageSettingsModal';
+import SosButtonModal from '../components/SosButtonModal';
 import { useCamouflage } from '../context/CamouflageContext';
 
 type EmergencyContact = { name: string; phone: string; };
@@ -25,6 +25,8 @@ export default function DashboardPage() {
     const [contactName, setContactName] = useState('');
     const [contactPhone, setContactPhone] = useState('');
     const [hasEmergencyContact, setHasEmergencyContact] = useState(false);
+    const [savedContactInfo, setSavedContactInfo] = useState<EmergencyContact | null>(null);
+    const [isSosModalOpen, setIsSosModalOpen] = useState(false);
     
     // Haid State
     const [periodInfo, setPeriodInfo] = useState<{days: number, phase: string} | null>(null);
@@ -51,6 +53,9 @@ export default function DashboardPage() {
 
         const savedContact = localStorage.getItem('emergencyContact');
         setHasEmergencyContact(!!savedContact);
+        if (savedContact) {
+            setSavedContactInfo(JSON.parse(savedContact));
+        }
     }, []);
 
     const openEmergencySettings = (e?: React.MouseEvent) => {
@@ -88,6 +93,7 @@ export default function DashboardPage() {
         const contact: EmergencyContact = { name: contactName, phone: contactPhone };
         localStorage.setItem('emergencyContact', JSON.stringify(contact));
         setHasEmergencyContact(true);
+        setSavedContactInfo(contact);
         setIsEmergencyModalOpen(false);
         setAlertState({ isOpen: true, title: "Berhasil Disimpan", message: `Kontak darurat (${contactName}) telah diperbarui.`, icon: "✅" });
     };
@@ -117,274 +123,319 @@ export default function DashboardPage() {
     };
 
     return (
-        <div className="w-full min-h-screen pb-24 pt-28 bg-[#F9F5F2] text-[#5D4037] font-sans overflow-x-hidden relative">
+        <div className="w-full min-h-screen pb-24 pt-28 bg-[#FFFBF5] text-stone-800 font-poppins overflow-x-hidden relative">
             
-            {/* Background Decorations */}
-            <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-                 <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-rose-100/35 rounded-full blur-[130px] animate-pulse" style={{ animationDuration: '8s' }}></div>
-                 <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-teal-100/30 rounded-full blur-[130px] animate-pulse" style={{ animationDuration: '10s' }}></div>
-                 {/* Soft noise texture overlay for premium textured feel */}
-                 <div className="absolute inset-0 opacity-[0.015] bg-[url('https://www.transparenttextures.com/patterns/noise.png')]"></div>
-            </div>
+            {/* Modals */}
+            <CustomAlert 
+                isOpen={alertState.isOpen} 
+                title={alertState.title} 
+                message={alertState.message} 
+                icon={alertState.icon} 
+                onClose={() => setAlertState({ ...alertState, isOpen: false })} 
+            />
+            <SettingsModal 
+                isOpen={isEmergencyModalOpen} 
+                contactName={contactName} 
+                contactPhone={contactPhone} 
+                onNameChange={setContactName} 
+                onPhoneChange={setContactPhone} 
+                onClose={() => setIsEmergencyModalOpen(false)} 
+                onSave={handleSaveEmergencyContact} 
+            />
+            <CamouflageSettingsModal 
+                isOpen={isCamouflageModalOpen} 
+                onClose={() => setIsCamouflageModalOpen(false)} 
+            />
+            <SosButtonModal 
+                isOpen={isSosModalOpen} 
+                onClose={() => setIsSosModalOpen(false)} 
+            />
 
-            <div className="max-w-5xl mx-auto px-6 relative z-10">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
                 
-                {/* Modals */}
-                <CustomAlert isOpen={alertState.isOpen} title={alertState.title} message={alertState.message} icon={alertState.icon} onClose={() => setAlertState({ ...alertState, isOpen: false })} />
-                <SettingsModal isOpen={isEmergencyModalOpen} contactName={contactName} contactPhone={contactPhone} onNameChange={setContactName} onPhoneChange={setContactPhone} onClose={() => setIsEmergencyModalOpen(false)} onSave={handleSaveEmergencyContact} />
-                <CamouflageSettingsModal isOpen={isCamouflageModalOpen} onClose={() => setIsCamouflageModalOpen(false)} />
-
                 {/* Header */}
-                <header className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4 border-b border-[#5D4037]/10 pb-8">
-                    <div>
-                        <div className="flex items-center gap-2 mb-3">
-                            <span className="h-1.5 w-1.5 rounded-full bg-[#c43c27]"></span>
-                            <p className="text-xs font-bold text-[#5D4037]/50 uppercase tracking-widest">{dateString}</p>
-                        </div>
-                        <h1 className="text-4xl md:text-5xl font-extrabold text-[#5D4037] tracking-tight leading-tight">
-                            {greeting}, <span className="font-serif italic text-[#c43c27] relative inline-block">
-                                Cantik!
-                                <span className="absolute left-0 -bottom-1 w-full h-[3px] bg-gradient-to-r from-[#c43c27]/40 to-transparent rounded-full"></span>
-                            </span>
-                        </h1>
+                <header className="mb-8 md:mb-10">
+                    <div className="flex items-center gap-2 mb-2">
+                        <span className="h-2 w-2 rounded-full bg-[#c43c27]"></span>
+                        <p className="text-xs font-semibold text-stone-500 uppercase tracking-wider">{dateString}</p>
                     </div>
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-stone-800 tracking-tight">
+                        {greeting}, <span className="text-[#c43c27]">Cantik!</span>
+                    </h1>
                 </header>
 
-                {/* --- BENTO GRID SYSTEM --- */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                {/* Balanced Zero-Gap Bento Grid: 2 columns on mobile/tablet, 4 columns on desktop */}
+                <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
                     
-                    {/* 1. PANIC BUTTON (2x2) */}
+                    {/* 1. PANIC BUTTON (The Only Hero Card: 2 Cols Mobile, 2 Cols Desktop) */}
                     <div 
                         onClick={onPanicButtonClick}
-                        className="col-span-2 lg:col-span-2 row-span-2 bg-gradient-to-br from-[#b83c2a] via-[#c94f3b] to-[#d86653] rounded-[2.5rem] p-8 relative overflow-hidden cursor-pointer group shadow-lg hover:shadow-2xl hover:shadow-[#b83c2a]/15 transition-all duration-500 hover:-translate-y-1 active:scale-[0.99]"
+                        className="col-span-2 md:col-span-2 lg:col-span-2 bg-[#c43c27] hover:bg-[#b53521] text-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 flex flex-col justify-between shadow-xs transition-colors cursor-pointer group"
                     >
-                        {/* Premium Textures */}
-                        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/noise.png')] opacity-15"></div>
-                        <div className="absolute -right-6 -top-6 w-44 h-44 bg-white/10 rounded-full blur-2xl"></div>
-                        <div className="absolute left-0 bottom-0 w-full h-1/2 bg-gradient-to-t from-black/10 to-transparent"></div>
-                        
-                        <div className="relative h-full flex flex-col justify-between text-white z-10 min-h-[300px] lg:min-h-full">
-                            <div className="flex justify-between items-start">
-                                <div className="bg-white/15 backdrop-blur-md p-3.5 rounded-2xl border border-white/20 shadow-inner group-hover:scale-105 transition-transform duration-500">
-                                    <BellAlertIcon className="w-8 h-8 text-white animate-pulse" />
-                                </div>
-                                <button 
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        openEmergencySettings(e);
-                                    }} 
-                                    className="p-3 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-md border border-white/10 transition-all duration-300 hover:rotate-45"
-                                >
-                                    <Cog6ToothIcon className="w-5 h-5 text-white" />
-                                </button>
+                        <div className="flex justify-between items-start mb-3 sm:mb-4">
+                            <div className="p-2.5 sm:p-3 bg-white/20 text-white rounded-xl sm:rounded-2xl">
+                                <BellAlertIcon className="w-5 h-5 sm:w-6 sm:h-6" />
                             </div>
-                            <div className="mt-8">
-                                <h2 className="text-3xl font-extrabold mb-3 tracking-tight">Panic Button</h2>
-                                <p className="text-sm text-white/85 mb-8 font-medium leading-relaxed opacity-90">
-                                    Tekan saat darurat. Lokasi & Sinyal SOS akan dikirimkan otomatis ke kontak terpercaya.
-                                </p>
-                                <div className="w-full bg-white text-[#b83c2a] py-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg group-hover:bg-[#FFFBF5] transition-all duration-300">
-                                    <span className="tracking-wider">TEKAN BANTUAN</span>
-                                    <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                                </div>
+                            <button 
+                                type="button"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    openEmergencySettings(e);
+                                }} 
+                                className="p-2 sm:p-2.5 bg-white/20 hover:bg-white/30 rounded-lg sm:rounded-xl transition-colors"
+                                title="Pengaturan Kontak Darurat"
+                            >
+                                <Cog6ToothIcon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                            </button>
+                        </div>
+                        <div>
+                            <h2 className="text-lg sm:text-2xl font-bold tracking-tight mb-1 text-white">
+                                Panic Button
+                            </h2>
+                            <p className="text-xs sm:text-sm text-white/90 leading-relaxed mb-3 sm:mb-4 line-clamp-2">
+                                Sekali sentuh untuk kirim lokasi GPS & pesan darurat otomatis ke WhatsApp kontak terpercaya.
+                            </p>
+                            <div className="w-full bg-white text-[#c43c27] py-2.5 sm:py-3 px-4 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs group-hover:bg-stone-50 transition-colors">
+                                <span>BANTUAN SEKARANG</span>
+                                <ArrowRightIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                             </div>
                         </div>
                     </div>
 
-                    {/* 2. LIVE POSITION (2x1 Wide) */}
+                    {/* 2. SOS SIRENE (Row 1 Col 3 Desktop, Row 2 Col 1 Mobile) */}
+                    <div 
+                        onClick={() => setIsSosModalOpen(true)}
+                        className="col-span-1 md:col-span-1 lg:col-span-1 bg-red-50/80 hover:bg-red-50 border border-red-200/80 hover:border-red-300 rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between shadow-xs transition-colors cursor-pointer group min-h-[145px] sm:min-h-[155px]"
+                    >
+                        <div className="flex justify-between items-start">
+                            <div className="p-2.5 bg-red-100 text-red-600 rounded-xl shrink-0">
+                                <SpeakerWaveIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+                            </div>
+                            <span className="px-2 py-0.5 bg-red-600 text-white rounded-md font-bold text-[10px] tracking-wider">
+                                SOS
+                            </span>
+                        </div>
+                        <div className="mt-2">
+                            <h3 className="text-sm sm:text-base font-bold text-stone-900 leading-snug">SOS Sirene</h3>
+                            <p className="text-xs text-stone-600 mt-0.5 leading-tight line-clamp-1">Alarm suara keras sekitar</p>
+                        </div>
+                    </div>
+
+                    {/* 3. LIVE POSITION (Row 1 Col 4 Desktop, Row 2 Col 2 Mobile) */}
                     <Link 
                         to="/live-position" 
-                        className="col-span-2 lg:col-span-2 bg-white/70 backdrop-blur-md border border-white/80 rounded-[2.5rem] p-8 flex items-center justify-between shadow-sm hover:shadow-xl hover:shadow-[#6B4F4F]/5 transition-all duration-500 hover:-translate-y-1 group relative overflow-hidden"
+                        className="col-span-1 md:col-span-1 lg:col-span-1 bg-sky-50/80 hover:bg-sky-50 border border-sky-200/80 hover:border-sky-300 rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between shadow-xs transition-colors group min-h-[145px] sm:min-h-[155px]"
                     >
-                        <div className="absolute right-0 top-0 w-32 h-full bg-blue-50/30 -skew-x-12 translate-x-8 transition-transform group-hover:translate-x-4 duration-500"></div>
-                        <div className="relative z-10 flex items-center gap-5">
-                            <div className="p-4 bg-blue-50 text-blue-600 rounded-2xl border border-blue-100/50 shadow-inner group-hover:scale-105 transition-transform duration-500">
-                                <MapPinIcon className="w-7 h-7" />
+                        <div className="flex justify-between items-start">
+                            <div className="p-2.5 bg-sky-100 text-sky-600 rounded-xl shrink-0">
+                                <MapPinIcon className="w-5 h-5 sm:w-6 sm:h-6" />
                             </div>
-                            <div>
-                                <h3 className="text-xl font-bold text-gray-800 tracking-tight mb-1">Live Position</h3>
-                                <p className="text-xs text-gray-500/90 font-medium">Bagikan lokasi real-time.</p>
+                            <div className="w-6 h-6 sm:w-7 sm:h-7 bg-sky-100/80 group-hover:bg-sky-600 group-hover:text-white text-sky-600 rounded-full flex items-center justify-center transition-colors">
+                                <ArrowRightIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                             </div>
                         </div>
-                        <div className="w-11 h-11 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-md group-hover:bg-blue-700 group-hover:scale-110 transition-all duration-300 relative z-10">
-                            <ArrowRightIcon className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
+                        <div className="mt-2">
+                            <h3 className="text-sm sm:text-base font-bold text-stone-900 leading-snug">Live Position</h3>
+                            <p className="text-xs text-stone-600 mt-0.5 leading-tight line-clamp-1">Bagikan rute perjalanan</p>
                         </div>
                     </Link>
 
-                    {/* 3. SIKLUS HAID (Small - 1x1) */}
-                    <Link 
-                        to="/period" 
-                        className="col-span-1 bg-gradient-to-br from-[#FFF5F6] to-[#FFE5E8] border border-rose-100/60 rounded-[2.5rem] p-6 flex flex-col justify-between shadow-sm hover:shadow-xl hover:shadow-[#c43c27]/5 transition-all duration-500 hover:-translate-y-1 group min-h-[180px]"
+                    {/* 4. STATUS KEAMANAN (Row 2 Col 1 Desktop, Row 3 Col 1 Mobile) */}
+                    <div 
+                        onClick={() => openEmergencySettings()}
+                        className={`col-span-1 md:col-span-1 lg:col-span-1 ${
+                            hasEmergencyContact ? 'bg-emerald-50/80 hover:bg-emerald-50 border-emerald-200/80 hover:border-emerald-300' : 'bg-amber-50/80 hover:bg-amber-50 border-amber-200/80 hover:border-amber-300'
+                        } border rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between shadow-xs transition-colors cursor-pointer group min-h-[145px] sm:min-h-[155px]`}
                     >
                         <div className="flex justify-between items-start">
-                            <HeartIcon className="w-8 h-8 text-rose-500 group-hover:scale-110 transition-transform duration-500" />
+                            <div className={`p-2.5 rounded-xl shrink-0 ${
+                                hasEmergencyContact ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'
+                            }`}>
+                                <ShieldCheckIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+                            </div>
+                            <span className={`px-2 py-0.5 rounded-md font-semibold text-[10px] tracking-wide ${
+                                hasEmergencyContact ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
+                            }`}>
+                                {hasEmergencyContact ? 'Siaga' : 'Atur'}
+                            </span>
+                        </div>
+                        <div className="mt-2">
+                            <h3 className="text-sm sm:text-base font-bold text-stone-900 leading-snug">Status Keamanan</h3>
+                            <p className="text-xs text-stone-600 mt-0.5 leading-tight line-clamp-1">
+                                {hasEmergencyContact && savedContactInfo ? savedContactInfo.name : 'Atur kontak darurat'}
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* 5. MODE KAMUFLASE (Row 2 Col 2 Desktop, Row 3 Col 2 Mobile) */}
+                    <div 
+                        onClick={onCamouflageClick}
+                        className="col-span-1 md:col-span-1 lg:col-span-1 bg-violet-50/80 hover:bg-violet-50 border border-violet-200/80 hover:border-violet-300 rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between shadow-xs transition-colors cursor-pointer group min-h-[145px] sm:min-h-[155px]"
+                    >
+                        <div className="flex justify-between items-start">
+                            <div className="p-2.5 bg-violet-100 text-violet-700 rounded-xl shrink-0">
+                                <CalculatorIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+                            </div>
+                            <button 
+                                type="button"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    openCamouflageSettings(e);
+                                }} 
+                                className="p-1.5 text-violet-600 hover:text-violet-900 bg-violet-100 hover:bg-violet-200 rounded-lg transition-colors"
+                                title="Pengaturan PIN Kamuflase"
+                            >
+                                <KeyIcon className="w-3.5 h-3.5" />
+                            </button>
+                        </div>
+                        <div className="mt-2">
+                            <h3 className="text-sm sm:text-base font-bold text-stone-900 leading-snug">Mode Kamuflase</h3>
+                            <p className="text-xs text-stone-600 mt-0.5 leading-tight line-clamp-1">Kalkulator rahasia</p>
+                        </div>
+                    </div>
+
+                    {/* 6. ARUNA AI (Row 2 Col 3 Desktop, Row 4 Col 1 Mobile) */}
+                    <Link 
+                        to="/chat" 
+                        className="col-span-1 md:col-span-1 lg:col-span-1 bg-teal-50/80 hover:bg-teal-50 border border-teal-200/80 hover:border-teal-300 rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between shadow-xs transition-colors group min-h-[145px] sm:min-h-[155px]"
+                    >
+                        <div className="flex justify-between items-start">
+                            <div className="p-2.5 bg-teal-100 text-teal-700 rounded-xl shrink-0">
+                                <ChatBubbleLeftRightIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+                            </div>
+                            <div className="w-6 h-6 sm:w-7 sm:h-7 bg-teal-100/80 group-hover:bg-teal-700 group-hover:text-white text-teal-700 rounded-full flex items-center justify-center transition-colors">
+                                <ArrowRightIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                            </div>
+                        </div>
+                        <div className="mt-2">
+                            <h3 className="text-sm sm:text-base font-bold text-stone-900 leading-snug">Aruna AI</h3>
+                            <p className="text-xs text-stone-600 mt-0.5 leading-tight line-clamp-1">Teman curhat aman</p>
+                        </div>
+                    </Link>
+
+                    {/* 7. SIKLUS HAID (Row 2 Col 4 Desktop, Row 4 Col 2 Mobile) */}
+                    <Link 
+                        to="/period" 
+                        className="col-span-1 md:col-span-1 lg:col-span-1 bg-rose-50/80 hover:bg-rose-50 border border-rose-200/80 hover:border-rose-300 rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between shadow-xs transition-colors group min-h-[145px] sm:min-h-[155px]"
+                    >
+                        <div className="flex justify-between items-start">
+                            <div className="p-2.5 bg-rose-100 text-rose-600 rounded-xl shrink-0">
+                                <HeartIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+                            </div>
                             {periodInfo && (
                                 <div className="text-right">
-                                    <span className="text-2xl font-black text-rose-950 tracking-tight">
+                                    <span className="text-base sm:text-lg font-bold text-rose-700 tracking-tight leading-none block">
                                         {periodInfo.days > 0 ? periodInfo.days : 'Haid'}
                                     </span>
                                     {periodInfo.days > 0 && (
-                                        <span className="text-[9px] font-extrabold text-rose-700 block uppercase tracking-wider">Hari</span>
+                                        <span className="text-[9px] font-semibold text-rose-500 uppercase">Hari</span>
                                     )}
                                 </div>
                             )}
                         </div>
-                        <div className="mt-4">
-                            <h3 className="font-extrabold text-rose-900 text-base mb-1">Siklus Haid</h3>
-                            <p className="text-xs text-rose-700/80 font-medium leading-snug">
-                                {periodInfo ? `Fase: ${periodInfo.phase}` : 'Ketuk untuk atur siklus.'}
+                        <div className="mt-2">
+                            <h3 className="text-sm sm:text-base font-bold text-stone-900 leading-snug">Siklus Haid</h3>
+                            <p className="text-xs text-stone-600 mt-0.5 leading-tight line-clamp-1">
+                                {periodInfo ? `Fase: ${periodInfo.phase}` : 'Ketuk atur siklus'}
                             </p>
                         </div>
                     </Link>
 
-                    {/* 4. ARUNA AI (Small - 1x1) */}
-                    <Link 
-                        to="/chat" 
-                        className="col-span-1 bg-gradient-to-br from-[#F0F9F6] to-[#DDF1EB] border border-teal-100/60 rounded-[2.5rem] p-6 flex flex-col justify-between shadow-sm hover:shadow-xl hover:shadow-teal-900/5 transition-all duration-500 hover:-translate-y-1 group min-h-[180px]"
-                    >
-                        <ChatBubbleLeftRightIcon className="w-8 h-8 text-teal-600 group-hover:scale-110 transition-transform duration-500" />
-                        <div className="mt-4">
-                            <h3 className="font-extrabold text-teal-900 text-base mb-1">Aruna AI</h3>
-                            <p className="text-xs text-teal-700/80 font-medium leading-snug">
-                                Teman cerita setiamu.
-                            </p>
-                        </div>
-                    </Link>
-
-                    {/* 5. JURNAL (2x1) */}
+                    {/* 8. JURNAL PRIBADI (Row 3 Col 1 Desktop, Row 5 Col 1 Mobile) */}
                     <Link 
                         to="/notes" 
-                        className="col-span-2 lg:col-span-2 bg-gradient-to-br from-[#FFFDF9] to-[#F7F2EB] border border-[#EBE3D5] rounded-[2.5rem] p-6 md:p-8 flex items-center justify-between shadow-sm hover:shadow-xl hover:shadow-[#6B4F4F]/5 transition-all duration-500 hover:-translate-y-1 group relative overflow-hidden"
-                    >
-                        <div className="absolute right-0 top-0 w-24 h-full bg-amber-50/20 -skew-x-12 translate-x-8 transition-transform group-hover:translate-x-4 duration-500"></div>
-                        <div className="relative z-10 flex items-center gap-4">
-                            <BookOpenIcon className="w-8 h-8 text-amber-600 group-hover:scale-110 transition-transform duration-500" />
-                            <div>
-                                <h3 className="text-lg font-bold text-gray-800 tracking-tight mb-1">Jurnal Pribadi</h3>
-                                <p className="text-xs text-gray-500/90 font-medium">Catatan hatimu hari ini.</p>
-                            </div>
-                        </div>
-                        <div className="w-10 h-10 bg-white text-amber-700 rounded-full flex items-center justify-center transition-all duration-300 relative z-10 shadow-sm border border-amber-100/30 group-hover:scale-110">
-                            <ArrowRightIcon className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
-                        </div>
-                    </Link>
-
-                    {/* 6. CAMOUFLAGE (2x1) */}
-                    <div 
-                        onClick={onCamouflageClick}
-                        className="col-span-2 lg:col-span-2 bg-gradient-to-br from-[#2D2825] to-[#1E1917] text-white border border-[#3E3835]/50 rounded-[2.5rem] p-6 md:p-8 flex items-center justify-between cursor-pointer shadow-lg hover:shadow-xl hover:shadow-[#1E1917]/10 transition-all duration-500 hover:-translate-y-0.5 group relative overflow-hidden"
-                    >
-                        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/noise.png')] opacity-10"></div>
-                        <div className="flex items-center gap-4 pl-2 relative z-10">
-                            <CalculatorIcon className="w-8 h-8 text-orange-200 group-hover:scale-110 transition-transform duration-500" />
-                            <div>
-                                <h3 className="font-extrabold text-lg tracking-tight text-white mb-1">Mode Kamuflase</h3>
-                                <p className="text-xs text-white/50 font-medium">Sembunyikan aplikasi ini.</p>
-                            </div>
-                        </div>
-                        <button 
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                openCamouflageSettings(e);
-                            }} 
-                            className="p-3 text-white/40 hover:text-white bg-white/5 hover:bg-white/10 rounded-full border border-white/5 transition-all duration-300 relative z-10 hover:scale-105 animate-pulse"
-                        >
-                            <KeyIcon className="w-4 h-4" />
-                        </button>
-                    </div>
-
-                    {/* 7. KONTAK INSTANSI (1x1) */}
-                    <Link 
-                        to="/directory" 
-                        className="col-span-1 bg-gradient-to-br from-[#FFFBF5] to-[#FFF5E6] border border-[#F4E3D3] rounded-[2.5rem] p-6 flex flex-col justify-between shadow-sm hover:shadow-xl hover:shadow-orange-900/5 transition-all duration-500 hover:-translate-y-1 group min-h-[170px]"
-                    >
-                        <PhoneIcon className="w-8 h-8 text-orange-600 group-hover:scale-110 transition-transform duration-500" />
-                        <div>
-                            <h3 className="font-extrabold text-orange-950 text-base mb-1">Kontak</h3>
-                            <p className="text-xs text-orange-800/80 font-medium leading-snug">Panggilan darurat.</p>
-                        </div>
-                    </Link>
-
-                    {/* 8. AUDIT KEAMANAN (1x1) */}
-                    <Link 
-                        to="/audit" 
-                        className="col-span-1 bg-gradient-to-br from-[#F5F5FF] to-[#EBEBFF] border border-[#D9D9FF] rounded-[2.5rem] p-6 flex flex-col justify-between shadow-sm hover:shadow-xl hover:shadow-indigo-900/5 transition-all duration-500 hover:-translate-y-1 group min-h-[170px]"
-                    >
-                        <ShieldCheckIcon className="w-8 h-8 text-indigo-600 group-hover:scale-110 transition-transform duration-500" />
-                        <div>
-                            <h3 className="font-extrabold text-indigo-950 text-base mb-1">Audit</h3>
-                            <p className="text-xs text-indigo-800/80 font-medium leading-snug">Cek kesiapan fisik.</p>
-                        </div>
-                    </Link>
-
-                    {/* 9. PANDUAN KESELAMATAN (1x1) */}
-                    <Link 
-                        to="/information" 
-                        className="col-span-1 bg-gradient-to-br from-[#FAF5FF] to-[#F3EBFF] border border-[#ECD9FF] rounded-[2.5rem] p-6 flex flex-col justify-between shadow-sm hover:shadow-xl hover:shadow-purple-900/5 transition-all duration-500 hover:-translate-y-1 group min-h-[170px]"
-                    >
-                        <SparklesIcon className="w-8 h-8 text-purple-600 group-hover:scale-110 transition-transform duration-500" />
-                        <div>
-                            <h3 className="font-extrabold text-purple-950 text-base mb-1">Panduan</h3>
-                            <p className="text-xs text-purple-800/80 font-medium leading-snug">Panduan keselamatan.</p>
-                        </div>
-                    </Link>
-
-                    {/* 10. STATUS KEAMANAN (1x1 Widget) */}
-                    <div 
-                        onClick={() => openEmergencySettings()}
-                        className={`col-span-1 border rounded-[2.5rem] p-6 flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 cursor-pointer group min-h-[170px] ${
-                            hasEmergencyContact 
-                                ? 'bg-gradient-to-br from-[#F0FDF4] to-[#DCFCE7] border-green-200 hover:shadow-green-900/5' 
-                                : 'bg-gradient-to-br from-[#FFFBEB] to-[#FEF3C7] border-amber-200 hover:shadow-amber-900/5'
-                        }`}
+                        className="col-span-1 md:col-span-1 lg:col-span-1 bg-amber-50/80 hover:bg-amber-50 border border-amber-200/80 hover:border-amber-300 rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between shadow-xs transition-colors group min-h-[145px] sm:min-h-[155px]"
                     >
                         <div className="flex justify-between items-start">
-                            <ShieldCheckIcon className={`w-8 h-8 group-hover:scale-110 transition-transform duration-500 ${
-                                hasEmergencyContact ? 'text-green-600' : 'text-amber-600'
-                            }`} />
-                            <span className="relative flex h-2 w-2 mt-1 mr-1">
-                                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
-                                    hasEmergencyContact ? 'bg-green-400' : 'bg-amber-400'
-                                }`}></span>
-                                <span className={`relative inline-flex rounded-full h-2 w-2 ${
-                                    hasEmergencyContact ? 'bg-green-500' : 'bg-amber-500'
-                                }`}></span>
-                            </span>
+                            <div className="p-2.5 bg-amber-100 text-amber-700 rounded-xl shrink-0">
+                                <BookOpenIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+                            </div>
+                            <div className="w-6 h-6 sm:w-7 sm:h-7 bg-amber-100/80 group-hover:bg-amber-700 group-hover:text-white text-amber-700 rounded-full flex items-center justify-center transition-colors">
+                                <ArrowRightIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                            </div>
                         </div>
-                        <div>
-                            <h3 className={`font-extrabold text-base mb-1 ${
-                                hasEmergencyContact ? 'text-green-950' : 'text-amber-950'
-                            }`}>
-                                {hasEmergencyContact ? 'Siaga Aktif' : 'Belum Siaga'}
-                            </h3>
-                            <p className={`text-xs font-medium leading-snug ${
-                                hasEmergencyContact ? 'text-green-800/80' : 'text-amber-800/80'
-                            }`}>
-                                {hasEmergencyContact ? 'Kontak SOS siap.' : 'Atur kontak SOS.'}
-                            </p>
+                        <div className="mt-2">
+                            <h3 className="text-sm sm:text-base font-bold text-stone-900 leading-snug">Jurnal Pribadi</h3>
+                            <p className="text-xs text-stone-600 mt-0.5 leading-tight line-clamp-1">Catatan harian privat</p>
                         </div>
-                    </div>
+                    </Link>
 
-                    {/* 11. PENGADUAN SAKA (Full Width 4x1 Direct Link) */}
+                    {/* 9. KONTAK BANTUAN (Row 3 Col 2 Desktop, Row 5 Col 2 Mobile) */}
+                    <Link 
+                        to="/directory" 
+                        className="col-span-1 md:col-span-1 lg:col-span-1 bg-orange-50/80 hover:bg-orange-50 border border-orange-200/80 hover:border-orange-300 rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between shadow-xs transition-colors group min-h-[145px] sm:min-h-[155px]"
+                    >
+                        <div className="flex justify-between items-start">
+                            <div className="p-2.5 bg-orange-100 text-orange-600 rounded-xl shrink-0">
+                                <PhoneIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+                            </div>
+                            <div className="w-6 h-6 sm:w-7 sm:h-7 bg-orange-100/80 group-hover:bg-orange-600 group-hover:text-white text-orange-600 rounded-full flex items-center justify-center transition-colors">
+                                <ArrowRightIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                            </div>
+                        </div>
+                        <div className="mt-2">
+                            <h3 className="text-sm sm:text-base font-bold text-stone-900 leading-snug">Kontak Bantuan</h3>
+                            <p className="text-xs text-stone-600 mt-0.5 leading-tight line-clamp-1">Layanan darurat 24/7</p>
+                        </div>
+                    </Link>
+
+                    {/* 10. AUDIT KEAMANAN (Row 3 Col 3 Desktop, Row 6 Col 1 Mobile) */}
+                    <Link 
+                        to="/audit" 
+                        className="col-span-1 md:col-span-1 lg:col-span-1 bg-indigo-50/80 hover:bg-indigo-50 border border-indigo-200/80 hover:border-indigo-300 rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between shadow-xs transition-colors group min-h-[145px] sm:min-h-[155px]"
+                    >
+                        <div className="flex justify-between items-start">
+                            <div className="p-2.5 bg-indigo-100 text-indigo-700 rounded-xl shrink-0">
+                                <ShieldCheckIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+                            </div>
+                            <div className="w-6 h-6 sm:w-7 sm:h-7 bg-indigo-100/80 group-hover:bg-indigo-700 group-hover:text-white text-indigo-700 rounded-full flex items-center justify-center transition-colors">
+                                <ArrowRightIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                            </div>
+                        </div>
+                        <div className="mt-2">
+                            <h3 className="text-sm sm:text-base font-bold text-stone-900 leading-snug">Audit Keamanan</h3>
+                            <p className="text-xs text-stone-600 mt-0.5 leading-tight line-clamp-1">Cek risiko keamanan</p>
+                        </div>
+                    </Link>
+
+                    {/* 11. PANDUAN AMAN (Row 3 Col 4 Desktop, Row 6 Col 2 Mobile) */}
+                    <Link 
+                        to="/information" 
+                        className="col-span-1 md:col-span-1 lg:col-span-1 bg-purple-50/80 hover:bg-purple-50 border border-purple-200/80 hover:border-purple-300 rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between shadow-xs transition-colors group min-h-[145px] sm:min-h-[155px]"
+                    >
+                        <div className="flex justify-between items-start">
+                            <div className="p-2.5 bg-purple-100 text-purple-700 rounded-xl shrink-0">
+                                <SparklesIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+                            </div>
+                            <div className="w-6 h-6 sm:w-7 sm:h-7 bg-purple-100/80 group-hover:bg-purple-700 group-hover:text-white text-purple-700 rounded-full flex items-center justify-center transition-colors">
+                                <ArrowRightIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                            </div>
+                        </div>
+                        <div className="mt-2">
+                            <h3 className="text-sm sm:text-base font-bold text-stone-900 leading-snug">Panduan Aman</h3>
+                            <p className="text-xs text-stone-600 mt-0.5 leading-tight line-clamp-1">Tips hadapi kekerasan</p>
+                        </div>
+                    </Link>
+
+                    {/* 12. PENGADUAN LANGSUNG SAKA (Row 4 Cols 1-4 Desktop, Row 7 Cols 1-2 Mobile) */}
                     <a 
                         href="https://bit.ly/SI-SAKA" 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="col-span-2 lg:col-span-4 bg-gradient-to-br from-[#FFF5F0] to-[#FFEBE0] border border-orange-100/60 rounded-[2.5rem] p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between shadow-sm hover:shadow-xl hover:shadow-orange-950/5 transition-all duration-500 hover:-translate-y-1 group relative overflow-hidden cursor-pointer"
+                        className="col-span-2 md:col-span-2 lg:col-span-4 bg-amber-50/90 hover:bg-amber-50 border border-amber-200/90 hover:border-amber-300 rounded-2xl sm:rounded-3xl p-4 sm:p-5 md:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 shadow-xs transition-colors group cursor-pointer"
                     >
-                        <div className="absolute right-0 top-0 w-32 h-full bg-orange-50/20 -skew-x-12 translate-x-8 transition-transform group-hover:translate-x-4 duration-500"></div>
-                        <div className="relative z-10 flex items-center gap-4">
-                            <div className="p-4 bg-white text-orange-600 rounded-2xl border border-orange-100/50 shadow-inner group-hover:scale-105 transition-transform duration-500">
-                                <MegaphoneIcon className="w-7 h-7" />
+                        <div className="flex items-center gap-3 sm:gap-4">
+                            <div className="p-2.5 sm:p-3 bg-amber-100 text-amber-700 rounded-xl sm:rounded-2xl shrink-0 w-fit">
+                                <MegaphoneIcon className="w-5 h-5 sm:w-6 sm:h-6" />
                             </div>
                             <div>
-                                <span className="text-[10px] font-extrabold bg-orange-100 text-orange-700 px-2.5 py-1 rounded-lg uppercase tracking-wider">Direct Link</span>
-                                <h3 className="text-xl font-bold text-gray-800 tracking-tight mt-1.5 mb-1">Pengaduan SAKA</h3>
-                                <p className="text-xs text-gray-500/90 font-medium">Layanan aduan kekerasan seksual secara langsung dan terenkripsi.</p>
+                                <h3 className="text-sm sm:text-base md:text-lg font-bold text-stone-900 leading-snug">Pengaduan Langsung SAKA</h3>
+                                <p className="text-xs sm:text-sm text-stone-600 mt-0.5 leading-relaxed line-clamp-1 sm:line-clamp-none">Layanan aduan kekerasan seksual langsung, cepat, dan rahasia.</p>
                             </div>
                         </div>
-                        <div className="mt-4 md:mt-0 w-11 h-11 bg-white text-orange-700 rounded-full flex items-center justify-center transition-all duration-300 relative z-10 shadow-sm border border-orange-100/30 group-hover:scale-110">
-                            <ArrowRightIcon className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
+                        <div className="px-3.5 py-2 sm:px-4 sm:py-2.5 bg-[#c43c27] hover:bg-[#b53521] text-white rounded-xl font-medium text-xs sm:text-sm flex items-center justify-center gap-2 transition-colors shrink-0 w-full sm:w-fit">
+                            <span>Buka Layanan Aduan</span>
+                            <ArrowRightIcon className="w-3.5 h-3.5" />
                         </div>
                     </a>
 
@@ -392,9 +443,9 @@ export default function DashboardPage() {
 
                 {/* Footer Quote */}
                 <div className="mt-16 text-center">
-                     <p className="text-xs text-[#5D4037]/45 italic flex items-center justify-center gap-2">
-                        <HeartIcon className="w-3.5 h-3.5 text-[#c43c27] animate-pulse" /> You are safe here.
-                     </p>
+                    <p className="text-xs text-stone-400 flex items-center justify-center gap-1.5">
+                        <HeartIcon className="w-3.5 h-3.5 text-[#c43c27]" /> You are safe here.
+                    </p>
                 </div>
 
             </div>

@@ -1,4 +1,6 @@
-// components/Calculator.tsximport React, { useState } from 'react';
+// components/Calculator.tsx
+
+import React, { useState } from 'react';
 import { useCamouflage } from '../context/CamouflageContext';
 
 export default function Calculator() {

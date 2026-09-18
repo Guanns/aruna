@@ -11,8 +11,7 @@ import {
 import { 
     Cog6ToothIcon, 
     CursorArrowRaysIcon, 
-    CheckBadgeIcon,
-    PlayCircleIcon
+    CheckBadgeIcon
 } from '@heroicons/react/24/outline';
 
 import TestimonialSlider from '../components/TestimonialSlider';
@@ -117,9 +116,6 @@ export default function HomePage() {
                                     <div className="w-20 h-20 bg-gradient-to-br from-teal-500 to-emerald-500 text-white rounded-3xl flex items-center justify-center mb-8 shadow-lg shadow-teal-500/30 group-hover:scale-110 transition-transform duration-500">
                                         <HeartIcon className="w-10 h-10" />
                                     </div>
-                                    <div className="inline-block px-3 py-1 rounded-lg bg-teal-100 text-teal-700 text-[10px] font-bold uppercase tracking-wider mb-3">
-                                        Paling Disukai
-                                    </div>
                                     <h3 className="text-3xl font-bold mb-4 text-gray-900">Aruna AI</h3>
                                     <p className="text-gray-600 leading-relaxed mb-8 text-base">
                                         Ruang AI yang siap mendengar keluh kesahmu 24/7 tanpa menghakimi, kapanpun kamu butuh!
@@ -162,61 +158,82 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* 3. CARA KERJA (Glass Panel) */}
-            <section className="py-24 relative z-10">
-                <div className="max-w-6xl mx-auto px-6">
-                    {/* Panel Kaca Besar */}
-                    <div className="bg-white/60 backdrop-blur-xl rounded-[3rem] p-8 md:p-20 border border-white/50 shadow-2xl relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#c43c27]/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
-                        
-                        <div className="flex flex-col md:flex-row gap-16 items-center relative z-10">
-                            <div className="md:w-1/2">
-                                <div className="flex items-center gap-2 text-[#c43c27] font-bold tracking-widest uppercase text-xs mb-4">
-                                    <PlayCircleIcon className="w-5 h-5" />
-                                    <span>Mudah & Cepat</span>
-                                </div>
-                                <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-                                    Hanya 3 Langkah untuk <span className="font-serif italic text-[#c43c27]">Ketenanganmu</span>
-                                </h2>
-                                <p className="text-lg opacity-70 mb-10 leading-relaxed">
-                                    Dalam situasi darurat, setiap detik berharga. Aruna didesain untuk bekerja secepat kilat tanpa kerumitan.
-                                </p>
-                                <Link to="/dashboard" className="inline-block bg-[#6B4F4F] text-white px-10 py-4 rounded-full font-bold hover:bg-[#523b3b] transition-all transform hover:-translate-y-1 shadow-lg hover:shadow-xl">
-                                    Setup Sekarang
-                                </Link>
-                            </div>
-
-                            <div className="md:w-1/2 space-y-6">
-                                {[
-                                    { 
-                                        icon: Cog6ToothIcon, 
-                                        title: "Atur Kontak Darurat", 
-                                        desc: "Masukkan nomor orang terpercayamu (Ayah, Ibu, atau teman). Cukup sekali saja." 
-                                    },
-                                    { 
-                                        icon: CursorArrowRaysIcon, 
-                                        title: "Tekan Tombol", 
-                                        desc: "Buka aplikasi dan tekan tombol merah besar saat kamu mulai merasa tidak aman." 
-                                    },
-                                    { 
-                                        icon: CheckBadgeIcon, 
-                                        title: "Bantuan Datang", 
-                                        desc: "Lokasi GPS dan pesan SOS otomatis terbuka di WhatsApp, dan siap untuk dikirim." 
-                                    }
-                                ].map((step, i) => (
-                                    <div key={i} className="flex gap-6 items-center p-6 rounded-3xl bg-white/50 border border-white/60 hover:bg-white hover:shadow-lg transition-all duration-300 group">
-                                        <div className="w-16 h-16 flex-shrink-0 bg-white rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform text-[#6B4F4F] group-hover:text-[#c43c27]">
-                                            <step.icon className="w-8 h-8" />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-xl font-bold mb-1 text-gray-800">{step.title}</h3>
-                                            <p className="opacity-60 text-sm">{step.desc}</p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+            {/* 3. CARA KERJA (Linear Vertical Timeline) */}
+            <section className="py-24 px-6 relative z-10 font-poppins">
+                <div className="max-w-3xl mx-auto">
+                    
+                    {/* Header Section */}
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-stone-900 tracking-tight leading-tight">
+                            Hanya 3 Langkah untuk <span className="text-[#c43c27]">Ketenanganmu</span>
+                        </h2>
+                        <p className="text-sm sm:text-base text-stone-500 max-w-xl mx-auto font-normal leading-relaxed">
+                            Dalam situasi darurat, setiap detik berharga. Aruna bekerja cepat tanpa prosedur yang rumit.
+                        </p>
                     </div>
+
+                    {/* Timeline Container */}
+                    <div className="relative">
+                        
+                        {/* Connecting Vertical Line */}
+                        <div className="absolute left-5 sm:left-6 top-8 bottom-8 w-0.5 bg-stone-200"></div>
+
+                        {/* Steps List */}
+                        <div className="space-y-6 sm:space-y-8">
+                            {[
+                                {
+                                    step: "01",
+                                    icon: Cog6ToothIcon,
+                                    iconColor: "text-stone-700",
+                                    iconBg: "bg-stone-100",
+                                    title: "Atur Kontak Darurat",
+                                    desc: "Masukkan nomor orang terpercayamu (Ayah, Ibu, atau sahabat). Konfigurasi ini cukup dilakukan sekali saja saat awal penggunaan."
+                                },
+                                {
+                                    step: "02",
+                                    icon: CursorArrowRaysIcon,
+                                    iconColor: "text-[#c43c27]",
+                                    iconBg: "bg-red-50",
+                                    title: "Tekan Tombol Darurat",
+                                    desc: "Buka aplikasi dan tekan tombol merah besar saat kamu mulai merasa tidak aman atau membutuhkan pertolongan segera."
+                                },
+                                {
+                                    step: "03",
+                                    icon: CheckBadgeIcon,
+                                    iconColor: "text-emerald-700",
+                                    iconBg: "bg-emerald-50",
+                                    title: "Bantuan Datang",
+                                    desc: "Lokasi GPS terkini dan pesan SOS otomatis tersusun dan siap dikirimkan langsung ke kontak darurat melalui WhatsApp."
+                                }
+                            ].map((item, idx) => (
+                                <div key={idx} className="relative flex items-start gap-4 sm:gap-6 group">
+                                    
+                                    {/* Number Node Marker */}
+                                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white border-2 border-stone-300 group-hover:border-[#c43c27] text-stone-700 group-hover:text-[#c43c27] font-bold text-xs sm:text-sm flex items-center justify-center shrink-0 z-10 transition-colors shadow-xs">
+                                        {item.step}
+                                    </div>
+
+                                    {/* Step Card */}
+                                    <div className="flex-1 bg-white border border-stone-200/80 rounded-2xl p-5 sm:p-6 shadow-xs hover:border-stone-300 hover:shadow-sm transition-all">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <div className={`p-2 rounded-xl ${item.iconBg} ${item.iconColor} shrink-0`}>
+                                                <item.icon className="w-5 h-5" />
+                                            </div>
+                                            <h3 className="text-base sm:text-lg font-bold text-stone-900 tracking-tight">
+                                                {item.title}
+                                            </h3>
+                                        </div>
+                                        <p className="text-xs sm:text-sm text-stone-600 leading-relaxed pl-0 sm:pl-11">
+                                            {item.desc}
+                                        </p>
+                                    </div>
+
+                                </div>
+                            ))}
+                        </div>
+
+                    </div>
+
                 </div>
             </section>
 
@@ -230,27 +247,31 @@ export default function HomePage() {
                 <FaqAccordion />
             </section>
 
-            {/* 6. FINAL CTA (Luxury Dark Card) */}
-            <section className="py-32 px-6 relative z-10">
-                <div className="max-w-5xl mx-auto bg-[#6B4F4F] rounded-[4rem] p-12 md:p-24 text-center text-white relative overflow-hidden shadow-2xl shadow-[#6B4F4F]/30 ring-8 ring-[#6B4F4F]/5">
-                    {/* Animated Background Effect */}
-                    <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-                    <div className="absolute top-0 left-0 w-96 h-96 bg-white opacity-5 rounded-full -ml-20 -mt-20 blur-[80px]"></div>
-                    <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#c43c27] opacity-20 rounded-full -mr-20 -mb-20 blur-[80px]"></div>
+            {/* 6. FINAL CTA (Aurora Pastel Fresh Floating Bento) */}
+            <section className="py-20 md:py-28 px-4 sm:px-6 relative z-10 font-poppins">
+                <div className="max-w-5xl mx-auto rounded-[2.5rem] p-10 sm:p-14 md:p-20 text-center relative overflow-hidden bg-gradient-to-br from-rose-100/90 via-purple-100/70 to-amber-100/80 border border-white/80 shadow-[0_20px_50px_rgba(225,29,72,0.07)]">
+                    {/* Soft ambient aurora glows */}
+                    <div className="absolute -top-24 -left-24 w-80 h-80 bg-rose-300/35 rounded-full blur-3xl pointer-events-none" />
+                    <div className="absolute top-1/2 -right-24 w-80 h-80 bg-purple-300/30 rounded-full blur-3xl pointer-events-none" />
+                    <div className="absolute -bottom-24 left-1/3 w-80 h-80 bg-amber-200/40 rounded-full blur-3xl pointer-events-none" />
                     
-                    <div className="relative z-10">
-                        <h2 className="text-4xl md:text-6xl font-bold mb-8 leading-tight tracking-tight">
-                            Kamu tidak sendirian.<br/>Kami ada di sini.
+                    <div className="relative z-10 max-w-3xl mx-auto">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-stone-900 tracking-tight leading-[1.2] mb-6">
+                            Kamu tidak sendirian.<br />
+                            <span className="bg-gradient-to-r from-rose-600 via-pink-600 to-amber-600 bg-clip-text text-transparent">
+                                Kami ada di sini.
+                            </span>
                         </h2>
-                        <p className="text-lg md:text-xl opacity-80 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
-                            Bergabunglah dengan ribuan perempuan lainnya yang memilih untuk merasa lebih aman dan berdaya bersama Aruna.
+                        <p className="text-base sm:text-lg md:text-xl text-stone-600 font-normal leading-relaxed mb-10 max-w-2xl mx-auto">
+                            Bergabunglah dengan ribuan perempuan lainnya yang memilih untuk merasa lebih aman, terlindungi, dan berdaya bersama Aruna.
                         </p>
-                        <div className="flex flex-col sm:flex-row gap-5 justify-center">
+                        <div className="flex justify-center">
                             <Link 
                                 to="/dashboard" 
-                                className="inline-block bg-white text-[#6B4F4F] font-bold py-5 px-12 text-lg rounded-full hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] transition-all transform hover:-translate-y-1"
+                                className="group inline-flex items-center justify-center gap-3 bg-stone-900 hover:bg-stone-800 text-white font-semibold text-base sm:text-lg py-4 px-9 rounded-full shadow-lg shadow-stone-900/15 hover:shadow-stone-900/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
                             >
-                                Mulai Sekarang (Gratis)
+                                <span>Mulai Sekarang (Gratis)</span>
+                                <ArrowLongRightIcon className="w-5 h-5 text-white/80 group-hover:translate-x-1.5 transition-transform duration-200" />
                             </Link>
                         </div>
                     </div>
