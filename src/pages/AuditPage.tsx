@@ -1,12 +1,6 @@
-// app/audit/page.tsx
-// VERSI FINAL: Digital Fortress (Fixed Spacing & Premium UI)import { Link } from 'react-router-dom';
-import { 
-    ArrowLeftIcon, 
-    ShieldCheckIcon, 
-    ChevronDownIcon, 
-    CheckCircleIcon 
-} from '@heroicons/react/24/solid';
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowLeft, CheckCircle2, ChevronDown, ShieldCheck } from 'lucide-react';
 import Swal from 'sweetalert2';
 
 // --- DATA PLATFORM ---
@@ -89,74 +83,65 @@ export default function AuditPrivasiPage() {
     }, [totalProgress]);
 
     return (
-        <div className="w-full min-h-screen bg-[#FFFBF5] text-[#6B4F4F] relative overflow-hidden font-sans pb-20">
-            {/* Floating Back Button */}
-            <Link 
-                to="/dashboard" 
-                className="fixed top-6 left-6 z-50 w-10 h-10 bg-white/80 hover:bg-white backdrop-blur-md rounded-xl flex items-center justify-center shadow-md border border-stone-200/50 text-[#6B4F4F] transition-all hover:scale-105 active:scale-95 group"
-                title="Kembali ke Dashboard"
-            >
-                <ArrowLeftIcon className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
-            </Link>
-
+        <div className="w-full min-h-screen bg-[#FFFBF5] text-[#6B4F4F] relative overflow-x-hidden font-sans pb-20">
             {/* --- BACKGROUND FX --- */}
             <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-                 <div className="absolute top-[-10%] left-[20%] w-[600px] h-[600px] bg-indigo-200/20 rounded-full blur-[120px] animate-pulse"></div>
+                 <div className="absolute top-[-10%] left-[20%] w-[600px] h-[600px] bg-indigo-200/20 rounded-full blur-[120px]"></div>
                  <div className="absolute bottom-[10%] right-[-10%] w-[500px] h-[500px] bg-blue-200/20 rounded-full blur-[100px]"></div>
-                 <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/noise.png')]"></div>
             </div>
 
-            <div className="max-w-3xl mx-auto px-6 pt-32 relative z-10">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-24 sm:pt-28 md:pt-32 relative z-10">
                 
                 {/* --- HEADER --- */}
-                <header className="text-center mb-16">
-                    <Link to="/dashboard" className="inline-flex items-center gap-2 text-[#6B4F4F]/60 hover:text-indigo-600 mb-10 transition-colors py-2 px-4 rounded-full hover:bg-white/50 border border-transparent hover:border-indigo-100">
-                        <ArrowLeftIcon className="w-4 h-4"/> Kembali ke Dashboard
-                    </Link>
-                    
-                    <div className="relative inline-block mb-6 group">
-                        <div className="absolute -inset-4 bg-indigo-100 rounded-full blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
-                        <div className="relative w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto shadow-lg border border-indigo-50/50">
-                             <ShieldCheckIcon className="w-12 h-12 text-indigo-600" />
+                <header className="relative text-center mb-8 sm:mb-12">
+                    <div className="absolute left-0 top-0 z-10">
+                        <Link 
+                            to="/dashboard" 
+                            className="p-2 -ml-2 rounded-full hover:bg-stone-200/60 text-[#6B4F4F] transition-colors inline-flex items-center justify-center shrink-0"
+                            title="Kembali ke Dashboard"
+                        >
+                            <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                        </Link>
+                    </div>
+
+                    <div className="relative inline-block mb-4 sm:mb-6">
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full flex items-center justify-center mx-auto shadow-sm border border-indigo-100">
+                             <ShieldCheck className="w-8 h-8 sm:w-10 sm:h-10 text-indigo-600" />
                         </div>
                     </div>
                     
-                    <h1 className="text-4xl md:text-6xl font-bold mb-4 text-[#6B4F4F] tracking-tight">
-                        Benteng <span className="font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">Digital</span>
+                    <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-[#6B4F4F] tracking-tight mb-2 sm:mb-3">
+                        Benteng <span className="font-serif italic text-indigo-600">Digital</span>
                     </h1>
-                    <p className="text-lg opacity-70 max-w-xl mx-auto font-light leading-relaxed">
+                    <p className="text-xs sm:text-base opacity-75 max-w-xl mx-auto font-light leading-relaxed px-2">
                         Perkuat pertahanan akunmu satu per satu. Mencegah lebih baik daripada mengobati.
                     </p>
                 </header>
 
                 {/* --- SCORE CARD --- */}
-                <div className="bg-white/60 backdrop-blur-xl rounded-[2.5rem] p-1 shadow-xl border border-white/60 mb-12 relative overflow-hidden ring-1 ring-indigo-50">
-                    <div className="bg-white/80 rounded-[2.2rem] p-8 relative overflow-hidden">
-                        <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
-                            <div className="text-center md:text-left">
-                                <h3 className="text-xl font-bold text-gray-800">Status Keamanan</h3>
-                                <p className="text-sm text-gray-500 mt-1">Selesaikan semua misi di bawah.</p>
+                <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-sm border border-stone-200 mb-8 sm:mb-10 relative">
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
+                        <div className="text-center sm:text-left">
+                            <h3 className="text-base sm:text-lg md:text-xl font-bold text-stone-900">Status Keamanan</h3>
+                            <p className="text-xs sm:text-sm text-stone-500 mt-0.5 sm:mt-1">Selesaikan semua langkah panduan di bawah.</p>
+                        </div>
+                        
+                        <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto justify-center sm:justify-end">
+                            <div className="relative flex-1 sm:w-36 md:w-48 h-3.5 sm:h-4 bg-stone-100 rounded-full overflow-hidden border border-stone-200">
+                                <div 
+                                    className="h-full bg-indigo-600 transition-all duration-500 ease-out"
+                                    style={{ width: `${totalProgress}%` }}
+                                />
                             </div>
-                            
-                            <div className="flex items-center gap-6">
-                                <div className="relative w-32 h-4 bg-gray-100 rounded-full overflow-hidden shadow-inner">
-                                    <div 
-                                        className="h-full bg-gradient-to-r from-indigo-500 to-blue-500 transition-all duration-1000 ease-out relative"
-                                        style={{ width: `${totalProgress}%` }}
-                                    >
-                                        <div className="absolute top-0 left-0 w-full h-full bg-white/20 animate-shimmer"></div>
-                                    </div>
-                                </div>
-                                <div className="text-3xl font-black text-indigo-600 w-16 text-right font-mono">
-                                    {totalProgress}%
-                                </div>
+                            <div className="text-xl sm:text-2xl font-black text-indigo-700 w-12 sm:w-14 text-right font-mono shrink-0">
+                                {totalProgress}%
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/* --- PLATFORM CARDS --- */}
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-5">
                     {platforms.map((platform) => {
                         const isOpen = openPlatform === platform.name;
                         const platTotal = platform.steps.length;
@@ -166,39 +151,39 @@ export default function AuditPrivasiPage() {
                         return (
                             <div 
                                 key={platform.name} 
-                                className={`group rounded-[2rem] transition-all duration-500 overflow-hidden border
-                                    ${isOpen 
-                                        ? 'bg-white shadow-2xl border-white ring-1 ring-indigo-50 scale-[1.02]' 
-                                        : 'bg-white/40 backdrop-blur-sm hover:bg-white/80 border-white/50 hover:shadow-lg'}
-                                `}
+                                className={`rounded-2xl sm:rounded-3xl transition-all duration-300 overflow-hidden border ${
+                                    isOpen 
+                                        ? 'bg-white shadow-md border-indigo-200 ring-1 ring-indigo-100' 
+                                        : 'bg-white/80 hover:bg-white border-stone-200 shadow-xs'
+                                }`}
                             >
                                 <button
                                     onClick={() => setOpenPlatform(isOpen ? null : platform.name)}
-                                    className="w-full p-6 flex items-center justify-between text-left focus:outline-none"
+                                    className="w-full p-4 sm:p-5 md:p-6 flex items-center justify-between text-left focus:outline-none"
                                 >
-                                    <div className="flex items-center gap-5">
-                                        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-inner border border-white/50 transition-colors ${platform.bg}`}>
+                                    <div className="flex items-center gap-3 sm:gap-5 min-w-0">
+                                        <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center text-2xl sm:text-3xl shrink-0 border border-stone-200/60 ${platform.bg}`}>
                                             {platform.icon}
                                         </div>
-                                        <div>
-                                            <h2 className={`text-xl font-bold text-gray-800 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r ${platform.color} transition-all`}>
+                                        <div className="min-w-0">
+                                            <h2 className="text-base sm:text-lg md:text-xl font-bold text-stone-900 truncate">
                                                 {platform.name}
                                             </h2>
-                                            <div className="flex items-center gap-2 mt-1">
-                                                <span className="text-xs font-bold bg-white px-2 py-0.5 rounded-md border border-gray-100 text-gray-500 shadow-sm">
+                                            <div className="flex items-center gap-1.5 sm:gap-2 mt-0.5 sm:mt-1 flex-wrap">
+                                                <span className="text-[10px] sm:text-xs font-bold bg-stone-100 px-2 py-0.5 rounded-md border border-stone-200 text-stone-600">
                                                     {platDone}/{platTotal}
                                                 </span>
                                                 {isComplete && (
-                                                    <span className="flex items-center gap-1 text-[10px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-md border border-green-100">
-                                                        <CheckCircleIcon className="w-3 h-3"/> SELESAI
+                                                    <span className="flex items-center gap-1 text-[10px] sm:text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                                                        <CheckCircle2 className="w-3 h-3"/> SELESAI
                                                     </span>
                                                 )}
                                             </div>
                                         </div>
                                     </div>
                                     
-                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${isOpen ? 'bg-indigo-50 text-indigo-600 rotate-180' : 'bg-white shadow-sm text-gray-400'}`}>
-                                        <ChevronDownIcon className="w-5 h-5"/>
+                                    <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center shrink-0 ml-2 transition-transform duration-300 ${isOpen ? 'bg-indigo-50 text-indigo-700 rotate-180' : 'bg-stone-100 text-stone-500'}`}>
+                                        <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5"/>
                                     </div>
                                 </button>
 
@@ -206,39 +191,39 @@ export default function AuditPrivasiPage() {
                                     className={`grid transition-[grid-template-rows] duration-500 ease-in-out ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
                                 >
                                     <div className="overflow-hidden">
-                                        <div className="px-6 pb-8 pt-2 space-y-3">
-                                            <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-200 to-transparent mb-6"></div>
+                                        <div className="px-4 sm:px-6 pb-5 sm:pb-6 pt-1 space-y-2.5 sm:space-y-3">
+                                            <div className="h-px w-full bg-stone-200 mb-3 sm:mb-4"></div>
                                             
                                             {platform.steps.map((step) => (
                                                 <label 
                                                     key={step.id} 
-                                                    className={`flex items-start gap-4 p-4 rounded-2xl border cursor-pointer transition-all duration-300 group/item
-                                                        ${checkedItems[step.id] 
-                                                            ? 'bg-green-50/30 border-green-100' 
-                                                            : 'bg-white border-gray-100 hover:border-indigo-200 hover:shadow-md'}
-                                                    `}
+                                                    className={`flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl sm:rounded-2xl border cursor-pointer transition-colors ${
+                                                        checkedItems[step.id] 
+                                                            ? 'bg-emerald-50/60 border-emerald-200' 
+                                                            : 'bg-stone-50/60 hover:bg-stone-50 border-stone-200'
+                                                    }`}
                                                 >
-                                                    <div className="relative flex items-center pt-1">
+                                                    <div className="relative flex items-center pt-0.5">
                                                         <input
                                                             type="checkbox"
                                                             className="peer sr-only"
                                                             checked={!!checkedItems[step.id]}
                                                             onChange={() => handleCheck(step.id)}
                                                         />
-                                                        <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all shadow-sm
-                                                            ${checkedItems[step.id] 
-                                                                ? 'bg-green-500 border-green-500 scale-110' 
-                                                                : 'border-gray-300 bg-white group-hover/item:border-indigo-300'}
-                                                        `}>
-                                                            <CheckCircleIcon className={`w-4 h-4 text-white transition-transform duration-300 ${checkedItems[step.id] ? 'scale-100' : 'scale-0'}`} />
+                                                        <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-md sm:rounded-lg border-2 flex items-center justify-center transition-all ${
+                                                            checkedItems[step.id] 
+                                                                ? 'bg-emerald-600 border-emerald-600 scale-105' 
+                                                                : 'border-stone-300 bg-white'
+                                                        }`}>
+                                                            <CheckCircle2 className={`w-3.5 h-3.5 sm:w-4 sm:h-4 text-white transition-transform duration-200 ${checkedItems[step.id] ? 'scale-100' : 'scale-0'}`} />
                                                         </div>
                                                     </div>
                                                     
-                                                    <div className="flex-1">
-                                                        <h4 className={`font-bold text-sm transition-colors ${checkedItems[step.id] ? 'text-green-800 line-through opacity-60' : 'text-gray-800'}`}>
+                                                    <div className="flex-1 min-w-0">
+                                                        <h4 className={`font-bold text-xs sm:text-sm leading-snug transition-colors ${checkedItems[step.id] ? 'text-emerald-900 line-through opacity-60' : 'text-stone-900'}`}>
                                                             {step.text}
                                                         </h4>
-                                                        <p className={`text-xs mt-1 leading-relaxed transition-colors ${checkedItems[step.id] ? 'text-green-700/50' : 'text-gray-500'}`}>
+                                                        <p className={`text-[11px] sm:text-xs mt-0.5 sm:mt-1 leading-relaxed transition-colors ${checkedItems[step.id] ? 'text-emerald-800/60' : 'text-stone-500'}`}>
                                                             {step.details}
                                                         </p>
                                                     </div>

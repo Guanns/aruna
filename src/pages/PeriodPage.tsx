@@ -1,12 +1,7 @@
 // app/period/page.tsx
 // VERSI FINAL FIX: Type Safe & Escaped Charactersimport React, { useState, useEffect } from 'react';
+import { ArrowLeft, ArrowRight, CalendarDays, Settings } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { 
-    ArrowLeftIcon, 
-    Cog6ToothIcon, 
-    CalendarDaysIcon, 
-    ArrowRightIcon
-} from '@heroicons/react/24/solid';
 import { PeriodData, getPeriodData, savePeriodData, calculateCycle } from '../features/period';
 import Swal from 'sweetalert2';
 
@@ -78,6 +73,18 @@ export default function PeriodPage() {
     // --- SETUP WIZARD UI ---
     const renderSetup = () => (
         <div className="flex flex-col items-center justify-center min-h-[70vh] animate-fade-in-up">
+            <div className="w-full max-w-md flex items-center justify-between mb-6">
+                <Link 
+                    to="/dashboard" 
+                    className="p-2 rounded-full hover:bg-stone-200/60 text-[#6B4F4F] transition-colors shrink-0"
+                    title="Kembali ke Dashboard"
+                >
+                    <ArrowLeft className="w-6 h-6" />
+                </Link>
+                <h1 className="text-lg font-bold text-[#6B4F4F] tracking-tight flex-1 text-center">Atur Siklus</h1>
+                <div className="w-10"></div>
+            </div>
+
             {/* Progress Dots */}
             <div className="flex gap-2.5 mb-8">
                 {[1, 2, 3].map(i => (
@@ -167,7 +174,7 @@ export default function PeriodPage() {
                         className="flex items-center gap-2 bg-[#6B4F4F] text-white px-8 py-3.5 rounded-full font-bold shadow-md hover:bg-[#5a4242] hover:shadow-lg hover:scale-102 active:scale-95 transition-all"
                     >
                         <span>{step === 3 ? "Selesai" : "Lanjut"}</span> 
-                        <ArrowRightIcon className="w-4 h-4"/>
+                        <ArrowRight className="w-4 h-4"/>
                     </button>
                 </div>
             </div>
@@ -177,13 +184,21 @@ export default function PeriodPage() {
     // --- DASHBOARD UI ---
     const renderDashboard = () => (
         <div className="animate-fade-in-up max-w-md mx-auto w-full">
-            <header className="flex items-center justify-between mb-10">
-                <Link to="/dashboard" className="p-3 bg-white/70 rounded-2xl hover:bg-white hover:scale-105 active:scale-95 transition-all text-[#6B4F4F] shadow-sm border border-stone-100">
-                    <ArrowLeftIcon className="w-5 h-5" />
+            <header className="flex items-center justify-between mb-8">
+                <Link 
+                    to="/dashboard" 
+                    className="p-2 rounded-full hover:bg-stone-200/60 text-[#6B4F4F] transition-colors shrink-0"
+                    title="Kembali ke Dashboard"
+                >
+                    <ArrowLeft className="w-6 h-6" />
                 </Link>
-                <h1 className="text-lg font-bold text-[#6B4F4F] tracking-wide">Siklus Aruna</h1>
-                <button onClick={resetSetup} className="p-3 bg-white/70 rounded-2xl hover:bg-white hover:scale-105 active:scale-95 transition-all text-[#6B4F4F] shadow-sm border border-stone-100" title="Edit Siklus">
-                    <Cog6ToothIcon className="w-5 h-5" />
+                <h1 className="text-xl font-bold text-[#6B4F4F] tracking-tight flex-1 text-center">Siklus Aruna</h1>
+                <button 
+                    onClick={resetSetup} 
+                    className="p-2 rounded-full hover:bg-stone-200/60 text-[#6B4F4F] transition-colors shrink-0" 
+                    title="Edit Siklus"
+                >
+                    <Settings className="w-6 h-6" />
                 </button>
             </header>
 
@@ -203,7 +218,7 @@ export default function PeriodPage() {
                         </div>
                         
                         <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md px-4.5 py-2 rounded-full text-xs font-bold border border-white/15 shadow-sm">
-                            <CalendarDaysIcon className="w-4 h-4 text-rose-200" /> 
+                            <CalendarDays className="w-4 h-4 text-rose-200" /> 
                             <span>{info.nextDate}</span>
                         </div>
                     </div>
@@ -255,15 +270,6 @@ export default function PeriodPage() {
 
     return (
         <div className="w-full min-h-screen bg-[#FFFBF5] text-[#6B4F4F] relative overflow-hidden font-sans pb-20">
-            {/* Floating Back Button */}
-            <Link 
-                to="/dashboard" 
-                className="fixed top-6 left-6 z-50 w-10 h-10 bg-white/80 hover:bg-white backdrop-blur-md rounded-xl flex items-center justify-center shadow-md border border-stone-200/50 text-[#6B4F4F] transition-all hover:scale-105 active:scale-95 group"
-                title="Kembali ke Dashboard"
-            >
-                <ArrowLeftIcon className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
-            </Link>
-
             {/* Background FX */}
             <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
                  <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-rose-100/35 rounded-full blur-[130px] animate-pulse" style={{ animationDuration: '8s' }}></div>
@@ -271,17 +277,7 @@ export default function PeriodPage() {
                  <div className="absolute inset-0 opacity-[0.015] bg-[url('https://www.transparenttextures.com/patterns/noise.png')]"></div>
             </div>
 
-            <div className="max-w-2xl mx-auto px-6 pt-28 relative z-10">
-                {/* Back Button */}
-                <div className="mb-6">
-                    <Link 
-                        to="/dashboard" 
-                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-stone-200 text-stone-700 hover:text-stone-900 hover:border-stone-300 transition-colors text-sm font-semibold shadow-xs"
-                    >
-                        <ArrowLeftIcon className="w-4 h-4" />
-                        <span>Kembali ke Dashboard</span>
-                    </Link>
-                </div>
+            <div className="max-w-2xl mx-auto px-6 pt-24 md:pt-28 relative z-10">
                 {mode === 'LOADING' ? <div className="text-center mt-20 text-sm font-bold text-stone-400">Loading...</div> :
                  mode === 'SETUP' ? renderSetup() : renderDashboard()
                 }

@@ -1,3 +1,4 @@
+import { Quote } from 'lucide-react';
 import React from 'react';
 
 type Testimonial = {
@@ -88,9 +89,7 @@ export default function TestimonialSlider() {
                             <div>
                                 {/* Double quote accent */}
                                 <div className="mb-3 text-stone-300">
-                                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-                                    </svg>
+                                    <Quote className="w-5 h-5 fill-stone-300 text-stone-300" />
                                 </div>
                                 <p className="text-stone-700 text-sm leading-relaxed font-normal">
                                     &quot;{item.quote}&quot;

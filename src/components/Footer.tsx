@@ -2,11 +2,8 @@
 // VERSI FINAL: Modern, Clean, Bontang-Based & Instagram Only
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { HeartIcon, SparklesIcon } from '@heroicons/react/24/solid';
-import { MapPinIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
+import { ExternalLink, MapPin, Sparkles } from 'lucide-react';
 
-// Component Ikon Instagram
 const InstagramIcon = ({ className }: { className?: string }) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -14,6 +11,8 @@ const InstagramIcon = ({ className }: { className?: string }) => (
         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
     </svg>
 );
+import { Link } from 'react-router-dom';
+
 
 export default function Footer() {
     // Data Navigasi (Update: Kontak -> Games)
@@ -74,7 +73,7 @@ export default function Footer() {
                                     <span className="text-[10px] font-bold text-[#6B4F4F]/50 uppercase tracking-wider">Follow Instagram Kami</span>
                                     <span className="text-sm font-bold">@shinewitharuna</span>
                                 </div>
-                                <ArrowTopRightOnSquareIcon className="w-4 h-4 ml-2 opacity-30 group-hover:opacity-100 transition-opacity" />
+                                <ExternalLink className="w-4 h-4 ml-2 opacity-30 group-hover:opacity-100 transition-opacity" />
                             </a>
                         </div>
                     </div>
@@ -82,7 +81,7 @@ export default function Footer() {
                     {/* KOLOM 2: NAVIGASI (Lebar: 3) */}
                     <div className="md:col-span-3 md:col-start-7">
                         <h4 className="font-bold text-base text-[#6B4F4F] mb-6 flex items-center gap-2">
-                            <SparklesIcon className="w-4 h-4 text-[#c43c27]" />
+                            <Sparkles className="w-4 h-4 text-[#c43c27]" />
                             Eksplorasi
                         </h4>
                         <ul className="space-y-3">
@@ -102,13 +101,13 @@ export default function Footer() {
                     {/* KOLOM 3: LOKASI (Lebar: 4) */}
                     <div className="md:col-span-3">
                         <h4 className="font-bold text-base text-[#6B4F4F] mb-6 flex items-center gap-2">
-                            <MapPinIcon className="w-4 h-4 text-[#c43c27]" />
+                            <MapPin className="w-4 h-4 text-[#c43c27]" />
                             Lokasi Kami
                         </h4>
                         
                         <div className="bg-white/60 p-5 rounded-3xl border border-[#6B4F4F]/10 flex items-start gap-4 hover:bg-white hover:shadow-md transition-all duration-300 cursor-default">
                             <div className="w-10 h-10 rounded-full bg-rose-50 flex items-center justify-center shrink-0 text-[#c43c27]">
-                                <MapPinIcon className="w-5 h-5" />
+                                <MapPin className="w-5 h-5" />
                             </div>
                             <div>
                                 <p className="font-bold text-[#6B4F4F] text-sm">Bontang</p>

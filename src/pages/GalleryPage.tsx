@@ -1,13 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { ArrowLeft, ChevronLeft, ChevronRight, Sparkles, VolumeX, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import {
-    ArrowLeftIcon,
-    ChevronLeftIcon,
-    ChevronRightIcon,
-    XMarkIcon,
-    PhotoIcon,
-    SparklesIcon
-} from '@heroicons/react/24/solid';
 
 // List 15 Dokumentasi Foto
 const GALLERY_IMAGES = [
@@ -144,15 +137,6 @@ export default function GalleryPage() {
     return (
         <div className="w-full min-h-screen bg-[#FFFBF5] text-[#6B4F4F] relative overflow-hidden font-sans pb-24 select-none">
 
-            {/* Floating Back Button */}
-            <Link
-                to="/"
-                className="fixed top-6 left-6 z-50 w-11 h-11 bg-white/80 hover:bg-white backdrop-blur-md rounded-xl flex items-center justify-center shadow-md border border-stone-200/50 text-[#6B4F4F] transition-all hover:scale-105 active:scale-95 group"
-                title="Kembali ke Beranda"
-            >
-                <ArrowLeftIcon className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
-            </Link>
-
             {/* --- BACKGROUND FX --- */}
             <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
                 <div className="absolute top-[-10%] right-[10%] w-[600px] h-[600px] bg-rose-200/10 rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '8s' }}></div>
@@ -160,22 +144,21 @@ export default function GalleryPage() {
                 <div className="absolute inset-0 opacity-[0.015] bg-[url('https://www.transparenttextures.com/patterns/noise.png')]"></div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-6 pt-32 relative z-10">
-
-                {/* Back Button */}
-                <div className="mb-8">
-                    <Link 
-                        to="/" 
-                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-stone-200 text-stone-700 hover:text-stone-900 hover:border-stone-300 transition-colors text-sm font-semibold shadow-xs"
-                    >
-                        <ArrowLeftIcon className="w-4 h-4" />
-                        <span>Kembali ke Beranda</span>
-                    </Link>
-                </div>
+            <div className="max-w-7xl mx-auto px-6 pt-28 md:pt-32 relative z-10">
 
                 {/* --- HEADER --- */}
-                <header className="text-center mb-16 max-w-2xl mx-auto">
-                    <h1 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight leading-tight">
+                <header className="relative text-center mb-16 max-w-2xl mx-auto">
+                    <div className="absolute left-0 top-0 sm:top-1 z-10">
+                        <Link 
+                            to="/" 
+                            className="p-2 -ml-2 rounded-full hover:bg-stone-200/60 text-[#6B4F4F] transition-colors inline-flex items-center justify-center shrink-0"
+                            title="Kembali ke Beranda"
+                        >
+                            <ArrowLeft className="w-6 h-6" />
+                        </Link>
+                    </div>
+
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight text-[#6B4F4F] px-10 sm:px-14 mb-4">
                         Galeri <span className="font-serif italic text-[#c43c27]">Aruna</span>
                     </h1>
                     <p className="text-sm md:text-base opacity-70 leading-relaxed font-light">
@@ -211,14 +194,14 @@ export default function GalleryPage() {
                             className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white/30 hover:bg-white/90 text-white hover:text-[#6B4F4F] rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 shadow-md focus:outline-none"
                             title="Sebelumnya"
                         >
-                            <ChevronLeftIcon className="w-6 h-6" />
+                            <ChevronLeft className="w-6 h-6" />
                         </button>
                         <button
                             onClick={nextSlide}
                             className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white/30 hover:bg-white/90 text-white hover:text-[#6B4F4F] rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 shadow-md focus:outline-none"
                             title="Berikutnya"
                         >
-                            <ChevronRightIcon className="w-6 h-6" />
+                            <ChevronRight className="w-6 h-6" />
                         </button>
 
                         {/* Dot Indicators */}
@@ -260,7 +243,7 @@ export default function GalleryPage() {
                                     {/* Hover Overlay */}
                                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                         <div className="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-md">
-                                            <SparklesIcon className="w-5 h-5 text-[#c43c27]" />
+                                            <Sparkles className="w-5 h-5 text-[#c43c27]" />
                                         </div>
                                     </div>
                                 </div>
@@ -286,7 +269,7 @@ export default function GalleryPage() {
                         className="absolute top-6 right-6 p-2 text-white/70 hover:text-white transition-colors focus:outline-none z-[110]"
                         title="Tutup"
                     >
-                        <XMarkIcon className="w-8 h-8" />
+                        <X className="w-8 h-8" />
                     </button>
 
                     {/* Left Arrow */}
@@ -295,7 +278,7 @@ export default function GalleryPage() {
                         className="absolute left-4 md:left-8 p-3 text-white/70 hover:text-white bg-white/5 hover:bg-white/10 rounded-full transition-colors focus:outline-none z-[110]"
                         title="Sebelumnya"
                     >
-                        <ChevronLeftIcon className="w-8 h-8" />
+                        <ChevronLeft className="w-8 h-8" />
                     </button>
 
                     {/* High-Res Image Container */}
@@ -320,7 +303,7 @@ export default function GalleryPage() {
                         className="absolute right-4 md:right-8 p-3 text-white/70 hover:text-white bg-white/5 hover:bg-white/10 rounded-full transition-colors focus:outline-none z-[110]"
                         title="Berikutnya"
                     >
-                        <ChevronRightIcon className="w-8 h-8" />
+                        <ChevronRight className="w-8 h-8" />
                     </button>
                 </div>
             )}
@@ -340,9 +323,7 @@ export default function GalleryPage() {
                             <span className="w-[3px] bg-[#c43c27] rounded-full animate-eq-bar-4 h-3.5"></span>
                         </div>
                     ) : (
-                        <svg className="w-5 h-5 fill-current text-stone-500" viewBox="0 0 24 24">
-                            <path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.5c-1.105 0-2 .895-2 2v5c0 1.105.895 2 2 2h2.44l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06zM16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
-                        </svg>
+                        <VolumeX className="w-5 h-5 text-stone-500" />
                     )}
                 </button>
             )}

@@ -1,6 +1,6 @@
 // src/components/SosButtonModal.tsx
 import React, { useState, useEffect, useRef } from 'react';
-import { XMarkIcon, BellAlertIcon, SpeakerWaveIcon, SpeakerXMarkIcon, InformationCircleIcon } from '@heroicons/react/24/solid';
+import { Info, Volume2, VolumeX, X } from 'lucide-react';
 import Swal from 'sweetalert2';
 
 type SosButtonModalProps = {
@@ -160,7 +160,7 @@ export default function SosButtonModal({ isOpen, onClose }: SosButtonModalProps)
                     className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 text-stone-400 hover:text-stone-700 bg-stone-100 hover:bg-stone-200 rounded-full transition-colors z-10"
                     title="Tutup Modal"
                 >
-                    <XMarkIcon className="w-5 h-5" />
+                    <X className="w-5 h-5" />
                 </button>
  
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center mt-2">
@@ -178,7 +178,7 @@ export default function SosButtonModal({ isOpen, onClose }: SosButtonModalProps)
  
                         {/* Instruction alert box */}
                         <div className="bg-red-50/70 border border-red-200/60 rounded-2xl p-3.5 text-left flex items-start gap-2.5">
-                            <InformationCircleIcon className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+                            <Info className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
                             <div className="text-xs text-red-800 leading-relaxed font-normal">
                                 <span className="font-semibold block text-red-950 mb-0.5">Informasi Alarm:</span>
                                 Fitur ini membunyikan sirine frekuensi tinggi melalui peramban. Pastikan volume speaker menyala.
@@ -223,13 +223,13 @@ export default function SosButtonModal({ isOpen, onClose }: SosButtonModalProps)
                             >
                                 {isSosActive ? (
                                     <>
-                                        <SpeakerWaveIcon className="w-8 h-8 mb-1 text-white" />
+                                        <Volume2 className="w-8 h-8 mb-1 text-white" />
                                         <span className="text-lg tracking-wider font-bold">SOS ON</span>
                                         <span className="text-[9px] uppercase font-medium tracking-widest opacity-80">Matikan</span>
                                     </>
                                 ) : (
                                     <>
-                                        <SpeakerXMarkIcon className="w-8 h-8 mb-1 text-white/90" />
+                                        <VolumeX className="w-8 h-8 mb-1 text-white/90" />
                                         <span className="text-xl tracking-wider font-bold">SOS</span>
                                         <span className="text-[9px] uppercase font-medium tracking-widest opacity-80">Nyalakan</span>
                                     </>

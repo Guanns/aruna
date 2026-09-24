@@ -1,11 +1,7 @@
 // components/ChatSimulator.tsx
 import React, { useState, useEffect, useRef } from 'react';
+import { ArrowLeft, Ban, EyeOff, Flame, Lock, RotateCcw, ShieldCheck, User } from 'lucide-react';
 import { scenarios, Scenario, DialogueNode, Choice } from '../features/chatSimData';
-import { 
-    UserIcon, ArrowPathIcon, ArrowLeftIcon,
-    ShieldCheckIcon, FireIcon, LockClosedIcon,
-    EyeSlashIcon, NoSymbolIcon
-} from '@heroicons/react/24/solid';
 
 export default function ChatSimulator() {
     const [activeScenario, setActiveScenario] = useState<Scenario | null>(null);
@@ -93,12 +89,12 @@ export default function ChatSimulator() {
 
     const getIcon = (id: string) => {
         switch (id) {
-            case 'pap': return <ShieldCheckIcon className="w-5 h-5 text-purple-600"/>;
-            case 'stranger': return <EyeSlashIcon className="w-5 h-5 text-stone-600"/>;
-            case 'posesif': return <FireIcon className="w-5 h-5 text-orange-600"/>;
-            case 'pass': return <LockClosedIcon className="w-5 h-5 text-blue-600"/>;
-            case 'coercion': return <NoSymbolIcon className="w-5 h-5 text-rose-600"/>;
-            default: return <ShieldCheckIcon className="w-5 h-5 text-stone-500"/>;
+            case 'pap': return <ShieldCheck className="w-5 h-5 text-purple-600"/>;
+            case 'stranger': return <EyeOff className="w-5 h-5 text-stone-600"/>;
+            case 'posesif': return <Flame className="w-5 h-5 text-orange-600"/>;
+            case 'pass': return <Lock className="w-5 h-5 text-blue-600"/>;
+            case 'coercion': return <Ban className="w-5 h-5 text-rose-600"/>;
+            default: return <ShieldCheck className="w-5 h-5 text-stone-500"/>;
         }
     };
 
@@ -155,10 +151,10 @@ export default function ChatSimulator() {
                     className="p-1.5 hover:bg-stone-200 text-stone-600 rounded-lg transition-colors"
                     title="Kembali ke Daftar Skenario"
                 >
-                    <ArrowLeftIcon className="w-4 h-4" />
+                    <ArrowLeft className="w-4 h-4" />
                 </button>
                 <div className="w-8 h-8 rounded-full bg-stone-300 flex items-center justify-center text-white shrink-0">
-                    <UserIcon className="w-4 h-4" />
+                    <User className="w-4 h-4" />
                 </div>
                 <div>
                     <h3 className="font-bold text-xs sm:text-sm text-stone-900">
@@ -224,7 +220,7 @@ export default function ChatSimulator() {
                             onClick={resetSim} 
                             className="flex-1 py-2.5 bg-stone-900 text-white rounded-xl font-semibold hover:bg-stone-800 transition-colors flex items-center justify-center gap-1.5 text-xs sm:text-sm"
                         >
-                            <ArrowPathIcon className="w-3.5 h-3.5" /> Ulangi Skenario
+                            <RotateCcw className="w-3.5 h-3.5" /> Ulangi Skenario
                         </button>
                     </div>
                 ) : (

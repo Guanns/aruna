@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserIcon, DevicePhoneMobileIcon, XMarkIcon } from '@heroicons/react/24/solid';
+import { Smartphone, User, X } from 'lucide-react';
 
 type SettingsModalProps = {
     isOpen: boolean;
@@ -32,12 +32,12 @@ export default function SettingsModal({
                     className="absolute top-4 right-4 p-2 text-stone-400 hover:text-stone-600 rounded-full hover:bg-stone-100 transition-colors"
                     title="Tutup"
                 >
-                    <XMarkIcon className="w-5 h-5" />
+                    <X className="w-5 h-5" />
                 </button>
 
                 <div className="text-center mb-6">
                     <div className="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center mx-auto mb-3 text-[#c43c27]">
-                        <UserIcon className="w-7 h-7" />
+                        <User className="w-7 h-7" />
                     </div>
                     <h2 className="text-xl font-bold text-stone-800">Kontak Darurat</h2>
                     <p className="text-xs text-stone-500 mt-1 leading-relaxed">
@@ -49,7 +49,7 @@ export default function SettingsModal({
                     <div>
                         <label className="block text-xs font-semibold text-stone-600 uppercase tracking-wider mb-1.5 ml-1">Nama Panggilan</label>
                         <div className="relative group">
-                            <UserIcon className="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 group-focus-within:text-[#c43c27] transition-colors" />
+                            <User className="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 group-focus-within:text-[#c43c27] transition-colors" />
                             <input
                                 value={contactName}
                                 onChange={(e) => onNameChange(e.target.value)}
@@ -61,7 +61,7 @@ export default function SettingsModal({
                     <div>
                         <label className="block text-xs font-semibold text-stone-600 uppercase tracking-wider mb-1.5 ml-1">Nomor WhatsApp</label>
                         <div className="relative group">
-                            <DevicePhoneMobileIcon className="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 group-focus-within:text-[#c43c27] transition-colors" />
+                            <Smartphone className="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 group-focus-within:text-[#c43c27] transition-colors" />
                             <input
                                 type="tel"
                                 value={contactPhone}

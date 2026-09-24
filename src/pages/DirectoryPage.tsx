@@ -1,16 +1,7 @@
 // app/directory/page.tsx
 // VERSI FINAL: Emergency Hub & Support Directoryimport { Link } from 'react-router-dom';
-import { 
-    ArrowLeftIcon, 
-    PhoneIcon, 
-    BuildingLibraryIcon, 
-    MegaphoneIcon,
-    ShieldExclamationIcon,
-    TruckIcon,
-    HeartIcon,
-    ClipboardDocumentCheckIcon
-} from '@heroicons/react/24/solid';
 import React, { useState } from 'react';
+import { ArrowLeft, ClipboardCheck, Heart, Landmark, Megaphone, Phone, ShieldAlert, Truck } from 'lucide-react';
 import Swal from 'sweetalert2';
 import { contacts } from '../features/directoryData'; 
 
@@ -41,24 +32,15 @@ export default function DirectoryPage() {
 
     // Helper untuk Icon Kategori
     const getIcon = (name: string) => {
-        if (name.includes('Polisi')) return <ShieldExclamationIcon className="w-6 h-6"/>;
-        if (name.includes('Ambulans')) return <HeartIcon className="w-6 h-6"/>;
-        if (name.includes('Pemadam')) return <TruckIcon className="w-6 h-6"/>;
-        if (name.includes('Komnas')) return <MegaphoneIcon className="w-6 h-6"/>;
-        return <BuildingLibraryIcon className="w-6 h-6"/>;
+        if (name.includes('Polisi')) return <ShieldAlert className="w-6 h-6"/>;
+        if (name.includes('Ambulans')) return <Heart className="w-6 h-6"/>;
+        if (name.includes('Pemadam')) return <Truck className="w-6 h-6"/>;
+        if (name.includes('Komnas')) return <Megaphone className="w-6 h-6"/>;
+        return <Landmark className="w-6 h-6"/>;
     };
 
     return (
         <div className="w-full min-h-screen bg-[#FFFBF5] text-[#6B4F4F] relative overflow-hidden font-sans pb-20">
-            {/* Floating Back Button */}
-            <Link 
-                to="/dashboard" 
-                className="fixed top-6 left-6 z-50 w-10 h-10 bg-white/80 hover:bg-white backdrop-blur-md rounded-xl flex items-center justify-center shadow-md border border-stone-200/50 text-[#6B4F4F] transition-all hover:scale-105 active:scale-95 group"
-                title="Kembali ke Dashboard"
-            >
-                <ArrowLeftIcon className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
-            </Link>
-
             {/* --- BACKGROUND FX --- */}
             <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
                  <div className="absolute top-[-10%] right-[30%] w-[600px] h-[600px] bg-orange-200/20 rounded-full blur-[100px]"></div>
@@ -66,18 +48,24 @@ export default function DirectoryPage() {
                  <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/noise.png')]"></div>
             </div>
 
-            <div className="max-w-3xl mx-auto px-6 pt-32 relative z-10">
+            <div className="max-w-3xl mx-auto px-6 pt-28 md:pt-32 relative z-10">
                 
                 {/* --- HEADER --- */}
-                <header className="mb-12 text-center">
-                    <Link to="/dashboard" className="inline-flex items-center gap-2 text-[#6B4F4F]/60 hover:text-[#c43c27] mb-8 transition-colors">
-                        <ArrowLeftIcon className="w-4 h-4"/> Kembali ke Dashboard
-                    </Link>
-                    
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4 text-[#6B4F4F]">
+                <header className="relative mb-12 text-center">
+                    <div className="absolute left-0 top-0 sm:top-1 z-10">
+                        <Link 
+                            to="/dashboard" 
+                            className="p-2 -ml-2 rounded-full hover:bg-stone-200/60 text-[#6B4F4F] transition-colors inline-flex items-center justify-center shrink-0"
+                            title="Kembali ke Dashboard"
+                        >
+                            <ArrowLeft className="w-6 h-6" />
+                        </Link>
+                    </div>
+
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#6B4F4F] tracking-tight px-12 sm:px-16 mb-3">
                         Direktori <span className="font-serif italic text-[#c43c27]">Bantuan</span>
                     </h1>
-                    <p className="text-lg opacity-70 max-w-xl mx-auto font-light leading-relaxed">
+                    <p className="text-sm sm:text-base opacity-75 max-w-xl mx-auto font-light leading-relaxed">
                         Jangan ragu untuk meminta pertolongan. Berikut adalah kontak resmi yang siap membantumu 24/7.
                     </p>
                 </header>
@@ -86,7 +74,7 @@ export default function DirectoryPage() {
                 <section className="mb-12">
                     <div className="flex items-center gap-3 mb-6 px-2">
                         <div className="p-2 bg-rose-100 rounded-lg text-rose-600">
-                            <ShieldExclamationIcon className="w-6 h-6" />
+                            <ShieldAlert className="w-6 h-6" />
                         </div>
                         <h2 className="text-xl font-bold text-[#6B4F4F]">Darurat Nasional</h2>
                     </div>
@@ -116,13 +104,13 @@ export default function DirectoryPage() {
                                         className="p-3 rounded-xl bg-gray-50 hover:bg-gray-100 text-gray-400 transition-colors border border-gray-100"
                                         title="Salin Nomor"
                                     >
-                                        {copiedIndex === `nat-${idx}` ? <ClipboardDocumentCheckIcon className="w-5 h-5 text-green-500"/> : <span className="font-mono text-sm font-bold">{contact.phone}</span>}
+                                        {copiedIndex === `nat-${idx}` ? <ClipboardCheck className="w-5 h-5 text-green-500"/> : <span className="font-mono text-sm font-bold">{contact.phone}</span>}
                                     </button>
                                     <a 
                                         href={`tel:${contact.phone}`} 
                                         className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-rose-500 text-white font-bold py-3 px-6 rounded-xl hover:bg-rose-600 transition-all shadow-md hover:shadow-rose-200 active:scale-95"
                                     >
-                                        <PhoneIcon className="w-5 h-5" />
+                                        <Phone className="w-5 h-5" />
                                         <span className="sm:hidden">Panggil</span>
                                     </a>
                                 </div>
@@ -135,7 +123,7 @@ export default function DirectoryPage() {
                 <section className="mb-20">
                     <div className="flex items-center gap-3 mb-6 px-2">
                         <div className="p-2 bg-indigo-100 rounded-lg text-indigo-600">
-                            <BuildingLibraryIcon className="w-6 h-6" />
+                            <Landmark className="w-6 h-6" />
                         </div>
                         <h2 className="text-xl font-bold text-[#6B4F4F]">Layanan Hukum & Konseling</h2>
                     </div>
@@ -162,13 +150,13 @@ export default function DirectoryPage() {
                                         className="p-3 rounded-xl bg-white hover:bg-gray-50 text-gray-500 transition-colors border border-gray-100 flex items-center gap-2"
                                         title="Salin Nomor"
                                     >
-                                        {copiedIndex === `vio-${idx}` ? <ClipboardDocumentCheckIcon className="w-5 h-5 text-green-500"/> : <span className="font-mono text-sm">{contact.phone}</span>}
+                                        {copiedIndex === `vio-${idx}` ? <ClipboardCheck className="w-5 h-5 text-green-500"/> : <span className="font-mono text-sm">{contact.phone}</span>}
                                     </button>
                                     <a 
                                         href={`tel:${contact.phone}`} 
                                         className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-indigo-500 text-white font-bold py-3 px-6 rounded-xl hover:bg-indigo-600 transition-all shadow-md hover:shadow-indigo-200 active:scale-95"
                                     >
-                                        <PhoneIcon className="w-5 h-5" />
+                                        <Phone className="w-5 h-5" />
                                     </a>
                                 </div>
                             </div>

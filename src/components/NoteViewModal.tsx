@@ -1,5 +1,5 @@
 // components/NoteViewModal.tsximport React from 'react';
-import { XMarkIcon } from '@heroicons/react/24/solid';
+import { X } from 'lucide-react';
 import { Note } from '../features/notes';
 
 type NoteViewModalProps = {
@@ -28,7 +28,7 @@ export default function NoteViewModal({ isOpen, note, onClose }: NoteViewModalPr
                         )}
                     </div>
                     <button onClick={onClose} className="p-2 text-gray-400 hover:bg-gray-100 rounded-full">
-                        <XMarkIcon className="w-6 h-6" />
+                        <X className="w-6 h-6" />
                     </button>
                 </header>
                 

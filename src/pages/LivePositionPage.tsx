@@ -1,7 +1,7 @@
 // app/live-position/page.tsx
 // VERSI FINAL & PASTI: Link Google Maps Resmi (https://www.google.com/maps?q=...)import { Link } from 'react-router-dom';
-import { ArrowLeftIcon, MapPinIcon, BellAlertIcon, PaperAirplaneIcon, StopIcon } from '@heroicons/react/24/solid';
 import React, { useState, useEffect, useRef } from 'react';
+import { ArrowLeft, BellRing, MapPin, Send, Square } from 'lucide-react';
 import CustomAlert from '../components/CustomAlert';
 
 type Status = 'idle' | 'running' | 'waiting_action';
@@ -137,15 +137,6 @@ export default function LivePositionPage() {
         <div className="w-full min-h-screen bg-[#FFFBF5] text-[#6B4F4F] relative overflow-hidden font-sans pb-20">
             <CustomAlert isOpen={alertState.isOpen} title={alertState.title} message={alertState.message} icon={alertState.icon} onClose={() => setAlertState({ ...alertState, isOpen: false })} />
             
-            {/* Floating Back Button */}
-            <Link 
-                to="/dashboard" 
-                className="fixed top-6 left-6 z-50 w-10 h-10 bg-white/80 hover:bg-white backdrop-blur-md rounded-xl flex items-center justify-center shadow-md border border-stone-200/50 text-[#6B4F4F] transition-all hover:scale-105 active:scale-95 group"
-                title="Kembali ke Dashboard"
-            >
-                <ArrowLeftIcon className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
-            </Link>
-
             {/* Background */}
             <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
                  <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[120px] transition-all duration-1000
@@ -154,12 +145,18 @@ export default function LivePositionPage() {
                  `}></div>
             </div>
 
-            <div className="max-w-md mx-auto px-6 pt-32 relative z-10">
-                <header className="text-center mb-8">
-                    <Link to="/dashboard" className="inline-flex items-center gap-2 text-[#6B4F4F]/60 hover:text-blue-600 mb-6 transition-colors py-2 px-4 rounded-full hover:bg-white/50 border border-transparent hover:border-blue-100">
-                        <ArrowLeftIcon className="w-4 h-4"/> Kembali
-                    </Link>
-                    <h1 className="text-4xl font-bold mb-4 text-[#6B4F4F]">
+            <div className="max-w-md mx-auto px-6 pt-28 md:pt-32 relative z-10">
+                <header className="relative text-center mb-8">
+                    <div className="absolute left-0 top-0 sm:top-0.5 z-10">
+                        <Link 
+                            to="/dashboard" 
+                            className="p-2 -ml-2 rounded-full hover:bg-stone-200/60 text-[#6B4F4F] transition-colors inline-flex items-center justify-center shrink-0"
+                            title="Kembali ke Dashboard"
+                        >
+                            <ArrowLeft className="w-6 h-6" />
+                        </Link>
+                    </div>
+                    <h1 className="text-3xl sm:text-4xl font-bold text-[#6B4F4F] tracking-tight px-10">
                         Live <span className={`font-serif italic transition-colors duration-500 ${status !== 'idle' ? 'text-green-600' : 'text-blue-600'}`}>Position</span>
                     </h1>
                 </header>
@@ -173,7 +170,7 @@ export default function LivePositionPage() {
                               status === 'waiting_action' ? 'bg-red-500 text-white animate-bounce shadow-red-200' : 
                               'bg-white text-blue-500 shadow-blue-100'}
                         `}>
-                            {status === 'waiting_action' ? <BellAlertIcon className="w-12 h-12" /> : <MapPinIcon className="w-12 h-12" />}
+                            {status === 'waiting_action' ? <BellRing className="w-12 h-12" /> : <MapPin className="w-12 h-12" />}
                         </div>
                     </div>
 
@@ -206,17 +203,17 @@ export default function LivePositionPage() {
                                     ))}
                                 </div>
                             </div>
-                            <button onClick={handleStart} className="w-full py-4 bg-[#6B4F4F] text-white rounded-2xl font-bold text-lg shadow-lg hover:bg-[#5a4242] flex items-center justify-center gap-3"><PaperAirplaneIcon className="w-6 h-6" /> Mulai Tracking</button>
+                            <button onClick={handleStart} className="w-full py-4 bg-[#6B4F4F] text-white rounded-2xl font-bold text-lg shadow-lg hover:bg-[#5a4242] flex items-center justify-center gap-3"><Send className="w-6 h-6" /> Mulai Tracking</button>
                         </div>
                     )}
                     {status === 'running' && (
                         <div className="space-y-6 text-center">
                             <div className="p-4 bg-green-50 rounded-2xl border border-green-100 text-sm text-green-800"><b>Aman.</b> Timer sedang berjalan.<br/><span className="text-xs opacity-70">Akan tetap jalan walau kamu pindah aplikasi.</span></div>
-                            <button onClick={handleStop} className="w-full py-4 bg-red-100 text-red-600 rounded-2xl font-bold text-lg hover:bg-red-200 transition-all"><StopIcon className="w-6 h-6 inline mr-2" /> Hentikan</button>
+                            <button onClick={handleStop} className="w-full py-4 bg-red-100 text-red-600 rounded-2xl font-bold text-lg hover:bg-red-200 transition-all"><Square className="w-6 h-6 inline mr-2" /> Hentikan</button>
                         </div>
                     )}
                     {status === 'waiting_action' && (
-                        <button onClick={sendLocationToWA} className="w-full py-5 bg-red-600 text-white rounded-2xl font-bold text-xl shadow-xl shadow-red-200 animate-pulse flex items-center justify-center gap-3"><PaperAirplaneIcon className="w-8 h-8" /> KIRIM SEKARANG</button>
+                        <button onClick={sendLocationToWA} className="w-full py-5 bg-red-600 text-white rounded-2xl font-bold text-xl shadow-xl shadow-red-200 animate-pulse flex items-center justify-center gap-3"><Send className="w-8 h-8" /> KIRIM SEKARANG</button>
                     )}
                 </div>
                 

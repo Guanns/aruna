@@ -1,7 +1,7 @@
 // components/RedFlagQuiz.tsx
 import React, { useState } from 'react';
+import { Check, CheckCircle2, RotateCcw, X, XCircle } from 'lucide-react';
 import { quizQuestions, getResult } from '../features/quizData';
-import { ArrowPathIcon, CheckCircleIcon, XCircleIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { Link } from 'react-router-dom';
 
 export default function RedFlagQuiz() {
@@ -35,7 +35,7 @@ export default function RedFlagQuiz() {
             <div className="bg-white border border-stone-200 p-8 md:p-12 rounded-2xl shadow-xs text-center max-w-2xl mx-auto font-poppins">
                 <div className="mb-6 flex justify-center">
                     <div className={`w-16 h-16 rounded-full flex items-center justify-center bg-stone-50 ${result.color}`}>
-                        {result.level === 'safe' ? <CheckCircleIcon className="w-10 h-10" /> : <XCircleIcon className="w-10 h-10" />}
+                        {result.level === 'safe' ? <CheckCircle2 className="w-10 h-10" /> : <XCircle className="w-10 h-10" />}
                     </div>
                 </div>
                 <h2 className={`text-2xl md:text-3xl font-bold mb-3 ${result.color}`}>{result.title}</h2>
@@ -50,7 +50,7 @@ export default function RedFlagQuiz() {
                         </Link>
                     )}
                     <button onClick={resetQuiz} className="inline-flex items-center justify-center gap-2 text-stone-700 font-semibold py-3 px-6 rounded-xl border border-stone-200 hover:bg-stone-50 transition-colors">
-                        <ArrowPathIcon className="w-4 h-4" /> Ulangi Kuis
+                        <RotateCcw className="w-4 h-4" /> Ulangi Kuis
                     </button>
                 </div>
             </div>
@@ -86,14 +86,14 @@ export default function RedFlagQuiz() {
                         onClick={() => handleAnswer(false)}
                         className="py-4 px-5 rounded-xl border border-stone-200 bg-stone-50 hover:bg-stone-100 text-stone-800 font-semibold transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
                     >
-                        <CheckIcon className="w-5 h-5 text-emerald-600 shrink-0" />
+                        <Check className="w-5 h-5 text-emerald-600 shrink-0" />
                         <span>Tidak Pernah</span>
                     </button>
                     <button
                         onClick={() => handleAnswer(true)}
                         className="py-4 px-5 rounded-xl border border-rose-200 bg-rose-50 hover:bg-rose-100 text-rose-800 font-semibold transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
                     >
-                        <XMarkIcon className="w-5 h-5 text-rose-600 shrink-0" />
+                        <X className="w-5 h-5 text-rose-600 shrink-0" />
                         <span>Ya, Pernah</span>
                     </button>
                 </div>

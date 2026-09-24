@@ -1,18 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { BadgeCheck, ChevronDown, EyeOff, Heart, MousePointerClick, MoveRight, Settings, ShieldCheck, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { 
-    ShieldCheckIcon, 
-    HeartIcon, 
-    EyeSlashIcon,
-    ArrowLongRightIcon,
-    SparklesIcon,
-    ChevronDownIcon
-} from '@heroicons/react/24/solid';
-import { 
-    Cog6ToothIcon, 
-    CursorArrowRaysIcon, 
-    CheckBadgeIcon
-} from '@heroicons/react/24/outline';
 
 import TestimonialSlider from '../components/TestimonialSlider';
 import FaqAccordion from '../components/FaqAccordion';
@@ -87,7 +75,7 @@ export default function HomePage() {
                                 
                                 <div>
                                     <div className="w-20 h-20 bg-gradient-to-br from-red-500 to-red-600 text-white rounded-3xl flex items-center justify-center mb-8 shadow-lg shadow-red-500/30 group-hover:scale-110 transition-transform duration-500">
-                                        <ShieldCheckIcon className="w-10 h-10" />
+                                        <ShieldCheck className="w-10 h-10" />
                                     </div>
                                     <h3 className="text-3xl font-bold mb-4 text-gray-900">Panic Button</h3>
                                     <p className="text-gray-600 leading-relaxed mb-8 text-base">
@@ -97,7 +85,7 @@ export default function HomePage() {
                                 <Link to="/dashboard" className="inline-flex items-center gap-3 text-[#c43c27] font-bold text-sm tracking-widest uppercase group-hover:gap-5 transition-all">
                                     <span>Coba Sekarang</span>
                                     <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center group-hover:bg-[#c43c27] group-hover:text-white transition-colors">
-                                        <ArrowLongRightIcon className="w-4 h-4"/>
+                                        <MoveRight className="w-4 h-4"/>
                                     </div>
                                 </Link>
                             </div>
@@ -114,7 +102,7 @@ export default function HomePage() {
                                 
                                 <div className="relative z-10">
                                     <div className="w-20 h-20 bg-gradient-to-br from-teal-500 to-emerald-500 text-white rounded-3xl flex items-center justify-center mb-8 shadow-lg shadow-teal-500/30 group-hover:scale-110 transition-transform duration-500">
-                                        <HeartIcon className="w-10 h-10" />
+                                        <Heart className="w-10 h-10" />
                                     </div>
                                     <h3 className="text-3xl font-bold mb-4 text-gray-900">Aruna AI</h3>
                                     <p className="text-gray-600 leading-relaxed mb-8 text-base">
@@ -124,7 +112,7 @@ export default function HomePage() {
                                 <Link to="/chat" className="relative z-10 inline-flex items-center gap-3 text-teal-600 font-bold text-sm tracking-widest uppercase group-hover:gap-5 transition-all">
                                     <span>Mulai Curhat</span>
                                     <div className="w-8 h-8 rounded-full bg-teal-100 flex items-center justify-center group-hover:bg-teal-600 group-hover:text-white transition-colors">
-                                        <ArrowLongRightIcon className="w-4 h-4"/>
+                                        <MoveRight className="w-4 h-4"/>
                                     </div>
                                 </Link>
                             </div>
@@ -139,7 +127,7 @@ export default function HomePage() {
 
                                 <div>
                                     <div className="w-20 h-20 bg-gradient-to-br from-stone-600 to-gray-700 text-white rounded-3xl flex items-center justify-center mb-8 shadow-lg shadow-stone-600/30 group-hover:scale-110 transition-transform duration-500">
-                                        <EyeSlashIcon className="w-10 h-10" />
+                                        <EyeOff className="w-10 h-10" />
                                     </div>
                                     <h3 className="text-3xl font-bold mb-4 text-gray-900">Mode Kamuflase</h3>
                                     <p className="text-gray-600 leading-relaxed mb-8 text-base">
@@ -149,7 +137,7 @@ export default function HomePage() {
                                 <Link to="/information" className="inline-flex items-center gap-3 text-stone-600 font-bold text-sm tracking-widest uppercase group-hover:gap-5 transition-all">
                                     <span>Pelajari Caranya</span>
                                     <div className="w-8 h-8 rounded-full bg-stone-200 flex items-center justify-center group-hover:bg-stone-700 group-hover:text-white transition-colors">
-                                        <ArrowLongRightIcon className="w-4 h-4"/>
+                                        <MoveRight className="w-4 h-4"/>
                                     </div>
                                 </Link>
                             </div>
@@ -183,7 +171,7 @@ export default function HomePage() {
                             {[
                                 {
                                     step: "01",
-                                    icon: Cog6ToothIcon,
+                                    icon: Settings,
                                     iconColor: "text-stone-700",
                                     iconBg: "bg-stone-100",
                                     title: "Atur Kontak Darurat",
@@ -191,7 +179,7 @@ export default function HomePage() {
                                 },
                                 {
                                     step: "02",
-                                    icon: CursorArrowRaysIcon,
+                                    icon: MousePointerClick,
                                     iconColor: "text-[#c43c27]",
                                     iconBg: "bg-red-50",
                                     title: "Tekan Tombol Darurat",
@@ -199,7 +187,7 @@ export default function HomePage() {
                                 },
                                 {
                                     step: "03",
-                                    icon: CheckBadgeIcon,
+                                    icon: BadgeCheck,
                                     iconColor: "text-emerald-700",
                                     iconBg: "bg-emerald-50",
                                     title: "Bantuan Datang",
@@ -271,7 +259,7 @@ export default function HomePage() {
                                 className="group inline-flex items-center justify-center gap-3 bg-stone-900 hover:bg-stone-800 text-white font-semibold text-base sm:text-lg py-4 px-9 rounded-full shadow-lg shadow-stone-900/15 hover:shadow-stone-900/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
                             >
                                 <span>Mulai Sekarang (Gratis)</span>
-                                <ArrowLongRightIcon className="w-5 h-5 text-white/80 group-hover:translate-x-1.5 transition-transform duration-200" />
+                                <MoveRight className="w-5 h-5 text-white/80 group-hover:translate-x-1.5 transition-transform duration-200" />
                             </Link>
                         </div>
                     </div>
@@ -289,7 +277,7 @@ export default function HomePage() {
 
                         <div className="text-center mb-5">
                             <div className="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center mx-auto mb-3 text-amber-600 border border-amber-100/50 shadow-sm">
-                                <SparklesIcon className="w-6 h-6" />
+                                <Sparkles className="w-6 h-6" />
                             </div>
                             <h2 className="text-xl font-black text-gray-800 tracking-tight">Pembaruan Sistem</h2>
                             <p className="text-[11px] text-stone-500 font-light mt-1">
@@ -303,7 +291,7 @@ export default function HomePage() {
                             className="w-full flex items-center justify-between p-3 bg-stone-50 hover:bg-stone-100/85 rounded-xl border border-stone-200/50 transition-all duration-300 mb-4 group"
                         >
                             <span className="text-xs font-bold text-stone-600">Lihat Rincian Pembaruan</span>
-                            <ChevronDownIcon className={`w-4 h-4 text-stone-400 transition-transform duration-300 ${showDetails ? 'rotate-180 text-amber-500' : 'group-hover:text-stone-600'}`} />
+                            <ChevronDown className={`w-4 h-4 text-stone-400 transition-transform duration-300 ${showDetails ? 'rotate-180 text-amber-500' : 'group-hover:text-stone-600'}`} />
                         </button>
 
                         {/* Collapsible Content */}
@@ -322,7 +310,7 @@ export default function HomePage() {
                                 ].map((item, idx) => (
                                     <div key={idx} className="flex items-start gap-2.5 p-1 rounded-lg">
                                         <div className="w-4 h-4 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 border border-emerald-100/30">
-                                            <CheckBadgeIcon className="w-2.5 h-2.5" />
+                                            <BadgeCheck className="w-2.5 h-2.5" />
                                         </div>
                                         <span className="text-[11px] font-semibold text-stone-600 leading-normal">{item}</span>
                                     </div>
@@ -341,7 +329,7 @@ export default function HomePage() {
                                     : 'border-stone-300 bg-white group-hover:border-stone-400'
                                 }
                             `}>
-                                {dontShowAgain && <CheckBadgeIcon className="w-3 h-3 text-white" />}
+                                {dontShowAgain && <BadgeCheck className="w-3 h-3 text-white" />}
                             </div>
                             <span className="text-xs font-bold text-stone-500">Jangan tunjukkan pembaruan ini lagi</span>
                         </div>

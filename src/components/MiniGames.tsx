@@ -1,7 +1,7 @@
 // components/MiniGames.tsx
 // VERSI FINAL v3.0: Jar Redesign (No Tooltip), Balanced Stone Logic, Fixed Clouds
 // Total Lines: ~650+import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
-import { ArrowPathIcon, PaperAirplaneIcon, StarIcon, FireIcon } from '@heroicons/react/24/solid';
+import { Flame, RotateCcw, Send, Star } from 'lucide-react';
 
 // --- INJECTED GLOBAL STYLES (ANIMATION ENGINE) ---
 const GLOBAL_STYLES = `
@@ -124,7 +124,7 @@ export function BubblePopGame() {
             <div className="mb-6 flex justify-between w-full max-w-xs items-center">
                 <div className="bg-orange-100 text-orange-700 px-4 py-1 rounded-full text-xs font-bold">Pop: {score}</div>
                 <button onClick={resetGame} className="text-stone-500 hover:text-stone-800 transition-colors p-2 bg-white rounded-full shadow-xs border border-stone-200" title="Ulangi">
-                    <ArrowPathIcon className="w-4 h-4" />
+                    <RotateCcw className="w-4 h-4" />
                 </button>
             </div>
             <div className="grid grid-cols-5 gap-3 bg-stone-100 p-4 rounded-2xl shadow-inner">
@@ -185,7 +185,7 @@ export function MemoryGame() {
         <div className="flex flex-col items-center w-full">
             <div className="mb-6 flex justify-between w-full max-w-xs items-center">
                 <div className="bg-purple-100 text-purple-700 px-4 py-1 rounded-full text-xs font-bold">Langkah: {moves}</div>
-                <button onClick={resetGame} className="text-stone-500 hover:text-stone-800 transition-colors p-2 bg-white rounded-full shadow-xs border border-stone-200" title="Ulangi"><ArrowPathIcon className="w-4 h-4" /></button>
+                <button onClick={resetGame} className="text-stone-500 hover:text-stone-800 transition-colors p-2 bg-white rounded-full shadow-xs border border-stone-200" title="Ulangi"><RotateCcw className="w-4 h-4" /></button>
             </div>
             <div className="grid grid-cols-4 gap-3 p-4 bg-stone-50 rounded-2xl border border-stone-100">
                 {cards.map((card, index) => (
@@ -298,7 +298,7 @@ export function CloudThoughtsGame() {
                         maxLength={40}
                     />
                     <button onClick={addCloud} className="bg-sky-500 text-white p-3 rounded-full hover:bg-sky-600 transition-all hover:scale-110 shadow-md">
-                        <PaperAirplaneIcon className="w-5 h-5" />
+                        <Send className="w-5 h-5" />
                     </button>
                 </div>
                 <p className="text-[10px] text-center text-sky-700/60 mt-2 font-medium">Tulis bebanmu, lalu biarkan ia terbang hilang.</p>
@@ -375,7 +375,7 @@ export function GratitudeJarGame() {
                     onKeyDown={(e) => e.key === 'Enter' && addStar()}
                 />
                 <button onClick={addStar} className="w-full bg-amber-400 text-white font-bold py-3 rounded-2xl hover:bg-amber-500 transition-all shadow-lg active:scale-95 flex justify-center items-center gap-2">
-                    Simpan Kenangan <StarIcon className="w-5 h-5"/>
+                    Simpan Kenangan <Star className="w-5 h-5"/>
                 </button>
             </div>
         </div>
@@ -425,7 +425,7 @@ export function LanternGame() {
                         onKeyDown={(e) => e.key === 'Enter' && releaseLantern()}
                     />
                     <button onClick={releaseLantern} className="bg-orange-600 hover:bg-orange-500 text-white px-5 py-2 rounded-xl font-bold transition-colors shadow-md flex items-center gap-2">
-                        <FireIcon className="w-4 h-4" />
+                        <Flame className="w-4 h-4" />
                     </button>
                 </div>
             </div>

@@ -1,16 +1,7 @@
 // app/notes/page.tsx
 // VERSI FIX: Action Buttons Visible on Mobileimport { Link } from 'react-router-dom';
-import { 
-    ArrowLeftIcon, 
-    BookOpenIcon, 
-    PlusIcon, 
-    TrashIcon, 
-    DocumentArrowDownIcon, 
-    ShareIcon,
-    PencilSquareIcon,
-    CalendarDaysIcon
-} from '@heroicons/react/24/solid';
 import React, { useState, useEffect } from 'react';
+import { ArrowLeft, BookOpen, CalendarDays, FileDown, Plus, Share2, SquarePen, Trash2 } from 'lucide-react';
 import { useEditor, EditorContent, Editor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Highlight from '@tiptap/extension-highlight';
@@ -206,15 +197,6 @@ export default function NotesPage() {
         <div className="w-full min-h-screen bg-[#FFFBF5] text-[#6B4F4F] relative overflow-hidden font-sans pb-20">
             <NoteViewModal isOpen={isModalOpen} note={selectedNote} onClose={handleCloseModal} />
             
-            {/* Floating Back Button */}
-            <Link 
-                to="/dashboard" 
-                className="fixed top-6 left-6 z-50 w-10 h-10 bg-white/80 hover:bg-white backdrop-blur-md rounded-xl flex items-center justify-center shadow-md border border-stone-200/50 text-[#6B4F4F] transition-all hover:scale-105 active:scale-95 group"
-                title="Kembali ke Dashboard"
-            >
-                <ArrowLeftIcon className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
-            </Link>
-            
             {/* --- BACKGROUND FX --- */}
             <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
                  <div className="absolute top-[-10%] right-[10%] w-[600px] h-[600px] bg-yellow-250/15 rounded-full blur-[120px] animate-pulse"></div>
@@ -222,24 +204,30 @@ export default function NotesPage() {
                  <div className="absolute inset-0 opacity-[0.02] bg-[url('https://www.transparenttextures.com/patterns/noise.png')]"></div>
             </div>
 
-            <div className="max-w-5xl mx-auto px-6 pt-32 relative z-10">
+            <div className="max-w-5xl mx-auto px-6 pt-28 md:pt-32 relative z-10">
                 
                 {/* --- HEADER --- */}
                 <header className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6 border-b border-[#6B4F4F]/10 pb-8">
                     <div>
-                        <Link to="/dashboard" className="inline-flex items-center gap-2 text-[#6B4F4F]/60 hover:text-[#c43c27] mb-4 transition-colors font-bold text-sm">
-                            <ArrowLeftIcon className="w-4 h-4"/> Kembali ke Dashboard
-                        </Link>
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-3 text-[#6B4F4F] tracking-tight">
+                        <div className="mb-2 sm:mb-2.5">
+                            <Link 
+                                to="/dashboard" 
+                                className="p-1.5 sm:p-2 -ml-1.5 sm:-ml-2 rounded-full hover:bg-stone-200/60 text-[#6B4F4F] transition-colors inline-flex items-center justify-center shrink-0"
+                                title="Kembali ke Dashboard"
+                            >
+                                <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                            </Link>
+                        </div>
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#6B4F4F] tracking-tight mb-2">
                             Jurnal <span className="font-serif italic text-yellow-600">Pribadi</span>
                         </h1>
-                        <p className="text-lg opacity-85 font-light leading-relaxed max-w-2xl">
+                        <p className="text-base sm:text-lg opacity-85 font-light leading-relaxed max-w-2xl">
                             Ruang aman untuk mencatat perasaan, kejadian, atau sekadar melepas beban pikiran secara bebas.
                         </p>
                     </div>
                     <div className="hidden md:block">
                         <div className="w-16 h-16 bg-white/60 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-md border border-white/80">
-                            <BookOpenIcon className="w-8 h-8 text-yellow-600" />
+                            <BookOpen className="w-8 h-8 text-yellow-600" />
                         </div>
                     </div>
                 </header>
@@ -283,7 +271,7 @@ export default function NotesPage() {
                             onClick={handleAddNote} 
                             className="flex items-center gap-2 py-2.5 px-6 bg-[#6B4F4F] text-white font-bold rounded-full hover:bg-[#5a4242] transition-all shadow-md hover:shadow-lg active:scale-95"
                         >
-                            <PlusIcon className="w-5 h-5"/>
+                            <Plus className="w-5 h-5"/>
                             Simpan Tulisan
                         </button>
                      </div>
@@ -333,7 +321,7 @@ export default function NotesPage() {
                 {filteredNotes.length > 0 ? (
                     <div>
                         <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                            <CalendarDaysIcon className="w-6 h-6 text-[#6B4F4F]/70"/>
+                            <CalendarDays className="w-6 h-6 text-[#6B4F4F]/70"/>
                             Riwayat Jurnal ({filteredNotes.length})
                         </h3>
                         <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
@@ -375,7 +363,7 @@ export default function NotesPage() {
                                             className="p-2 text-stone-400 hover:text-green-600 hover:bg-green-50 rounded-full transition-colors" 
                                             title="Bagikan ke WhatsApp"
                                         >
-                                            <ShareIcon className="w-4 h-4"/>
+                                            <Share2 className="w-4 h-4"/>
                                         </button>
                                         <button 
                                             onClick={(e) => {
@@ -385,7 +373,7 @@ export default function NotesPage() {
                                             className="p-2 text-stone-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors" 
                                             title="Unduh sebagai TXT"
                                         >
-                                            <DocumentArrowDownIcon className="w-4 h-4"/>
+                                            <FileDown className="w-4 h-4"/>
                                         </button>
                                         <button 
                                             onClick={(e) => {
@@ -395,7 +383,7 @@ export default function NotesPage() {
                                             className="p-2 text-stone-400 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors" 
                                             title="Hapus Catatan"
                                         >
-                                            <TrashIcon className="w-4 h-4"/>
+                                            <Trash2 className="w-4 h-4"/>
                                         </button>
                                     </div>
                                 </div>
@@ -404,7 +392,7 @@ export default function NotesPage() {
                     </div>
                 ) : (
                     <div className="text-center py-20 bg-white/30 rounded-3xl border border-dashed border-stone-300/60 p-8">
-                        <PencilSquareIcon className="w-16 h-16 mx-auto mb-4 text-stone-300"/>
+                        <SquarePen className="w-16 h-16 mx-auto mb-4 text-stone-300"/>
                         <p className="text-lg text-stone-500 font-medium">Catatan tidak ditemukan atau belum ada tulisan.</p>
                         <p className="text-sm text-stone-400">Mulailah menulis cerita barumu hari ini pada editor di atas!</p>
                     </div>

@@ -1,35 +1,24 @@
 // app/about/page.tsx
 // VERSI FINAL FIX: Clean Codeimport React from 'react';
+import { ArrowLeft, Code2, Eye, Gift, Heart, Lightbulb, Rocket, ShieldCheck, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { 
-    HeartIcon, 
-    ShieldCheckIcon, 
-    SparklesIcon, 
-    GiftIcon,
-    LightBulbIcon,
-    CodeBracketIcon,
-    RocketLaunchIcon,
-    EyeIcon,
-    UserGroupIcon,
-    ArrowLeftIcon,
-} from '@heroicons/react/24/solid';
 
 // Data Timeline
 const timelineData = [
     {
-        icon: LightBulbIcon,
+        icon: Lightbulb,
         year: "2025",
         title: "Ide Awal",
         description: "Bermula dari keresahan melihat minimnya keamanan pada perempuan. Kami bermimpi menciptakan sahabat virtual bagi perempuan di seluruh Indonesia."
     },
     {
-        icon: CodeBracketIcon,
+        icon: Code2,
         year: "2025",
         title: "Pengembangan",
         description: "Riset mendalam bersama Simpatisan yang peduli pada hak perempuan dan pakar dari senior software engineer. Dengan membangun tools keamanan yang disertai Enkripsi Lokal."
     },
     {
-        icon: RocketLaunchIcon,
+        icon: Rocket,
         year: "2025",
         title: "Peluncuran",
         description: "Aruna lahir. Aplikasi pertama yang menggabungkan keamanan dan dukungan emosional dalam satu wadah."
@@ -39,28 +28,28 @@ const timelineData = [
 // Data Nilai
 const values = [
     {
-        icon: HeartIcon,
+        icon: Heart,
         color: "text-red-500",
         bg: "bg-red-100",
         title: "Empati Radikal",
         desc: "Perasaanmu valid dan Kami akan selalu mendengar tanpa menghakimi."
     },
     {
-        icon: ShieldCheckIcon,
+        icon: ShieldCheck,
         color: "text-teal-500",
         bg: "bg-teal-100",
         title: "Privasi Mutlak",
         desc: "Datamu milikmu. Kami tidak akan pernah mengintip privasimu."
     },
     {
-        icon: SparklesIcon,
+        icon: Sparkles,
         color: "text-orange-500",
         bg: "bg-orange-100",
         title: "Pemberdayaan",
         desc: "Memberimu alat untuk siap melawan dan menyelamatkan diri"
     },
     {
-        icon: GiftIcon,
+        icon: Gift,
         color: "text-purple-500",
         bg: "bg-purple-100",
         title: "Selalu Gratis",
@@ -71,15 +60,6 @@ const values = [
 export default function AboutPage() {
     return (
         <div className="w-full min-h-screen bg-[#FFFBF5] text-[#6B4F4F] overflow-hidden relative font-sans pb-20">
-            {/* Floating Back Button */}
-            <Link 
-                to="/" 
-                className="fixed top-6 left-6 z-50 w-10 h-10 bg-white/80 hover:bg-white backdrop-blur-md rounded-xl flex items-center justify-center shadow-md border border-stone-200/50 text-[#6B4F4F] transition-all hover:scale-105 active:scale-95 group"
-                title="Kembali"
-            >
-                <ArrowLeftIcon className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
-            </Link>
-            
             {/* --- BACKGROUND FX --- */}
             <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
                  <div className="absolute top-[-10%] left-[-10%] w-[700px] h-[700px] bg-[#c43c27]/5 rounded-full blur-[120px] animate-pulse"></div>
@@ -88,25 +68,22 @@ export default function AboutPage() {
             </div>
 
             <div className="max-w-5xl mx-auto px-5 md:px-6 relative z-10 pt-28 md:pt-32">
-                
-                {/* Back Button */}
-                <div className="mb-8">
-                    <Link 
-                        to="/" 
-                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-stone-200 text-stone-700 hover:text-stone-900 hover:border-stone-300 transition-colors text-sm font-semibold shadow-xs"
-                    >
-                        <ArrowLeftIcon className="w-4 h-4" />
-                        <span>Kembali ke Beranda</span>
-                    </Link>
-                </div>
-
                 {/* --- HEADER --- */}
-                <header className="text-center mb-20 md:mb-24">
-                    <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 md:mb-8 leading-tight tracking-tight">
-                        Membangun <span className="font-serif italic text-[#c43c27]">Ruang Aman</span><br/>
-                        Digital Bersama.
+                <header className="relative text-center mb-16 md:mb-20">
+                    <div className="absolute left-0 top-0 sm:top-1 z-10">
+                        <Link 
+                            to="/" 
+                            className="p-2 -ml-2 rounded-full hover:bg-stone-200/60 text-[#6B4F4F] transition-colors inline-flex items-center justify-center shrink-0"
+                            title="Kembali ke Beranda"
+                        >
+                            <ArrowLeft className="w-6 h-6 md:w-7 md:h-7" />
+                        </Link>
+                    </div>
+
+                    <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight text-[#6B4F4F] px-10 sm:px-16 md:px-20 mb-4 md:mb-6">
+                        Membangun <span className="font-serif italic text-[#c43c27]">Ruang Aman</span> Digital Bersama.
                     </h1>
-                    <p className="text-lg md:text-xl lg:text-2xl opacity-70 max-w-3xl mx-auto font-light leading-relaxed px-2">
+                    <p className="text-base md:text-xl lg:text-2xl opacity-70 max-w-3xl mx-auto font-light leading-relaxed px-2">
                         Aruna bukan sekadar aplikasi. Ini adalah surat cinta untuk keamanan dan kesejahteraan mental perempuan & anak Indonesia.
                     </p>
                 </header>
@@ -118,7 +95,7 @@ export default function AboutPage() {
                         <div className="absolute -inset-0.5 bg-gradient-to-br from-teal-300 to-teal-100 rounded-[2rem] md:rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
                         <div className="relative h-full bg-white/60 backdrop-blur-xl p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-white/50 shadow-lg hover:-translate-y-1 transition-transform duration-500">
                             <div className="w-14 h-14 md:w-16 md:h-16 bg-teal-100 text-teal-600 rounded-2xl flex items-center justify-center mb-4 md:mb-6 shadow-inner">
-                                <EyeIcon className="w-7 h-7 md:w-8 md:h-8" />
+                                <Eye className="w-7 h-7 md:w-8 md:h-8" />
                             </div>
                             <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4 font-serif italic text-teal-900"> Apa Visi Kami ?</h2>
                             <p className="text-base md:text-lg opacity-80 leading-relaxed">
@@ -132,7 +109,7 @@ export default function AboutPage() {
                          <div className="absolute -inset-0.5 bg-gradient-to-br from-red-300 to-red-100 rounded-[2rem] md:rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
                         <div className="relative h-full bg-white/60 backdrop-blur-xl p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-white/50 shadow-lg hover:-translate-y-1 transition-transform duration-500">
                             <div className="w-14 h-14 md:w-16 md:h-16 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mb-4 md:mb-6 shadow-inner">
-                                <ShieldCheckIcon className="w-7 h-7 md:w-8 md:h-8" />
+                                <ShieldCheck className="w-7 h-7 md:w-8 md:h-8" />
                             </div>
                             <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4 font-serif italic text-red-900">Apa Misi Kami ?</h2>
                             <p className="text-base md:text-lg opacity-80 leading-relaxed">

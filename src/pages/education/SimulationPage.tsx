@@ -1,7 +1,6 @@
 import React from 'react';
+import { ArrowLeft, Eye } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { ArrowLeftIcon } from '@heroicons/react/24/solid';
-import { EyeIcon } from '@heroicons/react/24/outline';
 import ChatSimulator from '../../components/ChatSimulator';
 
 export default function SimulationPage() {
@@ -9,24 +8,22 @@ export default function SimulationPage() {
         <div className="w-full min-h-screen bg-[#FFFBF5] text-stone-900 font-poppins pb-24">
             <div className="max-w-6xl mx-auto px-5 md:px-8 pt-24 md:pt-28 relative z-10">
                 
-                {/* Back Button */}
-                <div className="mb-6">
-                    <Link 
-                        to="/education" 
-                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-stone-200 text-stone-700 hover:text-stone-900 hover:border-stone-300 transition-colors text-sm font-semibold shadow-xs"
-                    >
-                        <ArrowLeftIcon className="w-4 h-4" />
-                        <span>Kembali ke Edukasi</span>
-                    </Link>
-                </div>
-
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
                     
                     {/* Left Column: Guide */}
                     <div className="lg:col-span-6 space-y-6">
                         <div>
-                            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-stone-900 tracking-tight mb-4">
-                                Latihan Menolak <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">Tekanan</span>
+                            <div className="mb-2 sm:mb-2.5">
+                                <Link 
+                                    to="/education" 
+                                    className="p-1.5 sm:p-2 -ml-1.5 sm:-ml-2 rounded-full hover:bg-stone-200/60 text-stone-700 hover:text-stone-900 transition-colors inline-flex items-center justify-center shrink-0"
+                                    title="Kembali ke Edukasi"
+                                >
+                                    <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                                </Link>
+                            </div>
+                            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-stone-900 tracking-tight mb-3">
+                                Latihan Menolak <span className="text-teal-700">Tekanan</span>
                             </h1>
                             <p className="text-sm sm:text-base text-stone-600 font-normal leading-relaxed">
                                 Sering merasa bingung atau sungkan saat menghadapi chat yang membuat tidak nyaman? Latih ketegasanmu di ruang simulasi percakapan yang aman.
@@ -36,7 +33,7 @@ export default function SimulationPage() {
                         {/* Guide Card */}
                         <div className="bg-white rounded-2xl p-6 sm:p-7 border border-stone-200 shadow-xs">
                             <h3 className="font-bold text-base sm:text-lg text-stone-900 mb-5 flex items-center gap-2">
-                                <EyeIcon className="w-5 h-5 text-teal-600" />
+                                <Eye className="w-5 h-5 text-teal-600" />
                                 <span>Petunjuk Penggunaan</span>
                             </h3>
                             <div className="space-y-4 text-sm">

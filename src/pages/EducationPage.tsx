@@ -1,13 +1,6 @@
 import React from 'react';
+import { ArrowLeft, ArrowRight, BookOpen, MessagesSquare, Scale, ShieldAlert } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { 
-    BookOpenIcon, 
-    ArrowLeftIcon,
-    ScaleIcon,
-    ChatBubbleLeftRightIcon,
-    ShieldExclamationIcon,
-    ArrowRightIcon
-} from '@heroicons/react/24/outline';
 
 const articles = [
     {
@@ -48,7 +41,7 @@ const educationModules = [
         gradientClass: 'from-rose-600 to-pink-600',
         description: 'Evaluasi kesehatan hubunganmu melalui instrumen kuis terarah untuk mengenali pola manipulasi, dominasi, atau tanda bahaya sejak awal.',
         actionText: 'Mulai Deteksi',
-        icon: ShieldExclamationIcon,
+        icon: ShieldAlert,
         iconBox: 'bg-rose-50 text-rose-600 border border-rose-100',
     },
     {
@@ -58,7 +51,7 @@ const educationModules = [
         gradientClass: 'from-indigo-600 via-purple-600 to-pink-600',
         description: 'Pahami makna istilah penting seputar relasi modern, manipulasi psikologis, dan kesetaraan seperti Love Bombing, Gaslighting, dan boundaries.',
         actionText: 'Buka Kamus',
-        icon: BookOpenIcon,
+        icon: BookOpen,
         iconBox: 'bg-indigo-50 text-indigo-600 border border-indigo-100',
     },
     {
@@ -68,7 +61,7 @@ const educationModules = [
         gradientClass: 'from-teal-600 to-emerald-600',
         description: 'Latihan interaktif menolak ajakan yang membuat tidak nyaman atau memaksa dalam situasi simulasi percakapan nyata yang aman.',
         actionText: 'Mulai Latihan',
-        icon: ChatBubbleLeftRightIcon,
+        icon: MessagesSquare,
         iconBox: 'bg-teal-50 text-teal-600 border border-teal-100',
     },
     {
@@ -78,7 +71,7 @@ const educationModules = [
         gradientClass: 'from-amber-600 to-orange-600',
         description: 'Pelajari instrumen undang-undang perlindungan hukum di Indonesia (UU TPKS, PKDRT, Perlindungan Anak, dan ITE) untuk membela hakmu.',
         actionText: 'Pelajari Regulasi',
-        icon: ScaleIcon,
+        icon: Scale,
         iconBox: 'bg-amber-50 text-amber-700 border border-amber-100',
     }
 ];
@@ -88,21 +81,20 @@ export default function EducationPage() {
         <div className="w-full min-h-screen bg-[#FFFBF5] text-stone-900 font-poppins pb-24">
             <div className="max-w-6xl mx-auto px-5 md:px-8 pt-24 md:pt-28">
                 
-                {/* Back Button */}
-                <div className="mb-6">
-                    <Link 
-                        to="/dashboard" 
-                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-stone-200 text-stone-700 hover:text-stone-900 hover:border-stone-300 transition-colors text-sm font-semibold shadow-xs"
-                    >
-                        <ArrowLeftIcon className="w-4 h-4" />
-                        <span>Kembali ke Dashboard</span>
-                    </Link>
-                </div>
-
                 {/* Hero Header */}
-                <header className="text-center mb-12 md:mb-16 max-w-2xl mx-auto">
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-stone-900 tracking-tight mb-4">
-                        Edukasi & <span className="bg-gradient-to-r from-rose-600 via-purple-600 to-amber-600 bg-clip-text text-transparent">Perlindungan Diri</span>
+                <header className="relative text-center mb-12 md:mb-16 max-w-3xl mx-auto">
+                    <div className="absolute left-0 top-0 sm:top-1 z-10">
+                        <Link 
+                            to="/" 
+                            className="p-2 -ml-2 rounded-full hover:bg-stone-200/60 text-stone-700 hover:text-stone-900 transition-colors inline-flex items-center justify-center shrink-0"
+                            title="Kembali ke Beranda"
+                        >
+                            <ArrowLeft className="w-6 h-6" />
+                        </Link>
+                    </div>
+
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-stone-900 tracking-tight px-10 sm:px-14 mb-4">
+                        Edukasi & <span className="text-[#c43c27]">Perlindungan Diri</span>
                     </h1>
                     <p className="text-sm sm:text-base md:text-lg text-stone-600 font-normal leading-relaxed">
                         Kumpulan modul interaktif dan panduan komprehensif untuk memahami batasan personal, keamanan digital, serta hak perlindungan hukum.
@@ -141,7 +133,7 @@ export default function EducationPage() {
                                         className="inline-flex items-center justify-center gap-2 bg-stone-900 hover:bg-stone-800 text-white text-sm font-semibold py-3 px-6 rounded-xl transition-colors"
                                     >
                                         <span>{mod.actionText}</span>
-                                        <ArrowRightIcon className="w-4 h-4 text-white/80" />
+                                        <ArrowRight className="w-4 h-4 text-white/80" />
                                     </Link>
                                 </div>
                             </div>

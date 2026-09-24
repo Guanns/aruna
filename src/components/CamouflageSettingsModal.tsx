@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { KeyIcon, EyeIcon, EyeSlashIcon, XMarkIcon, CalculatorIcon } from '@heroicons/react/24/solid';
+import { Calculator, Eye, EyeOff, KeyRound, X } from 'lucide-react';
 import Swal from 'sweetalert2';
 
 type ModalProps = {
@@ -58,12 +58,12 @@ export default function CamouflageSettingsModal({ isOpen, onClose }: ModalProps)
                     className="absolute top-4 right-4 p-2 text-stone-400 hover:text-white rounded-full hover:bg-stone-800 transition-colors"
                     title="Tutup"
                 >
-                    <XMarkIcon className="w-5 h-5" />
+                    <X className="w-5 h-5" />
                 </button>
 
                 <div className="text-center mb-6">
                     <div className="w-14 h-14 bg-stone-800 rounded-2xl flex items-center justify-center mx-auto mb-3 text-stone-200 border border-stone-700">
-                        <CalculatorIcon className="w-7 h-7" />
+                        <Calculator className="w-7 h-7" />
                     </div>
                     <h2 className="text-xl font-bold">PIN Kamuflase</h2>
                     <p className="text-xs text-stone-400 mt-1 leading-relaxed">
@@ -74,7 +74,7 @@ export default function CamouflageSettingsModal({ isOpen, onClose }: ModalProps)
                 <div className="space-y-2 mb-5">
                     <label className="block text-xs font-semibold text-stone-400 uppercase tracking-wider ml-1">PIN Rahasia (Angka)</label>
                     <div className="relative group">
-                        <KeyIcon className="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-500 group-focus-within:text-white transition-colors" />
+                        <KeyRound className="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-500 group-focus-within:text-white transition-colors" />
                         <input
                             type={isPinVisible ? 'text' : 'password'}
                             value={pin}
@@ -87,7 +87,7 @@ export default function CamouflageSettingsModal({ isOpen, onClose }: ModalProps)
                             onClick={() => setIsPinVisible(!isPinVisible)} 
                             className="absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-white transition-colors"
                         >
-                            {isPinVisible ? <EyeSlashIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
+                            {isPinVisible ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                         </button>
                     </div>
                 </div>

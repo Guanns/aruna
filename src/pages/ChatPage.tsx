@@ -1,7 +1,7 @@
 // app/chat/page.tsx
 // VERSI FIX: API Key Otomatis & Font Jelas (Mudah Dibaca)import { Link } from 'react-router-dom';
-import { ArrowLeftIcon, PaperAirplaneIcon, SparklesIcon, FaceSmileIcon } from '@heroicons/react/24/solid';
 import React, { useState, useEffect, useRef } from 'react';
+import { ArrowLeft, Send, Sparkles } from 'lucide-react';
 import { GoogleGenerativeAI, ChatSession, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 import Swal from 'sweetalert2';
 
@@ -134,15 +134,16 @@ export default function ChatPage() {
                 <div className="flex items-center gap-4">
                     <Link 
                         to="/dashboard" 
-                        className="group w-10 h-10 flex items-center justify-center text-[#6B4F4F]/60 hover:text-[#c43c27] transition-all bg-white rounded-xl border border-stone-200/50 shadow-sm"
+                        className="p-2 rounded-full hover:bg-stone-200/60 text-[#6B4F4F] transition-colors shrink-0"
+                        title="Kembali ke Dashboard"
                     >
-                        <ArrowLeftIcon className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
+                        <ArrowLeft className="w-6 h-6" />
                     </Link>
                     
                     <div className="flex items-center gap-3">
                         <div className="relative">
                             <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm border border-stone-200/50">
-                                <SparklesIcon className="w-5 h-5 text-teal-600 animate-pulse" />
+                                <Sparkles className="w-5 h-5 text-teal-600 animate-pulse" />
                             </div>
                             <span className="absolute -bottom-0.5 -right-0.5 block h-2.5 w-2.5 rounded-full bg-green-500 ring-2 ring-white"></span>
                         </div>
@@ -223,7 +224,7 @@ export default function ChatPage() {
                             `}
                             title="Kirim Pesan"
                         >
-                            <PaperAirplaneIcon className="w-4.5 h-4.5 -ml-0.5 mt-0.5" />
+                            <Send className="w-4.5 h-4.5 -ml-0.5 mt-0.5" />
                         </button>
                     </div>
                 </div>

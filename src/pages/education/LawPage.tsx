@@ -1,14 +1,6 @@
 import React, { useState } from 'react';
+import { ArrowLeft, ChevronRight, Globe, Home, Scale, ShieldCheck, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { 
-    ArrowLeftIcon, 
-    ScaleIcon, 
-    ChevronRightIcon, 
-    ShieldCheckIcon,
-    HomeIcon,
-    UserIcon,
-    GlobeAltIcon
-} from '@heroicons/react/24/solid';
 
 const LAW_CATEGORIES = [
     {
@@ -16,7 +8,7 @@ const LAW_CATEGORIES = [
         title: 'Ranah Domestik / Rumah Tangga',
         subtitle: 'UU No. 23 Tahun 2004 tentang PKDRT',
         shortTitle: 'Ranah Domestik',
-        icon: HomeIcon,
+        icon: Home,
         laws: [
             { article: 'Pasal 44 UU PKDRT', type: 'Kekerasan Fisik', detail: 'Melarang kekerasan fisik dalam lingkup rumah tangga. Pelaku terancam pidana penjara maksimal 5 tahun (atau hingga 15 tahun jika mengakibatkan luka berat atau kematian).' },
             { article: 'Pasal 45 UU PKDRT', type: 'Kekerasan Psikis', detail: 'Melarang tindakan yang mengakibatkan ketakutan, hilangnya rasa percaya diri, hilangnya kemampuan bertindak, atau penderitaan psikis berat pada korban.' },
@@ -29,7 +21,7 @@ const LAW_CATEGORIES = [
         title: 'Korban Anak-Anak (< 18 Tahun)',
         subtitle: 'UU No. 35 Tahun 2014 tentang Perlindungan Anak',
         shortTitle: 'Perlindungan Anak',
-        icon: UserIcon,
+        icon: User,
         laws: [
             { article: 'Pasal 76C jo. Pasal 80', type: 'Kekerasan Fisik & Psikis', detail: 'Melarang keras tindakan menempatkan, membiarkan, melakukan, menyuruh, atau turut serta melakukan kekerasan fisik maupun mental terhadap anak.' },
             { article: 'Pasal 76D & 76E jo. Pasal 81 & 82', type: 'Kekerasan Seksual', detail: 'Melarang pemaksaan persetubuhan (pemerkosaan) atau pencabulan terhadap anak dengan ancaman pidana minimal 5 tahun dan maksimal 15 tahun penjara.' },
@@ -42,7 +34,7 @@ const LAW_CATEGORIES = [
         title: 'Korban Perempuan (Publik & Digital)',
         subtitle: 'Kombinasi UU TPKS, UU ITE, & UU TPPO',
         shortTitle: 'Publik & Digital',
-        icon: GlobeAltIcon,
+        icon: Globe,
         laws: [
             { article: 'Pasal 5 UU No. 12 Tahun 2022 (UU TPKS)', type: 'Pelecehan Seksual Non-Fisik', detail: 'Pernyataan verbal, gestur intimidatif, atau catcalling seksual yang merendahkan martabat terancam penjara maksimal 9 bulan dan/atau denda.' },
             { article: 'Pasal 6 UU TPKS', type: 'Pelecehan Seksual Fisik', detail: 'Menyentuh atau melecehkan fisik korban secara seksual di ranah publik terancam hukuman hingga 4 tahun (atau 12 tahun jika ada relasi kuasa).' },
@@ -63,21 +55,20 @@ export default function LawPage() {
         <div className="w-full min-h-screen bg-[#FFFBF5] text-stone-900 font-poppins pb-24">
             <div className="max-w-6xl mx-auto px-5 md:px-8 pt-24 md:pt-28 relative z-10">
                 
-                {/* Back Button */}
-                <div className="mb-6">
-                    <Link 
-                        to="/education" 
-                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-stone-200 text-stone-700 hover:text-stone-900 hover:border-stone-300 transition-colors text-sm font-semibold shadow-xs"
-                    >
-                        <ArrowLeftIcon className="w-4 h-4" />
-                        <span>Kembali ke Edukasi</span>
-                    </Link>
-                </div>
+                {/* Header with integrated back button */}
+                <header className="relative text-center mb-12 max-w-2xl mx-auto">
+                    <div className="absolute left-0 top-0 sm:top-1 z-10">
+                        <Link 
+                            to="/education" 
+                            className="p-2 -ml-2 rounded-full hover:bg-stone-200/60 text-stone-700 hover:text-stone-900 transition-colors inline-flex items-center justify-center shrink-0"
+                            title="Kembali ke Edukasi"
+                        >
+                            <ArrowLeft className="w-6 h-6" />
+                        </Link>
+                    </div>
 
-                {/* Header without text above */}
-                <header className="text-center mb-12 max-w-2xl mx-auto">
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-stone-900 tracking-tight mb-4">
-                        Dasar Regulasi & <span className="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">Hak Hukum</span>
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-stone-900 tracking-tight px-10 sm:px-14 mb-4">
+                        Dasar Regulasi & <span className="text-amber-600">Hak Hukum</span>
                     </h1>
                     <p className="text-sm sm:text-base text-stone-600 font-normal leading-relaxed">
                         Landasan regulasi konstitusional di Indonesia yang melindungi hak korban kekerasan fisik, psikis, seksual, maupun digital.
@@ -150,7 +141,7 @@ export default function LawPage() {
                                         <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0
                                             ${isSelected ? 'bg-stone-800 text-white' : 'bg-stone-100 text-stone-500'}
                                         `}>
-                                            <ChevronRightIcon className="w-4 h-4" />
+                                            <ChevronRight className="w-4 h-4" />
                                         </div>
                                     </div>
 
@@ -168,7 +159,7 @@ export default function LawPage() {
                     {/* Detail Panel (Desktop only) */}
                     <div className="hidden lg:block lg:col-span-5">
                         <div className="flex items-center gap-2 mb-3 px-1">
-                            <ShieldCheckIcon className="w-4 h-4 text-stone-500" />
+                            <ShieldCheck className="w-4 h-4 text-stone-500" />
                             <h4 className="font-semibold text-stone-500 text-xs uppercase tracking-wider">Uraian Ketentuan</h4>
                         </div>
                         <div className="bg-white rounded-2xl p-6 border border-stone-200 shadow-xs min-h-[280px] flex flex-col justify-between">
@@ -185,7 +176,7 @@ export default function LawPage() {
                                 </div>
                             ) : (
                                 <div className="flex flex-col items-center justify-center py-10 text-center my-auto text-stone-400">
-                                    <ScaleIcon className="w-8 h-8 mb-2 text-stone-300" />
+                                    <Scale className="w-8 h-8 mb-2 text-stone-300" />
                                     <p className="text-xs font-normal">Pilih salah satu pasal di sebelah kiri untuk membaca uraian hukum lengkap.</p>
                                 </div>
                             )}

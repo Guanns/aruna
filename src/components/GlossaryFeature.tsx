@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { Search } from 'lucide-react';
 import { glossaryTerms } from '../features/glossaryData';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
 export default function GlossaryFeature() {
     const [search, setSearch] = useState('');
@@ -37,7 +37,7 @@ export default function GlossaryFeature() {
                 {/* Search Input */}
                 <div className="relative max-w-xl mx-auto">
                     <div className="bg-white border border-stone-200 rounded-xl shadow-xs flex items-center px-4 py-3">
-                        <MagnifyingGlassIcon className="w-5 h-5 text-stone-400 shrink-0" />
+                        <Search className="w-5 h-5 text-stone-400 shrink-0" />
                         <input 
                             type="text"
                             placeholder="Cari istilah atau definisi disini..."

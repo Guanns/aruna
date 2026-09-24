@@ -1,6 +1,6 @@
 // components/FaqAccordion.tsx
 // VERSI REDESIGN: Seamless List & Soft Colorsimport React, { useState } from 'react';
-import { PlusIcon, MinusIcon } from '@heroicons/react/24/outline';
+import { Minus, Plus } from 'lucide-react';
 
 const faqs = [
     {
@@ -55,7 +55,7 @@ export default function FaqAccordion() {
                                     {faq.question}
                                 </span>
                                 <span className={`ml-4 p-2 rounded-full transition-all duration-300 ${isOpen ? 'bg-[#c43c27] text-white rotate-180' : 'bg-stone-100 text-[#6B4F4F]'}`}>
-                                    {isOpen ? <MinusIcon className="w-5 h-5"/> : <PlusIcon className="w-5 h-5"/>}
+                                    {isOpen ? <Minus className="w-5 h-5"/> : <Plus className="w-5 h-5"/>}
                                 </span>
                             </button>
                             

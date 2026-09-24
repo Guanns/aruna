@@ -9,12 +9,12 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
-    "@heroicons/react": "^2.2.0",
     "@tiptap/extension-color": "^3.6.5",
     "@tiptap/extension-highlight": "^3.6.5",
     "@tiptap/extension-text-style": "^3.6.5",
     "@tiptap/react": "^3.6.5",
     "@tiptap/starter-kit": "^3.6.5",
+    "lucide-react": "^1.48.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-router-dom": "^6.30.1",

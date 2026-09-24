@@ -1,7 +1,7 @@
 // components/HeroSlider.tsx
 // VERSI 7: Elegant & Clean (Glassmorphism Refined)import React, { useState, useEffect } from 'react';
+import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
 
 const slideData = [
     {
@@ -74,7 +74,7 @@ export default function HeroSlider() {
                                 className="group inline-flex items-center gap-3 bg-[#c43c27] text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#a32e1c] transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-red-200"
                             >
                                 {slide.buttonText}
-                                <ArrowRightIcon className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </Link>
                         </div>
                     ))}

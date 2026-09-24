@@ -1,12 +1,7 @@
 // app/information/page.tsx
 // VERSI FINAL FIX: Precision Layout & Horizontal Scroll Tabsimport { Link } from 'react-router-dom';
-import { 
-    ArrowLeftIcon, 
-    ChevronDownIcon, 
-    BookOpenIcon,
-    LightBulbIcon
-} from '@heroicons/react/24/solid';
 import React, { useState } from 'react';
+import { ArrowLeft, BookOpen, ChevronDown, Lightbulb } from 'lucide-react';
 
 // Tipe Kategori
 type Category = 'Semua' | 'Darurat' | 'Wellness' | 'Privasi';
@@ -181,15 +176,6 @@ export default function PusatInformasiPage() {
 
     return (
         <div className="w-full min-h-screen bg-[#FFFBF5] text-[#6B4F4F] relative overflow-hidden font-sans pb-20">
-            {/* Floating Back Button */}
-            <Link 
-                to="/dashboard" 
-                className="fixed top-6 left-6 z-50 w-10 h-10 bg-white/80 hover:bg-white backdrop-blur-md rounded-xl flex items-center justify-center shadow-md border border-stone-200/50 text-[#6B4F4F] transition-all hover:scale-105 active:scale-95 group"
-                title="Kembali ke Dashboard"
-            >
-                <ArrowLeftIcon className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
-            </Link>
-
             {/* --- BACKGROUND FX --- */}
             <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
                  <div className="absolute top-[-10%] right-[10%] w-[600px] h-[600px] bg-purple-200/20 rounded-full blur-[100px]"></div>
@@ -197,24 +183,30 @@ export default function PusatInformasiPage() {
                  <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/noise.png')]"></div>
             </div>
 
-            <div className="max-w-3xl mx-auto px-6 pt-36 relative z-10">
+            <div className="max-w-3xl mx-auto px-6 pt-28 md:pt-32 relative z-10">
                 
                 {/* --- HEADER --- */}
-                <header className="text-center mb-12">
-                    <Link to="/dashboard" className="inline-flex items-center gap-2 text-[#6B4F4F]/60 hover:text-purple-600 mb-8 transition-colors py-2 px-4 rounded-full hover:bg-white/50 border border-transparent hover:border-purple-100">
-                        <ArrowLeftIcon className="w-4 h-4"/> Kembali ke Dashboard
-                    </Link>
-                    
+                <header className="relative text-center mb-12">
+                    <div className="absolute left-0 top-0 z-10">
+                        <Link 
+                            to="/dashboard" 
+                            className="p-2 -ml-2 rounded-full hover:bg-stone-200/60 text-[#6B4F4F] transition-colors inline-flex items-center justify-center shrink-0"
+                            title="Kembali ke Dashboard"
+                        >
+                            <ArrowLeft className="w-6 h-6" />
+                        </Link>
+                    </div>
+
                     <div className="flex justify-center mb-6">
-                        <div className="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 shadow-md border border-purple-200/50">
-                            <BookOpenIcon className="w-12 h-12" />
+                        <div className="w-20 h-20 sm:w-24 sm:h-24 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 shadow-md border border-purple-200/50">
+                            <BookOpen className="w-10 h-10 sm:w-12 sm:h-12" />
                         </div>
                     </div>
                     
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4 text-[#6B4F4F] tracking-tight">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#6B4F4F] tracking-tight px-12 sm:px-16 mb-3">
                         Pusat <span className="font-serif italic text-purple-600">Bantuan</span>
                     </h1>
-                    <p className="text-lg opacity-70 max-w-lg mx-auto font-light leading-relaxed">
+                    <p className="text-sm sm:text-base opacity-75 max-w-lg mx-auto font-light leading-relaxed">
                         Bingung cara pakai fitur Aruna? Tenang, kami sudah siapkan panduan lengkapnya di sini.
                     </p>
                 </header>
@@ -267,7 +259,7 @@ export default function PusatInformasiPage() {
                                         </div>
                                     </div>
                                     <div className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 ${isOpen ? 'bg-gray-100 rotate-180 text-gray-600' : 'bg-white shadow-sm text-gray-300'}`}>
-                                        <ChevronDownIcon className="w-5 h-5" />
+                                        <ChevronDown className="w-5 h-5" />
                                     </div>
                                 </button>
                                 
@@ -293,7 +285,7 @@ export default function PusatInformasiPage() {
                 {filteredTutorials.length === 0 && (
                     <div className="text-center py-20 opacity-50 flex flex-col items-center justify-center">
                         <div className="bg-gray-100 p-4 rounded-full mb-4">
-                            <LightBulbIcon className="w-8 h-8 text-gray-400"/>
+                            <Lightbulb className="w-8 h-8 text-gray-400"/>
                         </div>
                         <p className="font-medium">Belum ada panduan di kategori ini.</p>
                     </div>

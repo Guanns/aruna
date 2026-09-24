@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import { 
-    SparklesIcon, MusicalNoteIcon, PuzzlePieceIcon, 
-    FaceSmileIcon, CloudIcon, StarIcon, 
-    FireIcon, Square3Stack3DIcon, ArrowLeftIcon 
-} from '@heroicons/react/24/solid';
+import { ArrowLeft, Cloud, Flame, Layers, Music, Puzzle, Smile, Sparkles, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { 
     BreathingGame, BubblePopGame, MemoryGame, 
@@ -26,7 +22,7 @@ type GameItem = {
 const GAMES: GameItem[] = [
     { 
         id: 'breathe', 
-        icon: SparklesIcon, 
+        icon: Sparkles, 
         title: 'Bernafas', 
         subtitle: 'Pernapasan 4-4-4',
         iconColor: 'text-teal-600',
@@ -37,7 +33,7 @@ const GAMES: GameItem[] = [
     },
     { 
         id: 'bubble', 
-        icon: MusicalNoteIcon, 
+        icon: Music, 
         title: 'Bubble Pop', 
         subtitle: 'Pecahkan stresmu',
         iconColor: 'text-amber-600',
@@ -48,7 +44,7 @@ const GAMES: GameItem[] = [
     },
     { 
         id: 'stone', 
-        icon: Square3Stack3DIcon, 
+        icon: Layers, 
         title: 'Batu Zen', 
         subtitle: 'Latihan fokus',
         iconColor: 'text-stone-700',
@@ -59,7 +55,7 @@ const GAMES: GameItem[] = [
     },
     { 
         id: 'jar', 
-        icon: StarIcon, 
+        icon: Star, 
         title: 'The Jar', 
         subtitle: 'Koleksi rasa syukur',
         iconColor: 'text-yellow-600',
@@ -70,7 +66,7 @@ const GAMES: GameItem[] = [
     },
     { 
         id: 'cloud', 
-        icon: CloudIcon, 
+        icon: Cloud, 
         title: 'The Cloud', 
         subtitle: 'Lepaskan bebanmu',
         iconColor: 'text-sky-600',
@@ -81,7 +77,7 @@ const GAMES: GameItem[] = [
     },
     { 
         id: 'lantern', 
-        icon: FireIcon, 
+        icon: Flame, 
         title: 'Lentera', 
         subtitle: 'Terbangkan harapanmu',
         iconColor: 'text-rose-600',
@@ -92,7 +88,7 @@ const GAMES: GameItem[] = [
     },
     { 
         id: 'memory', 
-        icon: PuzzlePieceIcon, 
+        icon: Puzzle, 
         title: 'Fokus', 
         subtitle: 'Memory match',
         iconColor: 'text-purple-600',
@@ -103,7 +99,7 @@ const GAMES: GameItem[] = [
     },
     { 
         id: 'stress', 
-        icon: FaceSmileIcon, 
+        icon: Smile, 
         title: 'Stress Popper', 
         subtitle: 'Ubah kata negatif',
         iconColor: 'text-emerald-600',
@@ -124,14 +120,15 @@ export default function RelaxPage() {
                 
                 {/* Header Navigation & Title */}
                 <div className="mb-6 md:mb-8">
-                    <Link 
-                        to="/dashboard" 
-                        className="inline-flex items-center gap-2 text-stone-600 hover:text-stone-900 text-xs sm:text-sm font-semibold py-2 px-3.5 rounded-xl hover:bg-stone-100 transition-colors w-fit group mb-4 border border-stone-200/80 bg-white shadow-xs"
-                    >
-                        <ArrowLeftIcon className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
-                        <span>Kembali ke Dashboard</span>
-                    </Link>
-
+                    <div className="mb-2 sm:mb-2.5">
+                        <Link 
+                            to="/dashboard" 
+                            className="p-1.5 sm:p-2 -ml-1.5 sm:-ml-2 rounded-full hover:bg-stone-200/60 text-stone-700 hover:text-stone-900 transition-colors inline-flex items-center justify-center shrink-0"
+                            title="Kembali ke Dashboard"
+                        >
+                            <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                        </Link>
+                    </div>
                     <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-stone-900 tracking-tight">
                         Ruang Healing
                     </h1>

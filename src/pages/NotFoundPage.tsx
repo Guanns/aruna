@@ -1,6 +1,6 @@
 import React from 'react';
+import { ArrowLeft, HelpCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { QuestionMarkCircleIcon, ArrowLeftIcon } from '@heroicons/react/24/solid';
 
 export default function NotFoundPage() {
     return (
@@ -14,7 +14,7 @@ export default function NotFoundPage() {
 
             <div className="max-w-md w-full text-center relative z-10 bg-white/60 backdrop-blur-md p-10 rounded-[2.5rem] border border-white/60 shadow-xl">
                 <div className="w-20 h-20 bg-rose-50 text-rose-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-inner border border-rose-100/50">
-                    <QuestionMarkCircleIcon className="w-10 h-10 animate-pulse" />
+                    <HelpCircle className="w-10 h-10 animate-pulse" />
                 </div>
                 <h1 className="text-4xl font-extrabold mb-2 tracking-tight">404</h1>
                 <h2 className="text-xl font-bold mb-4">Halaman Tidak Ditemukan</h2>
@@ -23,9 +23,9 @@ export default function NotFoundPage() {
                 </p>
                 <Link 
                     to="/" 
-                    className="inline-flex items-center gap-2 bg-[#6B4F4F] text-white py-3.5 px-8 rounded-full font-bold shadow-md hover:bg-[#5a4242] transition-all hover:scale-102 active:scale-95"
+                    className="inline-flex items-center gap-2 bg-[#6B4F4F] hover:bg-[#5a4242] text-white py-3 px-6 rounded-xl font-bold shadow-xs transition-colors"
                 >
-                    <ArrowLeftIcon className="w-4 h-4"/>
+                    <ArrowLeft className="w-4 h-4"/>
                     Kembali ke Beranda
                 </Link>
             </div>
