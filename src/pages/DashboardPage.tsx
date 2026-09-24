@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, BellRing, BookOpen, Calculator, Eye, Heart, KeyRound, Lock, MapPin, Megaphone, MessagesSquare, Phone, Settings, ShieldCheck, Sparkles, Volume2 } from 'lucide-react';
+import { ArrowRight, BellRing, BookOpen, Calculator, Eye, Heart, KeyRound, Languages, Lock, MapPin, Megaphone, MessagesSquare, Phone, Settings, ShieldCheck, Sparkles, Volume2 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { triggerPanicButton } from '../features/panicButton';
@@ -283,7 +283,34 @@ export default function DashboardPage() {
                             </div>
                         </div>
 
-                        {/* 2. SOS SIRENE */}
+                        {/* 2. ARUNA TRANSLATOR (Tools Komunikasi Ramah ABK) */}
+                        <Link 
+                            to="/tools/translator"
+                            className="w-full bg-amber-50/90 hover:bg-amber-100/80 border-2 border-amber-300 hover:border-amber-400 rounded-2xl sm:rounded-3xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 shadow-xs transition-colors group cursor-pointer"
+                        >
+                            <div className="flex items-start sm:items-center gap-3.5 sm:gap-4">
+                                <div className="p-3 bg-amber-100 text-amber-700 rounded-2xl shrink-0">
+                                    <Languages className="w-6 h-6 sm:w-7 sm:h-7" />
+                                </div>
+                                <div className="min-w-0">
+                                    <div className="flex items-center gap-2">
+                                        <h3 className="text-base sm:text-lg font-bold text-stone-900 leading-snug">Aruna Translator</h3>
+                                        <span className="px-2 py-0.5 bg-amber-600 text-white rounded-md font-bold text-[10px] tracking-wider">
+                                            TOOLS
+                                        </span>
+                                    </div>
+                                    <p className="text-xs sm:text-sm text-stone-600 mt-0.5 leading-relaxed">
+                                        Papan kartu kata cepat & suara bantuan bicara untuk mengekspresikan kondisi fisik, emosi, atau minta tolong.
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="w-full sm:w-auto px-4 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-medium text-xs sm:text-sm flex items-center justify-center gap-2 transition-colors shrink-0">
+                                <span>Buka Translator</span>
+                                <ArrowRight className="w-3.5 h-3.5 shrink-0" />
+                            </div>
+                        </Link>
+
+                        {/* 3. SOS SIRENE */}
                         <div 
                             onClick={() => setIsSosModalOpen(true)}
                             className="w-full bg-red-50/90 hover:bg-red-100/80 border-2 border-red-300 hover:border-red-400 rounded-2xl sm:rounded-3xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 shadow-xs transition-colors cursor-pointer group"
@@ -310,7 +337,7 @@ export default function DashboardPage() {
                             </div>
                         </div>
 
-                        {/* 3. LIVE POSITION */}
+                        {/* 4. LIVE POSITION */}
                         <Link 
                             to="/live-position" 
                             className="w-full bg-sky-50/90 hover:bg-sky-100/80 border-2 border-sky-300 hover:border-sky-400 rounded-2xl sm:rounded-3xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 shadow-xs transition-colors group cursor-pointer"
@@ -332,7 +359,7 @@ export default function DashboardPage() {
                             </div>
                         </Link>
 
-                        {/* 4. ARUNA AI */}
+                        {/* 5. ARUNA AI */}
                         <Link 
                             to="/chat" 
                             className="w-full bg-teal-50/90 hover:bg-teal-100/80 border-2 border-teal-300 hover:border-teal-400 rounded-2xl sm:rounded-3xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 shadow-xs transition-colors group cursor-pointer"
@@ -354,7 +381,7 @@ export default function DashboardPage() {
                             </div>
                         </Link>
 
-                        {/* 5. JURNAL PRIBADI */}
+                        {/* 6. JURNAL PRIBADI */}
                         <Link 
                             to="/notes" 
                             className="w-full bg-amber-50/90 hover:bg-amber-100/80 border-2 border-amber-300 hover:border-amber-400 rounded-2xl sm:rounded-3xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 shadow-xs transition-colors group cursor-pointer"
@@ -376,7 +403,7 @@ export default function DashboardPage() {
                             </div>
                         </Link>
 
-                        {/* 6. STATUS KEAMANAN */}
+                        {/* 7. STATUS KEAMANAN */}
                         <div 
                             onClick={() => openEmergencySettings()}
                             className={`w-full ${
@@ -388,7 +415,7 @@ export default function DashboardPage() {
                             <div className="flex items-start sm:items-center gap-3.5 sm:gap-4">
                                 <div className={`p-3 rounded-2xl shrink-0 ${
                                     hasEmergencyContact ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'
-                                }`}>
+                                } border-0`}>
                                     <ShieldCheck className="w-6 h-6 sm:w-7 sm:h-7" />
                                 </div>
                                 <div className="min-w-0">
@@ -415,7 +442,7 @@ export default function DashboardPage() {
                             </div>
                         </div>
 
-                        {/* 7. KONTAK BANTUAN */}
+                        {/* 8. KONTAK BANTUAN */}
                         <Link 
                             to="/directory" 
                             className="w-full bg-orange-50/90 hover:bg-orange-100/80 border-2 border-orange-300 hover:border-orange-400 rounded-2xl sm:rounded-3xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 shadow-xs transition-colors group cursor-pointer"
@@ -437,7 +464,7 @@ export default function DashboardPage() {
                             </div>
                         </Link>
 
-                        {/* 8. MODE RAMAH (Buka Kunci) */}
+                        {/* 9. MODE RAMAH (Buka Kunci) */}
                         <div 
                             onClick={handleEasyModeCardClick}
                             className="w-full bg-emerald-50/90 hover:bg-emerald-100/70 border-2 border-emerald-300 hover:border-emerald-400 rounded-2xl sm:rounded-3xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 shadow-xs transition-colors group cursor-pointer"
@@ -450,12 +477,11 @@ export default function DashboardPage() {
                                     <div className="flex items-center gap-2 flex-wrap">
                                         <h3 className="text-base sm:text-lg font-bold text-stone-900 leading-snug">Mode Ramah</h3>
                                         <span className="px-2 py-0.5 bg-emerald-700 text-white rounded-md font-bold text-[10px] tracking-wider flex items-center gap-1.5">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                                             <span>Aktif</span>
                                         </span>
                                     </div>
                                     <p className="text-xs sm:text-sm text-stone-600 mt-0.5 leading-relaxed">
-                                        Mode ramah disabilitas aktif. Terkunci dengan proteksi password.
+                                        Mode ramah aktif. Terkunci dengan proteksi password.
                                     </p>
                                 </div>
                             </div>
@@ -465,7 +491,7 @@ export default function DashboardPage() {
                             </div>
                         </div>
 
-                        {/* 9. PENGADUAN LANGSUNG SAKA */}
+                        {/* 10. PENGADUAN LANGSUNG SAKA */}
                         <a 
                             href="https://bit.ly/SI-SAKA" 
                             target="_blank" 

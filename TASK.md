@@ -1,3 +1,5 @@
 # task
 
-1. kembalikan lagi fitur mode mudah, ui nya udah bagus, tapi sekarang aku butuh fitur mode mudahnya kaya yang sebelumnya
+1. pindahkan fitur Aruna translator, menjadi fitur tools didalam dashboard
+2. fitur ini hanya bisa diakses ketika user mengaktifkan mode ramah
+3. tempat fitur ini berada dibawah card panic button

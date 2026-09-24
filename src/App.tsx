@@ -22,12 +22,16 @@ import RelaxPage         from './pages/RelaxPage';
 import SettingsPage      from './pages/SettingsPage';
 import NotFoundPage      from './pages/NotFoundPage';
 import GalleryPage       from './pages/GalleryPage';
+import ArunaTranslatorPage from './pages/tools/ArunaTranslatorPage';
 
 // Pages — education sub-routes
 import GlossaryPage      from './pages/education/GlossaryPage';
 import QuizPage          from './pages/education/QuizPage';
 import SimulationPage    from './pages/education/SimulationPage';
 import LawPage           from './pages/education/LawPage';
+import EmpatiHubPage     from './pages/education/EmpatiHubPage';
+import BolehAtauJanganPage from './pages/education/BolehAtauJanganPage';
+import MitosAtauFaktaPage from './pages/education/MitosAtauFaktaPage';
 import ScrollToTop       from './components/ScrollToTop';
 
 export default function App() {
@@ -44,6 +48,9 @@ export default function App() {
             <Route path="/dashboard"            element={<DashboardPage />} />
             <Route path="/directory"            element={<DirectoryPage />} />
             <Route path="/education"            element={<EducationPage />} />
+            <Route path="/education/empati-hub" element={<EmpatiHubPage />} />
+            <Route path="/education/empati-hub/boleh-atau-jangan" element={<BolehAtauJanganPage />} />
+            <Route path="/education/empati-hub/mitos-atau-fakta" element={<MitosAtauFaktaPage />} />
             <Route path="/education/glossary"   element={<GlossaryPage />} />
             <Route path="/education/quiz"       element={<QuizPage />} />
             <Route path="/education/simulation" element={<SimulationPage />} />
@@ -54,6 +61,7 @@ export default function App() {
             <Route path="/period"               element={<PeriodPage />} />
             <Route path="/relax"                element={<RelaxPage />} />
             <Route path="/settings"             element={<SettingsPage />} />
+            <Route path="/tools/translator"     element={<ArunaTranslatorPage />} />
             <Route path="/gallery"              element={<GalleryPage />} />
             <Route path="*"                     element={<NotFoundPage />} />
           </Routes>

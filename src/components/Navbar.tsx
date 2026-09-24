@@ -1,5 +1,6 @@
 // components/Navbar.tsx
-// VERSI UPDATE: Menu 'Kontak' diganti jadi 'Games'import React, { useState, useEffect } from 'react';
+// VERSI UPDATE: Menu 'Kontak' diganti jadi 'Games'
+import React, { useState, useEffect } from 'react';
 import { ArrowRight, Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
@@ -142,7 +143,7 @@ export default function Navbar() {
                 </div>
 
                 <div className={`absolute bottom-6 sm:bottom-10 text-[#6B4F4F]/40 text-xs tracking-widest uppercase transition-opacity duration-1000 ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
-                    Aruna Safety App &copy; 2025
+                    Aruna Safety App Since &copy; 2025
                 </div>
             </div>
         </>
