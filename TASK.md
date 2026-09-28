@@ -1,5 +1,6 @@
 # task
 
-1. pindahkan fitur Aruna translator, menjadi fitur tools didalam dashboard
-2. fitur ini hanya bisa diakses ketika user mengaktifkan mode ramah
-3. tempat fitur ini berada dibawah card panic button
+1. update foto foto yang ada pada menu gallery
+
+2. terserah mau dikelompokin atau engga, cuman ux nya udah bagus begini, jangan diubah
+

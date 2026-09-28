@@ -29,9 +29,8 @@ import GlossaryPage      from './pages/education/GlossaryPage';
 import QuizPage          from './pages/education/QuizPage';
 import SimulationPage    from './pages/education/SimulationPage';
 import LawPage           from './pages/education/LawPage';
-import EmpatiHubPage     from './pages/education/EmpatiHubPage';
-import BolehAtauJanganPage from './pages/education/BolehAtauJanganPage';
-import MitosAtauFaktaPage from './pages/education/MitosAtauFaktaPage';
+import ArunaInklusivaPage from './pages/education/ArunaInklusivaPage';
+import ArunaAksiInklusiPage from './pages/education/ArunaAksiInklusiPage';
 import ScrollToTop       from './components/ScrollToTop';
 
 export default function App() {
@@ -48,11 +47,10 @@ export default function App() {
             <Route path="/dashboard"            element={<DashboardPage />} />
             <Route path="/directory"            element={<DirectoryPage />} />
             <Route path="/education"            element={<EducationPage />} />
-            <Route path="/education/empati-hub" element={<EmpatiHubPage />} />
-            <Route path="/education/empati-hub/boleh-atau-jangan" element={<BolehAtauJanganPage />} />
-            <Route path="/education/empati-hub/mitos-atau-fakta" element={<MitosAtauFaktaPage />} />
+            <Route path="/education/inklusiva"  element={<ArunaInklusivaPage />} />
+            <Route path="/education/aksi-inklusi" element={<ArunaAksiInklusiPage />} />
             <Route path="/education/glossary"   element={<GlossaryPage />} />
-            <Route path="/education/quiz"       element={<QuizPage />} />
+            <Route path="/education/quiz"       element={<ArunaAksiInklusiPage />} />
             <Route path="/education/simulation" element={<SimulationPage />} />
             <Route path="/education/law"        element={<LawPage />} />
             <Route path="/information"          element={<InformationPage />} />

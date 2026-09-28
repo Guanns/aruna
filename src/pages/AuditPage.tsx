@@ -110,7 +110,7 @@ export default function AuditPrivasiPage() {
                         </div>
                     </div>
                     
-                    <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-[#6B4F4F] tracking-tight mb-2 sm:mb-3">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#6B4F4F] tracking-tight mb-2 sm:mb-3">
                         Benteng <span className="font-serif italic text-indigo-600">Digital</span>
                     </h1>
                     <p className="text-xs sm:text-base opacity-75 max-w-xl mx-auto font-light leading-relaxed px-2">
@@ -122,7 +122,7 @@ export default function AuditPrivasiPage() {
                 <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-sm border border-stone-200 mb-8 sm:mb-10 relative">
                     <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
                         <div className="text-center sm:text-left">
-                            <h3 className="text-base sm:text-lg md:text-xl font-bold text-stone-900">Status Keamanan</h3>
+                            <h3 className="text-base sm:text-lg font-bold text-stone-900">Status Keamanan</h3>
                             <p className="text-xs sm:text-sm text-stone-500 mt-0.5 sm:mt-1">Selesaikan semua langkah panduan di bawah.</p>
                         </div>
                         
@@ -166,7 +166,7 @@ export default function AuditPrivasiPage() {
                                             {platform.icon}
                                         </div>
                                         <div className="min-w-0">
-                                            <h2 className="text-base sm:text-lg md:text-xl font-bold text-stone-900 truncate">
+                                            <h2 className="text-base sm:text-lg font-bold text-stone-900 truncate">
                                                 {platform.name}
                                             </h2>
                                             <div className="flex items-center gap-1.5 sm:gap-2 mt-0.5 sm:mt-1 flex-wrap">

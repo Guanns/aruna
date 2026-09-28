@@ -218,10 +218,10 @@ export default function NotesPage() {
                                 <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" />
                             </Link>
                         </div>
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#6B4F4F] tracking-tight mb-2">
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#6B4F4F] tracking-tight mb-2">
                             Jurnal <span className="font-serif italic text-yellow-600">Pribadi</span>
                         </h1>
-                        <p className="text-base sm:text-lg opacity-85 font-light leading-relaxed max-w-2xl">
+                        <p className="text-sm sm:text-base opacity-85 font-normal leading-relaxed max-w-2xl">
                             Ruang aman untuk mencatat perasaan, kejadian, atau sekadar melepas beban pikiran secara bebas.
                         </p>
                     </div>
@@ -320,7 +320,7 @@ export default function NotesPage() {
                 {/* --- NOTES GRID --- */}
                 {filteredNotes.length > 0 ? (
                     <div>
-                        <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                        <h3 className="text-lg sm:text-xl font-bold mb-5 flex items-center gap-2">
                             <CalendarDays className="w-6 h-6 text-[#6B4F4F]/70"/>
                             Riwayat Jurnal ({filteredNotes.length})
                         </h3>

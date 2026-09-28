@@ -156,7 +156,7 @@ export default function LivePositionPage() {
                             <ArrowLeft className="w-6 h-6" />
                         </Link>
                     </div>
-                    <h1 className="text-3xl sm:text-4xl font-bold text-[#6B4F4F] tracking-tight px-10">
+                    <h1 className="text-2xl sm:text-3xl font-extrabold text-[#6B4F4F] tracking-tight px-10">
                         Live <span className={`font-serif italic transition-colors duration-500 ${status !== 'idle' ? 'text-green-600' : 'text-blue-600'}`}>Position</span>
                     </h1>
                 </header>

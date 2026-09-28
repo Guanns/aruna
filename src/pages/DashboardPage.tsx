@@ -238,7 +238,7 @@ export default function DashboardPage() {
                         <span className="h-2 w-2 rounded-full bg-[#c43c27]"></span>
                         <p className="text-xs font-semibold text-stone-500 uppercase tracking-wider">{dateString}</p>
                     </div>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-stone-800 tracking-tight">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-stone-800 tracking-tight">
                         {greeting}, <span className="text-[#c43c27]">Cantik!</span>
                     </h1>
                 </header>
@@ -257,7 +257,7 @@ export default function DashboardPage() {
                                 </div>
                                 <div className="min-w-0">
                                     <div className="flex items-center gap-2">
-                                        <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
+                                        <h2 className="text-lg sm:text-xl font-bold tracking-tight text-white">
                                             Panic Button
                                         </h2>
                                         <button 
@@ -539,7 +539,7 @@ export default function DashboardPage() {
                                 </button>
                             </div>
                             <div>
-                                <h2 className="text-lg sm:text-2xl font-bold tracking-tight mb-1 text-white">
+                                <h2 className="text-base sm:text-xl font-bold tracking-tight mb-1 text-white">
                                     Panic Button
                                 </h2>
                                 <p className="text-xs sm:text-sm text-white/90 leading-relaxed mb-3 sm:mb-4 line-clamp-2">

@@ -22,7 +22,7 @@ export default function SimulationPage() {
                                     <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" />
                                 </Link>
                             </div>
-                            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-stone-900 tracking-tight mb-3">
+                            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-stone-900 tracking-tight mb-3">
                                 Latihan Menolak <span className="text-teal-700">Tekanan</span>
                             </h1>
                             <p className="text-sm sm:text-base text-stone-600 font-normal leading-relaxed">

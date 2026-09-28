@@ -20,7 +20,7 @@ export default function GlossaryPage() {
                         </Link>
                     </div>
 
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-stone-900 tracking-tight px-10 sm:px-14 mb-4">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-stone-900 tracking-tight px-10 sm:px-14 mb-3">
                         Kamus Bahasa <span className="text-indigo-600">Gen Z</span>
                     </h1>
                     <p className="text-sm sm:text-base text-stone-600 font-normal leading-relaxed">

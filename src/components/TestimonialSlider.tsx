@@ -69,7 +69,7 @@ export default function TestimonialSlider() {
             `}</style>
 
             <div className="max-w-6xl mx-auto px-6 mb-10 text-center">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-stone-900 tracking-tight">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-stone-900 tracking-tight">
                     Apa Kata Mereka Tentang Aruna?
                 </h2>
             </div>

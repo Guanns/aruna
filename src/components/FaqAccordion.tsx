@@ -30,7 +30,7 @@ export default function FaqAccordion() {
 
     return (
         <div className="w-full max-w-3xl mx-auto py-16 px-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-[#6B4F4F]">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-3 text-[#6B4F4F]">
                 Sering Ditanyakan
             </h2>
             <p className="text-center text-[#6B4F4F]/60 mb-12">

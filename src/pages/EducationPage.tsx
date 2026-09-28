@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, ArrowRight, BookOpen, HeartHandshake, MessagesSquare, Scale, ShieldAlert } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BookOpen, HeartHandshake, MessagesSquare, Scale, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const articles = [
@@ -35,24 +35,24 @@ const articles = [
 
 const educationModules = [
     {
-        to: '/education/empati-hub',
-        title: 'Aruna EmpatiHUB',
-        badge: 'Modul Unggulan',
+        to: '/education/inklusiva',
+        title: 'Aruna Inklusiva',
+        badge: 'Modul Inklusi',
         badgeClass: 'bg-emerald-50 text-emerald-800 border-emerald-100',
-        description: 'Pusat eksplorasi empati interaktif untuk mengenali batasan sehat, membedakan mitos dari fakta, dan memahami ragam sudut pandang.',
-        actionText: 'Masuk EmpatiHUB',
+        description: 'Panduan edukasi inklusivitas dan kesetaraan hak disabilitas.',
+        actionText: 'Buka Modul',
         icon: HeartHandshake,
         iconBox: 'bg-emerald-50 text-emerald-700 border border-emerald-100',
     },
     {
-        to: '/education/quiz',
-        title: 'Deteksi Red Flag Hubungan',
-        badge: 'Kuis Evaluasi',
-        badgeClass: 'bg-rose-50 text-rose-800 border-rose-100',
-        description: 'Evaluasi kesehatan hubunganmu melalui instrumen kuis terarah untuk mengenali pola manipulasi, dominasi, atau tanda bahaya sejak awal.',
-        actionText: 'Mulai Deteksi',
-        icon: ShieldAlert,
-        iconBox: 'bg-rose-50 text-rose-600 border border-rose-100',
+        to: '/education/aksi-inklusi',
+        title: 'Aruna Aksi Inklusi',
+        badge: 'Aksi Inklusi',
+        badgeClass: 'bg-stone-100 text-stone-800 border-stone-200',
+        description: 'Eksplorasi ragam disabilitas serta glosarium istilah dan etika berinteraksi ramah dengan anak berkebutuhan khusus.',
+        actionText: 'Buka Fitur',
+        icon: Users,
+        iconBox: 'bg-stone-100 text-stone-800 border border-stone-200',
     },
     {
         to: '/education/glossary',
@@ -105,7 +105,7 @@ export default function EducationPage() {
                     </div>
 
                     <div className="max-w-3xl">
-                        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-stone-900 tracking-tight mb-3">
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-stone-900 tracking-tight mb-3">
                             Edukasi & <span className="text-[#c43c27]">Perlindungan Diri</span>
                         </h1>
                         <p className="text-sm sm:text-base md:text-lg text-stone-600 font-normal leading-relaxed">
@@ -132,7 +132,7 @@ export default function EducationPage() {
                                             {mod.badge}
                                         </span>
                                     </div>
-                                    <h2 className="text-xl sm:text-2xl font-bold text-stone-900 mb-2 leading-snug">
+                                    <h2 className="text-lg sm:text-xl font-bold text-stone-900 mb-2 leading-snug">
                                         {mod.title}
                                     </h2>
                                     <p className="text-xs sm:text-sm text-stone-600 font-normal leading-relaxed mb-6">
@@ -157,7 +157,7 @@ export default function EducationPage() {
                 {/* Section: Artikel & Wawasan */}
                 <div className="border-t border-stone-200/80 pt-10 sm:pt-12">
                     <div className="mb-6 sm:mb-8">
-                        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-stone-900 mb-1.5">
+                        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-stone-900 mb-1.5">
                             Artikel & <span className="text-[#c43c27]">Wawasan</span>
                         </h2>
                         <p className="text-xs sm:text-sm text-stone-600 font-normal">
@@ -175,7 +175,7 @@ export default function EducationPage() {
                                     <span className={`inline-block text-xs font-semibold px-2.5 py-1 rounded-md mb-3 ${article.categoryColor}`}>
                                         {article.category}
                                     </span>
-                                    <h3 className="text-base sm:text-lg md:text-xl font-bold text-stone-900 mb-2 leading-snug">
+                                    <h3 className="text-base sm:text-lg font-bold text-stone-900 mb-2 leading-snug">
                                         {article.title}
                                     </h3>
                                     <p className="text-xs sm:text-sm text-stone-600 font-normal leading-relaxed mb-6">

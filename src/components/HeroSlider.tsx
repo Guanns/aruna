@@ -62,10 +62,10 @@ export default function HeroSlider() {
                                 }
                             `}
                         >
-                            <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight text-[#6B4F4F]">
+                            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-5 tracking-tight text-[#6B4F4F]">
                                 {slide.title}
                             </h1>
-                            <p className="text-xl md:text-2xl text-[#6B4F4F]/70 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
+                            <p className="text-base sm:text-lg md:text-xl text-[#6B4F4F]/80 mb-8 max-w-2xl mx-auto leading-relaxed font-normal">
                                 {slide.description}
                             </p>
                             

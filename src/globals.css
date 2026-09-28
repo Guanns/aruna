@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: 'Poppins', sans-serif;
+  --font-serif: 'Poppins', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+}
+
 :root {
   --background: #FFFBF5;
   --foreground: #6B4F4F;
@@ -12,10 +18,18 @@
   }
 }
 
+html,
+body,
+button,
+input,
+select,
+textarea {
+  font-family: 'Poppins', sans-serif;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Quicksand', sans-serif;
 }
 
 .font-poppins {

@@ -53,10 +53,10 @@ export default function HomePage() {
                     
                     {/* Header Section */}
                     <div className="text-center mb-20">
-                        <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-4 leading-tight">
                             Teknologi untuk <span className="font-serif italic text-[#c43c27] decoration-wavy underline decoration-[#c43c27]/20 underline-offset-8">Keamananmu</span>
                         </h2>
-                        <p className="text-xl opacity-70 max-w-2xl mx-auto font-light leading-relaxed">
+                        <p className="text-base sm:text-lg opacity-70 max-w-2xl mx-auto font-normal leading-relaxed">
                             Aruna adalah sebuah web app yang menggabungkan keamanan, edukasi, relaksasi dan AI khusus pada satu tempat!
                         </p>
                     </div>
@@ -77,7 +77,7 @@ export default function HomePage() {
                                     <div className="w-20 h-20 bg-gradient-to-br from-red-500 to-red-600 text-white rounded-3xl flex items-center justify-center mb-8 shadow-lg shadow-red-500/30 group-hover:scale-110 transition-transform duration-500">
                                         <ShieldCheck className="w-10 h-10" />
                                     </div>
-                                    <h3 className="text-3xl font-bold mb-4 text-gray-900">Panic Button</h3>
+                                    <h3 className="text-xl sm:text-2xl font-bold mb-3 text-gray-900">Panic Button</h3>
                                     <p className="text-gray-600 leading-relaxed mb-8 text-base">
                                         Sinyal darurat instan. Sekali tekan, maka lokasi kamu dan sebuah pesan SOS terkirim ke kontak terpercaya yang sudah kamu setting via WhatsApp!
                                     </p>
@@ -104,7 +104,7 @@ export default function HomePage() {
                                     <div className="w-20 h-20 bg-gradient-to-br from-teal-500 to-emerald-500 text-white rounded-3xl flex items-center justify-center mb-8 shadow-lg shadow-teal-500/30 group-hover:scale-110 transition-transform duration-500">
                                         <Heart className="w-10 h-10" />
                                     </div>
-                                    <h3 className="text-3xl font-bold mb-4 text-gray-900">Aruna AI</h3>
+                                    <h3 className="text-xl sm:text-2xl font-bold mb-3 text-gray-900">Aruna AI</h3>
                                     <p className="text-gray-600 leading-relaxed mb-8 text-base">
                                         Ruang AI yang siap mendengar keluh kesahmu 24/7 tanpa menghakimi, kapanpun kamu butuh!
                                     </p>
@@ -129,7 +129,7 @@ export default function HomePage() {
                                     <div className="w-20 h-20 bg-gradient-to-br from-stone-600 to-gray-700 text-white rounded-3xl flex items-center justify-center mb-8 shadow-lg shadow-stone-600/30 group-hover:scale-110 transition-transform duration-500">
                                         <EyeOff className="w-10 h-10" />
                                     </div>
-                                    <h3 className="text-3xl font-bold mb-4 text-gray-900">Mode Kamuflase</h3>
+                                    <h3 className="text-xl sm:text-2xl font-bold mb-3 text-gray-900">Mode Kamuflase</h3>
                                     <p className="text-gray-600 leading-relaxed mb-8 text-base">
                                         Perlindungan privasi mutlak. Samarkan tampilan web ini menjadi kalkulator fungsional agar aman dari mata pelaku kejahatan.
                                     </p>
@@ -152,7 +152,7 @@ export default function HomePage() {
                     
                     {/* Header Section */}
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-stone-900 tracking-tight leading-tight">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-stone-900 tracking-tight leading-tight">
                             Hanya 3 Langkah untuk <span className="text-[#c43c27]">Ketenanganmu</span>
                         </h2>
                         <p className="text-sm sm:text-base text-stone-500 max-w-xl mx-auto font-normal leading-relaxed">
@@ -244,13 +244,13 @@ export default function HomePage() {
                     <div className="absolute -bottom-24 left-1/3 w-80 h-80 bg-amber-200/40 rounded-full blur-3xl pointer-events-none" />
                     
                     <div className="relative z-10 max-w-3xl mx-auto">
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-stone-900 tracking-tight leading-[1.2] mb-6">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-stone-900 tracking-tight leading-tight mb-4">
                             Kamu tidak sendirian.<br />
                             <span className="bg-gradient-to-r from-rose-600 via-pink-600 to-amber-600 bg-clip-text text-transparent">
                                 Kami ada di sini.
                             </span>
                         </h2>
-                        <p className="text-base sm:text-lg md:text-xl text-stone-600 font-normal leading-relaxed mb-10 max-w-2xl mx-auto">
+                        <p className="text-sm sm:text-base md:text-lg text-stone-600 font-normal leading-relaxed mb-8 max-w-2xl mx-auto">
                             Bergabunglah dengan ribuan perempuan lainnya yang memilih untuk merasa lebih aman, terlindungi, dan berdaya bersama Aruna.
                         </p>
                         <div className="flex justify-center">

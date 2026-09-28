@@ -40,7 +40,7 @@ export default function GlossaryFeature() {
                         <Search className="w-5 h-5 text-stone-400 shrink-0" />
                         <input 
                             type="text"
-                            placeholder="Cari istilah atau definisi disini..."
+                            placeholder="Cari istilah disini..."
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             className="w-full ml-3 outline-none text-stone-900 placeholder:text-stone-400 text-sm font-normal bg-transparent"
@@ -80,7 +80,7 @@ export default function GlossaryFeature() {
                                     {item.category}
                                 </span>
 
-                                <h3 className="text-xl font-bold text-stone-900 mb-2 leading-snug">
+                                <h3 className="text-base sm:text-lg font-bold text-stone-900 mb-2 leading-snug">
                                     {item.term}
                                 </h3>
 

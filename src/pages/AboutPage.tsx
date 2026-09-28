@@ -80,10 +80,10 @@ export default function AboutPage() {
                         </Link>
                     </div>
 
-                    <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight text-[#6B4F4F] px-10 sm:px-16 md:px-20 mb-4 md:mb-6">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight text-[#6B4F4F] px-4 sm:px-10 md:px-16 mb-4 md:mb-6">
                         Membangun <span className="font-serif italic text-[#c43c27]">Ruang Aman</span> Digital Bersama.
                     </h1>
-                    <p className="text-base md:text-xl lg:text-2xl opacity-70 max-w-3xl mx-auto font-light leading-relaxed px-2">
+                    <p className="text-sm sm:text-base md:text-lg opacity-75 max-w-3xl mx-auto font-normal leading-relaxed px-2">
                         Aruna bukan sekadar aplikasi. Ini adalah surat cinta untuk keamanan dan kesejahteraan mental perempuan & anak Indonesia.
                     </p>
                 </header>
@@ -97,7 +97,7 @@ export default function AboutPage() {
                             <div className="w-14 h-14 md:w-16 md:h-16 bg-teal-100 text-teal-600 rounded-2xl flex items-center justify-center mb-4 md:mb-6 shadow-inner">
                                 <Eye className="w-7 h-7 md:w-8 md:h-8" />
                             </div>
-                            <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4 font-serif italic text-teal-900"> Apa Visi Kami ?</h2>
+                            <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 font-serif italic text-teal-900">Apa Visi Kami?</h2>
                             <p className="text-base md:text-lg opacity-80 leading-relaxed">
                                 Menciptakan dunia digital yang aman dan suportif, di mana setiap perempuan dan anak dapat berekspresi dan berkembang tanpa rasa takut akan ancaman.
                             </p>
@@ -111,7 +111,7 @@ export default function AboutPage() {
                             <div className="w-14 h-14 md:w-16 md:h-16 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mb-4 md:mb-6 shadow-inner">
                                 <ShieldCheck className="w-7 h-7 md:w-8 md:h-8" />
                             </div>
-                            <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4 font-serif italic text-red-900">Apa Misi Kami ?</h2>
+                            <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 font-serif italic text-red-900">Apa Misi Kami?</h2>
                             <p className="text-base md:text-lg opacity-80 leading-relaxed">
                                 Menyediakan alat keamanan yang mudah diakses, kuat, dan penuh empati. Melindungi privasi, fisik, dan mental pengguna dalam satu genggaman.
                             </p>
@@ -121,7 +121,7 @@ export default function AboutPage() {
 
                 {/* --- NILAI KAMI --- */}
                 <section className="mb-24 md:mb-32">
-                    <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">
                         Nilai yang Kami <span className="font-serif italic text-[#c43c27]">Pegang Teguh</span>
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
@@ -130,7 +130,7 @@ export default function AboutPage() {
                                 <div className={`w-12 h-12 md:w-14 md:h-14 ${val.bg} ${val.color} rounded-2xl flex items-center justify-center mb-4 md:mb-6 mx-auto md:mx-0 group-hover:scale-110 transition-transform`}>
                                     <val.icon className="w-6 h-6 md:w-7 md:h-7" />
                                 </div>
-                                <h3 className="text-lg md:text-xl font-bold mb-2">{val.title}</h3>
+                                <h3 className="text-base sm:text-lg font-bold mb-2">{val.title}</h3>
                                 <p className="text-sm opacity-70 leading-relaxed">
                                     {val.desc}
                                 </p>
@@ -142,7 +142,7 @@ export default function AboutPage() {
                 {/* --- JOURNEY / TIMELINE --- */}
                 <section className="mb-20 md:mb-24">
                     <div className="max-w-3xl mx-auto">
-                        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16">Perjalanan Aruna</h2>
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">Perjalanan Aruna</h2>
                         
                         <div className="relative space-y-8 md:space-y-12 before:absolute before:inset-0 before:ml-5 before:h-full before:w-0.5 before:-translate-x-px before:bg-gradient-to-b before:from-[#c43c27] before:via-[#c43c27]/20 before:to-transparent md:before:mx-auto md:before:translate-x-0">
                             {timelineData.map((item, index) => (
@@ -154,7 +154,7 @@ export default function AboutPage() {
                                     {/* Content Card */}
                                     <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white/80 backdrop-blur-xl p-5 md:p-6 rounded-[1.5rem] md:rounded-3xl border border-white/50 shadow-sm hover:shadow-md transition-all">
                                         <div className="flex items-center justify-between mb-2">
-                                            <h3 className="font-bold text-lg">{item.title}</h3>
+                                            <h3 className="font-bold text-base sm:text-lg">{item.title}</h3>
                                             <span className="text-[10px] md:text-xs font-bold bg-[#c43c27]/10 text-[#c43c27] px-2 py-1 rounded-lg">{item.year}</span>
                                         </div>
                                         <p className="text-sm opacity-70 leading-relaxed">

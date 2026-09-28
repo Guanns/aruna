@@ -49,7 +49,7 @@ const CATEGORIES = [
     { id: 'social', label: '💬 Bantuan Bicara', icon: MessageSquare },
 ] as const;
 
-// Palet warna tematik per kategori: Minta Tolong = Merah, Lapar/Minum = Biru, Sakit = Amber, Emosi = Emerald, Bicara = Ungu
+// Palet warna tematik per kategori: Minta Tolong = Merah, Lapar/Minum = Biru, Sakiqt = Amber, Emosi = Emerald, Bicara = Ungu
 const CATEGORY_THEMES: Record<PhraseItem['category'], CategoryTheme> = {
     help: {
         cardBg: 'bg-red-50/50 hover:bg-red-50/80',

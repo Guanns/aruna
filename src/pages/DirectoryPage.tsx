@@ -62,7 +62,7 @@ export default function DirectoryPage() {
                         </Link>
                     </div>
 
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#6B4F4F] tracking-tight px-12 sm:px-16 mb-3">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#6B4F4F] tracking-tight px-10 sm:px-16 mb-3">
                         Direktori <span className="font-serif italic text-[#c43c27]">Bantuan</span>
                     </h1>
                     <p className="text-sm sm:text-base opacity-75 max-w-xl mx-auto font-light leading-relaxed">
